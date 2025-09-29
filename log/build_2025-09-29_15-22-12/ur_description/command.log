@@ -1,0 +1,1 @@
+Invoking command in '/home/ur5e_user/workspace/build/ur_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/Universal_Robots_ROS2_Description -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/ur_description

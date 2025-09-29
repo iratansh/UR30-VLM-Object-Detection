@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

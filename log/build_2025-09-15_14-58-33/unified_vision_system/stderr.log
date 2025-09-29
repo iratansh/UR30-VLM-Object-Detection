@@ -1,0 +1,52 @@
+[0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+[0m
+Error parsing '/home/ur5e_user/workspace/vision/package.xml':
+Traceback (most recent call last):
+  File "/home/ur5e_user/.local/lib/python3.11/site-packages/catkin_pkg/package.py", line 610, in parse_package_string
+    root = dom.parseString(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/ur5e_vlm_environment/lib/python3.11/xml/dom/minidom.py", line 2000, in parseString
+    return expatbuilder.parseString(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/ur5e_vlm_environment/lib/python3.11/xml/dom/expatbuilder.py", line 925, in parseString
+    return builder.parseString(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/ur5e_vlm_environment/lib/python3.11/xml/dom/expatbuilder.py", line 223, in parseString
+    parser.Parse(string, True)
+xml.parsers.expat.ExpatError: not well-formed (invalid token): line 1, column 1
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 150, in <module>
+    main()
+  File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 53, in main
+    raise e
+  File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 49, in main
+    package = parse_package_string(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ur5e_user/.local/lib/python3.11/site-packages/catkin_pkg/package.py", line 612, in parse_package_string
+    raise InvalidPackage('The manifest contains invalid XML:\n%s' % ex, filename)
+catkin_pkg.package.InvalidPackage: Error(s) in package '/home/ur5e_user/workspace/vision/package.xml':
+The manifest contains invalid XML:
+not well-formed (invalid token): line 1, column 1
+[31mCMake Error at /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+  execute_process(/opt/miniconda3/envs/ur5e_vlm_environment/bin/python3
+  /opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+  /home/ur5e_user/workspace/vision/package.xml
+  /home/ur5e_user/workspace/build/unified_vision_system/ament_cmake_core/package.cmake)
+  returned error code 1
+Call Stack (most recent call first):
+  /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+  /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:60 (ament_package_xml)
+  /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:39 (_ament_cmake_python_install_package)
+  CMakeLists.txt:8 (ament_python_install_package)
+
+[0m

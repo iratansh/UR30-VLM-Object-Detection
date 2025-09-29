@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="ur5e_robotiq_realsense">
+
+  <!-- Include UR macro -->
+  <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro"/>
+
+  <!-- Include Robotiq gripper -->
+  <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro"/>
+
+  <!-- World link (required for robot_state_publisher) -->
+  <link name="world">
+    <inertial>
+      <mass value="0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- UR5e robot -->
+  <xacro:ur_robot name="ur5e" tf_prefix="" parent="world"
+                  joint_limits_parameters_file="$(find ur_description)/config/ur5e/joint_limits.yaml"
+                  kinematics_parameters_file="$(find ur_description)/config/ur5e/default_kinematics.yaml"
+                  physical_parameters_file="$(find ur_description)/config/ur5e/physical_parameters.yaml"
+                  visual_parameters_file="$(find ur_description)/config/ur5e/visual_parameters.yaml"
+                  transmission_hw_interface=""
+                  safety_limits="false"
+                  safety_pos_margin="0.15">
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+  </xacro:ur_robot>
+
+  <!-- Robotiq 2F-85 Gripper with ros2_control for real functionality -->
+  <xacro:robotiq_gripper name="robotiq_gripper" prefix="" parent="tool0"
+                         use_fake_hardware="true"
+                         fake_sensor_commands="false"
+                         include_ros2_control="true">
+    <origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
+  </xacro:robotiq_gripper>
+
+  <!-- Camera Mount -->
+  <link name="camera_mount_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.06 0.03"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.06 0.03"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Mount camera on gripper (eye-in-hand) -->
+  <joint name="camera_mount_joint" type="fixed">
+    <parent link="robotiq_85_base_link"/>
+    <child link="camera_mount_link"/>
+    <origin xyz="0 0.02 -0.05" rpy="0 0.523599 0"/> <!-- 30 degrees tilt down -->
+  </joint>
+
+  <!-- RealSense D435i Camera -->
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.072"/>
+      <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.025 0.090 0.025"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.025 0.090 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <parent link="camera_mount_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0 0 0.015" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera frames -->
+  <link name="camera_color_frame"/>
+  <joint name="camera_color_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_color_frame"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="camera_color_optical_frame"/>
+  <joint name="camera_color_optical_joint" type="fixed">
+    <parent link="camera_color_frame"/>
+    <child link="camera_color_optical_frame"/>
+    <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+  </joint>
+
+  <link name="camera_depth_frame"/>
+  <joint name="camera_depth_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_depth_frame"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="camera_depth_optical_frame"/>
+  <joint name="camera_depth_optical_joint" type="fixed">
+    <parent link="camera_depth_frame"/>
+    <child link="camera_depth_optical_frame"/>
+    <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+  </joint>
+
+  <!-- Gazebo materials for visibility -->
+  <gazebo reference="camera_mount_link">
+    <material>Gazebo/DarkGrey</material>
+    <static>false</static>
+  </gazebo>
+
+  <gazebo reference="camera_link">
+    <material>Gazebo/Black</material>
+    <static>false</static>
+  </gazebo>
+
+  <!-- Gazebo plugins -->
+  <gazebo reference="camera_link">
+    <sensor type="depth" name="realsense_d435i">
+      <update_rate>30</update_rate>
+      <camera>
+        <!-- Using actual RealSense D435i FOV -->
+        <horizontal_fov>1.204</horizontal_fov> <!-- 69 degrees in radians -->
+        <image>
+          <width>848</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.28</near>
+          <far>3.0</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.02</stddev> <!-- 2% noise -->
+        </noise>
+      </camera>
+      <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/image_raw:=camera/color/image_raw</remapping>
+          <remapping>~/image_depth:=camera/depth/image_rect_raw</remapping>
+          <remapping>~/camera_info:=camera/color/camera_info</remapping>
+          <remapping>~/camera_info_depth:=camera/depth/camera_info</remapping>
+          <remapping>~/points:=camera/depth/color/points</remapping>
+        </ros>
+        <camera_name>camera</camera_name>
+        <frame_name>camera_color_optical_frame</frame_name>
+        <hack_baseline>0.0</hack_baseline>
+        <min_depth>0.28</min_depth>
+        <max_depth>3.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Make gripper controllable in Gazebo -->
+  <gazebo>
+    <gripper name="gazebo_gripper">
+      <grasp_check>
+        <attach_steps>2</attach_steps>    <!-- default: 20 -->
+        <detach_steps>2</detach_steps>    <!-- default: 40 -->
+        <min_contact_count>3</min_contact_count>
+      </grasp_check>
+      <gripper_link>robotiq_85_left_finger_tip_link</gripper_link>
+      <gripper_link>robotiq_85_right_finger_tip_link</gripper_link>
+      <palm_link>robotiq_85_base_link</palm_link>
+    </gripper>
+  </gazebo>
+
+  <!-- Gazebo ros2_control plugin -->
+  <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
+      <parameters>$(find unified_vision_system)/config/simulation_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <!-- Joint state interfaces for ros2_control -->
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+
+    <!-- UR5e joints -->
+    <joint name="shoulder_pan_joint">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="shoulder_lift_joint">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="elbow_joint">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="wrist_1_joint">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="wrist_2_joint">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="wrist_3_joint">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <!-- Robotiq gripper joints for simulation -->
+    <joint name="robotiq_85_left_knuckle_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+</robot>

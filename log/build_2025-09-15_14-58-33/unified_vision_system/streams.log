@@ -1,0 +1,56 @@
+[0.021s] Invoking command in '/home/ur5e_user/workspace/build/unified_vision_system': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/vision -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/unified_vision_system
+[0.034s] [0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.034s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.034s]   CMake.
+[0.035s] 
+[0.035s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.035s]   to tell CMake that the project requires at least <min> but has been updated
+[0.035s]   to work with policies introduced by <max> or earlier.
+[0.035s] 
+[0.035s] [0m
+[0.045s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.347s] Error parsing '/home/ur5e_user/workspace/vision/package.xml':
+[0.348s] Traceback (most recent call last):
+[0.348s]   File "/home/ur5e_user/.local/lib/python3.11/site-packages/catkin_pkg/package.py", line 610, in parse_package_string
+[0.348s]     root = dom.parseString(data)
+[0.348s]            ^^^^^^^^^^^^^^^^^^^^^
+[0.348s]   File "/opt/miniconda3/envs/ur5e_vlm_environment/lib/python3.11/xml/dom/minidom.py", line 2000, in parseString
+[0.348s]     return expatbuilder.parseString(string)
+[0.348s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.348s]   File "/opt/miniconda3/envs/ur5e_vlm_environment/lib/python3.11/xml/dom/expatbuilder.py", line 925, in parseString
+[0.348s]     return builder.parseString(string)
+[0.348s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.348s]   File "/opt/miniconda3/envs/ur5e_vlm_environment/lib/python3.11/xml/dom/expatbuilder.py", line 223, in parseString
+[0.348s]     parser.Parse(string, True)
+[0.348s] xml.parsers.expat.ExpatError: not well-formed (invalid token): line 1, column 1
+[0.348s] 
+[0.348s] During handling of the above exception, another exception occurred:
+[0.348s] 
+[0.348s] Traceback (most recent call last):
+[0.348s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 150, in <module>
+[0.348s]     main()
+[0.349s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 53, in main
+[0.349s]     raise e
+[0.349s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 49, in main
+[0.349s]     package = parse_package_string(
+[0.349s]               ^^^^^^^^^^^^^^^^^^^^^
+[0.349s]   File "/home/ur5e_user/.local/lib/python3.11/site-packages/catkin_pkg/package.py", line 612, in parse_package_string
+[0.349s]     raise InvalidPackage('The manifest contains invalid XML:\n%s' % ex, filename)
+[0.349s] catkin_pkg.package.InvalidPackage: Error(s) in package '/home/ur5e_user/workspace/vision/package.xml':
+[0.349s] The manifest contains invalid XML:
+[0.349s] not well-formed (invalid token): line 1, column 1
+[0.359s] [31mCMake Error at /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[0.359s]   execute_process(/opt/miniconda3/envs/ur5e_vlm_environment/bin/python3
+[0.359s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[0.359s]   /home/ur5e_user/workspace/vision/package.xml
+[0.359s]   /home/ur5e_user/workspace/build/unified_vision_system/ament_cmake_core/package.cmake)
+[0.359s]   returned error code 1
+[0.359s] Call Stack (most recent call first):
+[0.359s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[0.360s]   /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:60 (ament_package_xml)
+[0.360s]   /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:39 (_ament_cmake_python_install_package)
+[0.360s]   CMakeLists.txt:8 (ament_python_install_package)
+[0.360s] 
+[0.360s] [0m
+[0.360s] -- Configuring incomplete, errors occurred!
+[0.364s] Invoked command in '/home/ur5e_user/workspace/build/unified_vision_system' returned '1': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/vision -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/unified_vision_system

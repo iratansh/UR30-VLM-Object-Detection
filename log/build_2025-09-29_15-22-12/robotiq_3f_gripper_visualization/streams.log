@@ -1,0 +1,13 @@
+[0.037s] Invoking command in '/home/ur5e_user/workspace/build/robotiq_3f_gripper_visualization': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/robotiq/robotiq_3f_gripper_visualization -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/robotiq_3f_gripper_visualization
+[0.066s] CMake Error at CMakeLists.txt:2 (cmake_minimum_required):
+[0.066s]   Compatibility with CMake < 3.5 has been removed from CMake.
+[0.066s] 
+[0.066s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.066s]   to tell CMake that the project requires at least <min> but has been updated
+[0.066s]   to work with policies introduced by <max> or earlier.
+[0.066s] 
+[0.066s]   Or, add -DCMAKE_POLICY_VERSION_MINIMUM=3.5 to try configuring anyway.
+[0.066s] 
+[0.066s] 
+[0.066s] -- Configuring incomplete, errors occurred!
+[0.072s] Invoked command in '/home/ur5e_user/workspace/build/robotiq_3f_gripper_visualization' returned '1': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/robotiq/robotiq_3f_gripper_visualization -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/robotiq_3f_gripper_visualization

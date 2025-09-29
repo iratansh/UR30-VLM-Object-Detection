@@ -76,30 +76,19 @@ dependencies:
     - openai-whisper
     - pyttsx3
     
-    # ROS2 Dependencies (install via pip for conda compatibility)
-    - rclpy
-    - geometry-msgs
-    - sensor-msgs
-    - std-msgs
-    - trajectory-msgs
-    - tf2-ros
-    - cv-bridge
-    - moveit-msgs
-    - control-msgs
-    - visualization-msgs
+    # Note: ROS2 dependencies are installed via apt in the Dockerfile, not pip
     
-    # Robotics & Kinematics
-    - robotics-toolbox-python
-    - spatialmath-python
-    - modern-robotics
+    # Robotics & Kinematics (install manually if needed)
+    # - robotics-toolbox-python  # Install manually if needed
+    # - spatialmath-python       # Install manually if needed 
     - ikpy
     
     # Gazebo/Simulation (if available via pip)
     - pybullet  # Alternative physics simulation
     
     # Construction & Domain-Specific
-    - rasa  # NLP framework for construction domain
-    - yaml
+    # - rasa  # Install manually if needed - heavy dependency
+    - pyyaml  # Correct package name for yaml
     
     # Additional ML/AI tools
     - huggingface-hub
@@ -121,6 +110,6 @@ dependencies:
     - pytest-asyncio
     - pytest-mock
     
-    # Audio System Libraries (Linux specific)
-    - pyalsaaudio  # ALSA audio interface
-    - python-pulse-control  # PulseAudio control
+    # Audio System Libraries (Linux specific) - install manually if needed
+    # - pyalsaaudio  # ALSA audio interface - install manually if needed
+    # - python-pulse-control  # PulseAudio control - not available via pip

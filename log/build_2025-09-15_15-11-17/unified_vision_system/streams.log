@@ -1,0 +1,67 @@
+[0.016s] Invoking command in '/home/ur5e_user/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --build /home/ur5e_user/workspace/build/unified_vision_system -- -j12 -l12
+[0.098s] Built target ament_cmake_python_copy_unified_vision_system
+[0.377s] running egg_info
+[0.394s] writing unified_vision_system.egg-info/PKG-INFO
+[0.394s] writing dependency_links to unified_vision_system.egg-info/dependency_links.txt
+[0.394s] writing top-level names to unified_vision_system.egg-info/top_level.txt
+[0.444s] reading manifest file 'unified_vision_system.egg-info/SOURCES.txt'
+[0.445s] writing manifest file 'unified_vision_system.egg-info/SOURCES.txt'
+[0.470s] Built target ament_cmake_python_build_unified_vision_system_egg
+[0.479s] Invoked command in '/home/ur5e_user/workspace/build/unified_vision_system' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --build /home/ur5e_user/workspace/build/unified_vision_system -- -j12 -l12
+[0.487s] Invoking command in '/home/ur5e_user/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --install /home/ur5e_user/workspace/build/unified_vision_system
+[0.492s] -- Install configuration: ""
+[0.492s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/environment/pythonpath.sh
+[0.492s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/environment/pythonpath.dsv
+[0.492s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info
+[0.492s] -- Installing: /home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/PKG-INFO
+[0.492s] -- Installing: /home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/SOURCES.txt
+[0.492s] -- Installing: /home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/top_level.txt
+[0.493s] -- Installing: /home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/dependency_links.txt
+[0.493s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system
+[0.493s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/__init__.py
+[0.522s] Listing '/home/ur5e_user/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system'...
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/lib/unified_vision_system/unified_vision_system_node.py
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/lib/unified_vision_system/create_sim_calibration.py
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/launch
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/launch/test_unified_vision_system.py
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/launch/.DS_Store
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/launch/__pycache__
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/launch/__pycache__/launch_gazebo_with_red_cube.cpython-313.pyc
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/launch/__pycache__/test_unified_vision_system.cpython-313.pyc
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/launch/launch_gazebo_with_red_cube.py
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/config
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/config/simulation_controllers.yaml
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/urdf
+[0.526s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/urdf/robotiq_arg85.urdf
+[0.526s] -- Installing: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur5e_robotiq_realsense.urdf.xacro
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur5e_with_realsense.urdf.xacro
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/urdf/.DS_Store
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/worlds
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/worlds/ur5e_vision_world.world
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_knuckle_coarse.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_knuckle_coarse.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_finger_fine.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_finger_fine.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/robotiq_85_base_link_fine.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_finger_coarse.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_knuckle_fine.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/robotiq_85_base_link_coarse.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_finger_coarse.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_knuckle_fine.STL
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/ament_index/resource_index/package_run_dependencies/unified_vision_system
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/ament_index/resource_index/parent_prefix_path/unified_vision_system
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/environment/ament_prefix_path.sh
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/environment/ament_prefix_path.dsv
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/environment/path.sh
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/environment/path.dsv
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/local_setup.bash
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/local_setup.sh
+[0.527s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/local_setup.zsh
+[0.528s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/local_setup.dsv
+[0.528s] -- Installing: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/package.dsv
+[0.528s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/ament_index/resource_index/packages/unified_vision_system
+[0.528s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/cmake/unified_vision_systemConfig.cmake
+[0.528s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/cmake/unified_vision_systemConfig-version.cmake
+[0.528s] -- Up-to-date: /home/ur5e_user/workspace/install/unified_vision_system/share/unified_vision_system/package.xml
+[0.529s] Invoked command in '/home/ur5e_user/workspace/build/unified_vision_system' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --install /home/ur5e_user/workspace/build/unified_vision_system

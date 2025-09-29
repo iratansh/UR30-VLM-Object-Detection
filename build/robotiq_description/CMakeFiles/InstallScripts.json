@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/ur5e_user/workspace/build/robotiq_description/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

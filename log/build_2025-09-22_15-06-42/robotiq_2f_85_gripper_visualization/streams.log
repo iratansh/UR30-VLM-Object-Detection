@@ -1,0 +1,78 @@
+[0.011s] Invoking command in '/home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/src/robotiq_2f_85_gripper_visualization -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization
+[0.017s] [0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.017s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.017s]   CMake.
+[0.017s] 
+[0.017s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.017s]   to tell CMake that the project requires at least <min> but has been updated
+[0.017s]   to work with policies introduced by <max> or earlier.
+[0.017s] 
+[0.017s] [0m
+[0.080s] -- The C compiler identification is GNU 15.1.0
+[0.202s] -- The CXX compiler identification is GNU 15.1.0
+[0.216s] -- Detecting C compiler ABI info
+[0.293s] -- Detecting C compiler ABI info - done
+[0.310s] -- Check for working C compiler: /opt/miniconda3/envs/ur5e_vlm_environment/bin/x86_64-conda-linux-gnu-cc - skipped
+[0.310s] -- Detecting C compile features
+[0.311s] -- Detecting C compile features - done
+[0.325s] -- Detecting CXX compiler ABI info
+[0.414s] -- Detecting CXX compiler ABI info - done
+[0.433s] -- Check for working CXX compiler: /opt/miniconda3/envs/ur5e_vlm_environment/bin/x86_64-conda-linux-gnu-c++ - skipped
+[0.433s] -- Detecting CXX compile features
+[0.434s] -- Detecting CXX compile features - done
+[0.449s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.545s] -- Found Python3: /opt/miniconda3/envs/ur5e_vlm_environment/bin/python3 (found version "3.11.13") found components: Interpreter
+[0.688s] -- Found xacro: 2.0.13 (/opt/ros/humble/share/xacro/cmake)
+[0.755s] -- Configuring done (0.7s)
+[0.758s] -- Generating done (0.0s)
+[0.759s] [33mCMake Warning:
+[0.759s]   Manually-specified variables were not used by the project:
+[0.759s] 
+[0.759s]     CATKIN_INSTALL_INTO_PREFIX_ROOT
+[0.759s] 
+[0.759s] [0m
+[0.759s] -- Build files have been written to: /home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization
+[0.764s] Invoked command in '/home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization' returned '0': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/src/robotiq_2f_85_gripper_visualization -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization
+[0.765s] Invoking command in '/home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --build /home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization -- -j12 -l12
+[0.792s] Invoked command in '/home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization' returned '0': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --build /home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization -- -j12 -l12
+[0.794s] Invoking command in '/home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --install /home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization
+[0.798s] -- Install configuration: ""
+[0.798s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes
+[0.798s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/collision
+[0.798s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/collision/robotiq_arg2f_85_outer_knuckle.dae
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/collision/robotiq_arg2f_85_base_link.stl
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/collision/robotiq_arg2f_85_outer_finger.dae
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/collision/robotiq_arg2f_85_inner_knuckle.dae
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/collision/robotiq_arg2f_85_inner_finger.dae
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/collision/robotiq_arg2f_base_link.stl
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual/robotiq_gripper_coupling.stl
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual/robotiq_arg2f_85_outer_knuckle.dae
+[0.799s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual/robotiq_arg2f_85_outer_finger.dae
+[0.800s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual/robotiq_arg2f_85_inner_knuckle.dae
+[0.800s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual/robotiq_arg2f_85_base_link.dae
+[0.802s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual/robotiq_arg2f_85_inner_finger.dae
+[0.802s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/meshes/visual/robotiq_arg2f_85_pad.dae
+[0.802s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/urdf
+[0.802s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/urdf/robotiq_arg2f_85_model.xacro
+[0.802s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/urdf/robotiq_arg2f_85_model_macro.xacro
+[0.802s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/urdf/robotiq_arg2f.xacro
+[0.802s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/urdf/robotiq_arg2f_transmission.xacro
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/launch
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/launch/test_2f_85_model.launch
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/ament_index/resource_index/package_run_dependencies/robotiq_2f_85_gripper_visualization
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/ament_index/resource_index/parent_prefix_path/robotiq_2f_85_gripper_visualization
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/environment/ament_prefix_path.sh
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/environment/ament_prefix_path.dsv
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/environment/path.sh
+[0.803s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/environment/path.dsv
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/local_setup.bash
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/local_setup.sh
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/local_setup.zsh
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/local_setup.dsv
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/package.dsv
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/ament_index/resource_index/packages/robotiq_2f_85_gripper_visualization
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/cmake/robotiq_2f_85_gripper_visualizationConfig.cmake
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/cmake/robotiq_2f_85_gripper_visualizationConfig-version.cmake
+[0.804s] -- Installing: /home/ur5e_user/workspace/install/robotiq_2f_85_gripper_visualization/share/robotiq_2f_85_gripper_visualization/package.xml
+[0.806s] Invoked command in '/home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization' returned '0': CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake --install /home/ur5e_user/workspace/build/robotiq_2f_85_gripper_visualization

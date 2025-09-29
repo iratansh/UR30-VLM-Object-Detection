@@ -1,0 +1,47 @@
+[0.009s] Invoking command in '/home/ur5e_user/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/vision -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/unified_vision_system
+[0.017s] [0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.017s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.017s]   CMake.
+[0.017s] 
+[0.017s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.017s]   to tell CMake that the project requires at least <min> but has been updated
+[0.017s]   to work with policies introduced by <max> or earlier.
+[0.017s] 
+[0.017s] [0m
+[0.074s] -- The C compiler identification is GNU 11.4.0
+[0.146s] -- The CXX compiler identification is GNU 11.4.0
+[0.156s] -- Detecting C compiler ABI info
+[0.219s] -- Detecting C compiler ABI info - done
+[0.230s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.230s] -- Detecting C compile features
+[0.231s] -- Detecting C compile features - done
+[0.243s] -- Detecting CXX compiler ABI info
+[0.313s] -- Detecting CXX compiler ABI info - done
+[0.325s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.325s] -- Detecting CXX compile features
+[0.326s] -- Detecting CXX compile features - done
+[0.333s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.422s] -- Found Python3: /opt/miniconda3/bin/python3 (found version "3.11.5") found components: Interpreter
+[0.493s] Traceback (most recent call last):
+[0.493s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 22, in <module>
+[0.493s]     from catkin_pkg.package import parse_package_string
+[0.493s]   File "/home/ur5e_user/.local/lib/python3.11/site-packages/catkin_pkg/package.py", line 44, in <module>
+[0.493s]     from catkin_pkg.condition import evaluate_condition
+[0.493s]   File "/home/ur5e_user/.local/lib/python3.11/site-packages/catkin_pkg/condition.py", line 17, in <module>
+[0.493s]     import pyparsing as pp
+[0.493s] ModuleNotFoundError: No module named 'pyparsing'
+[0.497s] [31mCMake Error at /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[0.497s]   execute_process(/opt/miniconda3/bin/python3
+[0.497s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[0.497s]   /home/ur5e_user/workspace/vision/package.xml
+[0.497s]   /home/ur5e_user/workspace/build/unified_vision_system/ament_cmake_core/package.cmake)
+[0.497s]   returned error code 1
+[0.497s] Call Stack (most recent call first):
+[0.497s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[0.497s]   /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:60 (ament_package_xml)
+[0.497s]   /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:39 (_ament_cmake_python_install_package)
+[0.497s]   CMakeLists.txt:8 (ament_python_install_package)
+[0.497s] 
+[0.497s] [0m
+[0.497s] -- Configuring incomplete, errors occurred!
+[0.502s] Invoked command in '/home/ur5e_user/workspace/build/unified_vision_system' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/vision -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/unified_vision_system

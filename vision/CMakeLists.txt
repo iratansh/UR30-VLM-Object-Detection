@@ -9,9 +9,8 @@ ament_python_install_package(${PROJECT_NAME})
 
 # Install Python executables
 install(PROGRAMS
-  scripts/unified_vision_system_node.py
-  scripts/create_sim_calibration.py
-  scripts/test_sim_pickup.py
+  unified_vision_system_node.py
+  create_sim_calibration.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -40,5 +39,7 @@ install(DIRECTORY meshes
   DESTINATION share/${PROJECT_NAME}
   OPTIONAL
 )
+
+ament_export_dependencies(robotiq_2f_85_gripper_visualization)
 
 ament_package()
