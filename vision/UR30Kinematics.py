@@ -144,41 +144,6 @@ class UR30Kinematics:
             [0, 0, 0, 1]
         ])
 
-    def _dh_params(self, joints: List[float]) -> List[Tuple[float, float, float, float]]:
-        """Return the DH parameter list for the provided joint angles."""
-        q1, q2, q3, q4, q5, q6 = joints
-        return [
-            (self.d1, 0, math.pi/2, q1),              # Base to shoulder
-            (0, self.a2, 0, q2),                      # Shoulder to elbow
-            (0, self.a3, 0, q3),                      # Elbow to wrist1
-            (self.d4, 0, math.pi/2, q4),              # Wrist1 to wrist2
-            (self.d5, 0, -math.pi/2, q5),             # Wrist2 to wrist3
-            (self.d6, 0, 0, q6)                       # Wrist3 to tool
-        ]
-
-    def _fk_chain(self, joints: List[float]) -> List[np.ndarray]:
-        """Return cumulative transforms from base to each joint (including base and tool)."""
-        chain: List[np.ndarray] = [np.eye(4)]
-        T = np.eye(4)
-        for d, a, alpha, theta in self._dh_params(joints):
-            T = T @ self.dh_transform(d, a, alpha, theta)
-            chain.append(T)
-        return chain
-
-    def _geometric_jacobian(self, joints: List[float],
-                             chain: Optional[List[np.ndarray]] = None) -> np.ndarray:
-        """Geometric Jacobian (6x6) for current joint configuration."""
-        if chain is None:
-            chain = self._fk_chain(joints)
-        o_n = chain[-1][:3, 3]
-        J = np.zeros((6, 6))
-        for i in range(6):
-            o_i = chain[i][:3, 3]
-            z_i = chain[i][:3, 2]
-            J[:3, i] = np.cross(z_i, o_n - o_i)
-            J[3:, i] = z_i
-        return J
-
     def forward_kinematics(self, joints: List[float]) -> np.ndarray:
         """
         Forward kinematics for UR30 robot.
@@ -189,7 +154,27 @@ class UR30Kinematics:
         Returns:
             4x4 homogeneous transformation matrix for the end effector position
         """
-        return self._fk_chain(joints)[-1]
+        q1, q2, q3, q4, q5, q6 = joints
+
+        # Define DH parameters for UR30 (standard DH convention)
+        dh_params = [
+            (self.d1, 0, math.pi/2, q1),              # Base to shoulder
+            (0, self.a2, 0, q2),                      # Shoulder to elbow
+            (0, self.a3, 0, q3),                      # Elbow to wrist1
+            (self.d4, 0, math.pi/2, q4),              # Wrist1 to wrist2
+            (self.d5, 0, -math.pi/2, q5),             # Wrist2 to wrist3
+            (self.d6, 0, 0, q6)                       # Wrist3 to tool
+        ]
+
+        # Start with identity matrix
+        T = np.eye(4)
+
+        # Apply each transformation
+        for d, a, alpha, theta in dh_params:
+            Ti = self.dh_transform(d, a, alpha, theta)
+            T = T @ Ti
+
+        return T
 
     def _compute_wrist_center(self, T: np.ndarray) -> Tuple[float, float, float]:
         """Compute wrist center given target pose (tool Z assumed along +Z of end effector)."""
@@ -271,8 +256,7 @@ class UR30Kinematics:
         ang = math.acos(max(-1.0, min(1.0, (np.trace(R_err) - 1) / 2)))
         return pos_err, ang
 
-    def _numeric_refine(self, seed: List[float], T_target: np.ndarray,
-                        max_iters: int = 200) -> Optional[List[float]]:
+    def _numeric_refine(self, seed: List[float], T_target: np.ndarray, max_iters: int = 200) -> Optional[List[float]]:
         """Simple damped least-squares numeric refinement starting from seed."""
         q = np.array(seed, dtype=float)
         lam = 1e-3
@@ -324,10 +308,7 @@ class UR30Kinematics:
 
     def _ikbt_solve_analytic(self, T: np.ndarray) -> List[List[float]]:
         """Analytic IK using generated IKBT code (IK_equationsUR30).
-        Structure from IKBT: [th1, th234, th2+th3, th2, th3+th4, th3, th4, th5, th6].
-        We treat the symbolic solution as a high-quality seed and run a short
-        damped-least-squares refinement so the result exactly matches the
-        kinematic chain used in this module."""
+        Maps generated solution structure to joint vectors [q1..q6]; includes detailed diagnostics when debug."""
         if not GENERATED_IK_AVAILABLE:
             if self.debug:
                 print("[IKBT] Generated IK module not available.")
@@ -338,61 +319,53 @@ class UR30Kinematics:
                 if self.debug:
                     print("[IKBT] ikin_UR30 returned no raw solutions (False / empty).")
                 return []
+            if self.debug:
+                print(f"[IKBT] Raw solution structures: {len(sols)} (expect up to 16)")
             joint_sets: List[List[float]] = []
-            reject_stats = {'refine_fail':0,'limits':0,'tol':0,'dup':0,'len':0}
-            processed_seed_keys = set()
+            reject_stats = {
+                'len_mismatch': 0,
+                'joint_limits': 0,
+                'tolerance': 0,
+                'duplicate': 0
+            }
+            best_pos_err = float('inf')
+            best_rot_err = float('inf')
             for idx, s in enumerate(sols):
                 if len(s) != 9:
-                    reject_stats['len'] += 1
+                    reject_stats['len_mismatch'] += 1
+                    if self.debug:
+                        print(f"[IKBT][{idx}] REJECT len!=9 got {len(s)} raw={s}")
                     continue
-                base_seed = [self.normalize_angle(s[0]),
-                             self.normalize_angle(s[3]),
-                             self.normalize_angle(s[5]),
-                             self.normalize_angle(s[6]),
-                             self.normalize_angle(s[7]),
-                             self.normalize_angle(s[8])]
-                seed_key = tuple(int(round(v * 1e6)) for v in base_seed)
-                if seed_key in processed_seed_keys:
-                    continue
-                processed_seed_keys.add(seed_key)
-                refined = None
-                adjustments = [0.0, math.pi, -math.pi]
-                for d2 in adjustments:
-                    if refined:
-                        break
-                    for d3 in adjustments:
-                        if refined:
-                            break
-                        for d4 in adjustments:
-                            seed = base_seed.copy()
-                            seed[1] = self.normalize_angle(seed[1] + d2)
-                            seed[2] = self.normalize_angle(seed[2] + d3)
-                            seed[3] = self.normalize_angle(seed[3] + d4)
-                            refined = self._numeric_refine(seed, T)
-                            if refined:
-                                break
-                if not refined:
-                    reject_stats['refine_fail'] += 1
-                    continue
-                candidate = [self.normalize_angle(v) for v in refined]
+                q1 = self.normalize_angle(s[0])
+                q2 = self.normalize_angle(s[3])
+                q3 = self.normalize_angle(s[5])
+                q4 = self.normalize_angle(s[6])
+                q5 = self.normalize_angle(s[7])
+                q6 = self.normalize_angle(s[8])
+                candidate = [q1, q2, q3, q4, q5, q6]
                 pos_err, rot_err = self._compute_errors(candidate, T)
+                best_pos_err = min(best_pos_err, pos_err)
+                best_rot_err = min(best_rot_err, rot_err)
                 within_limits = self._within_joint_limits(candidate)
                 within_tol = (pos_err < self.pos_tol_mm and rot_err < self.rot_tol_deg)
                 is_dup = any(sum(abs(a-b) for a,b in zip(candidate,u)) < 1e-4 for u in joint_sets)
                 if self.debug:
-                    print(f"[IKBT-FUSED][{idx}] q={['{:.3f}'.format(math.degrees(a)) for a in candidate]} pos={pos_err:.3f}mm rot={rot_err:.3f}deg limits={within_limits} tol={within_tol} dup={is_dup}")
+                    print(f"[IKBT][{idx}] q={['{:.3f}'.format(math.degrees(a)) for a in candidate]} pos={pos_err:.3f}mm rot={rot_err:.3f}deg limits={within_limits} tol={within_tol} dup={is_dup}")
                 if not within_limits:
-                    reject_stats['limits'] += 1
+                    reject_stats['joint_limits'] += 1
                     continue
                 if not within_tol:
-                    reject_stats['tol'] += 1
+                    reject_stats['tolerance'] += 1
                     continue
                 if is_dup:
-                    reject_stats['dup'] += 1
+                    reject_stats['duplicate'] += 1
                     continue
                 joint_sets.append(candidate)
             if self.debug:
-                print(f"[IKBT-FUSED] Accepted: {len(joint_sets)} | rejects: {reject_stats}")
+                print(f"[IKBT] Accepted analytic solutions: {len(joint_sets)}")
+                print(f"[IKBT] Rejections: limits={reject_stats['joint_limits']} tol={reject_stats['tolerance']} dup={reject_stats['duplicate']} len={reject_stats['len_mismatch']}")
+                if len(joint_sets) == 0:
+                    print(f"[IKBT] BEST raw errors (pre-threshold): pos={best_pos_err:.3f}mm rot={best_rot_err:.3f}deg thresholds=({self.pos_tol_mm}mm,{self.rot_tol_deg}deg)")
             return joint_sets
         except Exception as e:
             if self.debug:
