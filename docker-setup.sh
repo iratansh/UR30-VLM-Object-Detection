@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Docker Setup Script for UR5e VLM Object Detection System
+# Docker Setup Script for UR30 VLM Object Detection System
 # This script ensures Docker has proper GPU and hardware access
 
 set -e
@@ -28,7 +28,7 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-print_status "🚀 Setting up Docker environment for UR5e VLM System..."
+print_status "🚀 Setting up Docker environment for UR30 VLM System..."
 
 # Check if running as root
 if [ "$EUID" -eq 0 ]; then

@@ -1,1 +1,0 @@
-Invoking command in '/home/ur5e_user/workspace/build/robotiq_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(ur5e_vlm_environment) /opt/miniconda3/envs/ur5e_vlm_environment/bin/cmake /home/ur5e_user/workspace/src/ros2_robotiq_gripper/robotiq_description -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/robotiq_description

@@ -14,9 +14,9 @@ from typing import List, Dict, Any
 
 # Import the integrated system
 try:
-    from UnifiedVisionSystem import UnifiedVisionSystem
-    from HybridIKWrapper import VLMKinematicsController
-    from UR5eKinematics import HybridUR5eKinematics, UR5eKinematics
+    from unified_vision_system.system.UnifiedVisionSystem import UnifiedVisionSystem
+    from unified_vision_system.control.HybridIKWrapper import VLMKinematicsController
+    from unified_vision_system.control.UR30Kinematics import HybridUR30Kinematics, UR30Kinematics
 except ImportError as e:
     print(f"Import error: {e}")
     print("Make sure all components are installed and in the Python path")
@@ -29,7 +29,7 @@ def test_hybrid_ik_integration():
     # Test 1: Direct Hybrid IK System
     print("\n1. Testing Hybrid IK System...")
     try:
-        hybrid_ik = HybridUR5eKinematics(debug=True)
+        hybrid_ik = HybridUR30Kinematics(debug=True)
         print(f"✓ Hybrid IK System initialized")
         print(f"  ur_ikfast available: {hybrid_ik.ikfast_available}")
         
@@ -82,16 +82,16 @@ def test_unified_vision_system_initialization():
         print("Testing component creation only...")
         
         # Test individual component initialization
-        from UR5eKinematics import UR5eKinematics, HybridUR5eKinematics
-        from HybridIKWrapper import VLMKinematicsController
+        from unified_vision_system.control.UR30Kinematics import UR30Kinematics, HybridUR30Kinematics
+        from unified_vision_system.control.HybridIKWrapper import VLMKinematicsController
         
         # Test 1: Basic kinematics
-        kinematics = UR5eKinematics()
-        print("✓ Basic UR5eKinematics initialized")
+        kinematics = UR30Kinematics()
+        print("✓ Basic UR30Kinematics initialized")
         
         # Test 2: Hybrid kinematics  
-        hybrid_kinematics = HybridUR5eKinematics()
-        print("✓ HybridUR5eKinematics initialized")
+        hybrid_kinematics = HybridUR30Kinematics()
+        print("✓ HybridUR30Kinematics initialized")
         
         # Test 3: VLM controller
         vlm_controller = VLMKinematicsController()
@@ -113,8 +113,8 @@ def test_ik_performance_comparison():
     print("\n=== IK Performance Comparison ===")
     
     try:
-        numerical_solver = UR5eKinematics()
-        hybrid_solver = HybridUR5eKinematics(debug=False)
+        numerical_solver = UR30Kinematics()
+        hybrid_solver = HybridUR30Kinematics(debug=False)
         vlm_controller = VLMKinematicsController(debug=False)
         
         # Test poses

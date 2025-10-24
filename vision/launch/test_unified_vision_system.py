@@ -6,7 +6,7 @@ This script launches a complete simulation environment and automatically tests
 the unified vision system with programmatic VLM commands.
 
 Features:
-- Launches Gazebo with UR5e + RealSense camera
+- Launches Gazebo with UR30 + RealSense camera
 - Starts UnifiedVisionSystem in eye-in-hand mode
 - Launches RViz with proper configuration
 - Starts MoveIt2 for motion planning
@@ -198,7 +198,7 @@ class UnifiedVisionSimulationTest(Node):
                 self.logger.info("✅ All systems ready - beginning test sequence")
     
     def launch_gazebo_simulation(self) -> bool:
-        """Launch Gazebo simulation with UR5e and test environment."""
+        """Launch Gazebo simulation with UR30 and test environment."""
         try:
             self.logger.info("🌍 Launching Gazebo simulation...")
             
@@ -234,13 +234,13 @@ class UnifiedVisionSimulationTest(Node):
             return False
     
     def launch_moveit2(self) -> bool:
-        """Launch MoveIt2 for the UR5e."""
+        """Launch MoveIt2 for the UR30."""
         try:
             self.logger.info("🧠 Launching MoveIt2...")
             
             moveit_cmd = [
                 'ros2', 'launch', 'ur_moveit_config', 'ur_moveit.launch.py',
-                'ur_type:=ur5e',
+                'ur_type:=ur30',
                 'use_sim_time:=true',
                 'launch_rviz:=false'  # We'll launch RViz separately
             ]
@@ -275,7 +275,7 @@ class UnifiedVisionSimulationTest(Node):
             
             rviz_cmd = [
                 'ros2', 'run', 'rviz2', 'rviz2',
-                '-d', 'ur5e_vision_simulation_test.rviz'
+                '-d', 'ur30_vision_simulation_test.rviz'
             ]
             
             rviz_process = subprocess.Popen(
@@ -306,13 +306,12 @@ class UnifiedVisionSimulationTest(Node):
             self.logger.info("👁️🤖 Launching UnifiedVisionSystem...")
             
             vision_cmd = [
-                'ros2', 'run', 'ur5e_vision', 'unified_vision_system_test',
-                '--ros-args',
-                '-p', 'robot_namespace:=ur5e',
-                '-p', 'eye_in_hand:=true',
-                '-p', 'enable_hybrid_ik:=true',
-                '-p', 'test_mode:=true',
-                '-p', 'auto_test_commands:=["pick up the red cube"]'
+                'ros2', 'launch', 'unified_vision_system', 'launch_gazebo_with_red_cube.py',
+                'robot_namespace:=ur30',
+                'eye_in_hand:=true',
+                'enable_hybrid_ik:=true',
+                'test_mode:=true',
+                'auto_test_commands:=["pick up the red cube"]'
             ]
             
             vision_process = subprocess.Popen(
@@ -523,7 +522,7 @@ def create_test_world_file():
     """Create a modified world file with a red cube for testing."""
     test_world_content = '''<?xml version="1.0"?>
 <sdf version="1.6">
-  <world name="ur5e_vision_test_world">
+  <world name="ur30_vision_test_world">
     
     <!-- Physics with high precision for accurate simulation -->
     <physics name="default_physics" default="0" type="ode">
@@ -721,7 +720,7 @@ def create_test_world_file():
 </sdf>'''
     
     # Write the test world file
-    world_file = Path("ur5e_vision_test_world.world")
+    world_file = Path("ur30_vision_test_world.world")
     with open(world_file, 'w') as f:
         f.write(test_world_content)
     
@@ -790,7 +789,7 @@ def create_rviz_config():
     }
     
     # Write RViz config
-    rviz_file = Path("ur5e_vision_simulation_test.rviz")
+    rviz_file = Path("ur30_vision_simulation_test.rviz")
     with open(rviz_file, 'w') as f:
         yaml.dump(rviz_config, f, default_flow_style=False)
     

@@ -32,7 +32,7 @@ def test_whisper_integration():
         logger.info(f"✅ Found {len(devices)} audio devices")
         
         # Test SpeechCommandProcessor import
-        from SpeechCommandProcessor import SpeechCommandProcessor
+        from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
         logger.info("✅ SpeechCommandProcessor imported successfully")
         
         # Initialize processor with Whisper

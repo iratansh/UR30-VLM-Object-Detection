@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quick test with GUARANTEED working poses for UR5e.
+Quick test with GUARANTEED working poses for UR30.
 These poses are within the physical workspace and should work.
 """
 
@@ -11,16 +11,16 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from UR5eKinematics import HybridUR5eKinematics
+from unified_vision_system.control.UR30Kinematics import HybridUR30Kinematics
 
 def test_guaranteed_working_poses():
-    """Test with poses that are guaranteed to be within UR5e workspace."""
+    """Test with poses that are guaranteed to be within UR30 workspace."""
     
     print("=== Testing GUARANTEED Working Poses ===\n")
     
-    hybrid = HybridUR5eKinematics(debug=True)
+    hybrid = HybridUR30Kinematics(debug=True)
     
-    # These poses are carefully chosen to be well within UR5e workspace
+    # These poses are carefully chosen to be well within UR30 workspace
     # Based on typical object manipulation scenarios
     guaranteed_poses = [
         {
@@ -71,7 +71,7 @@ def test_guaranteed_working_poses():
         # Basic validation
         distance = np.linalg.norm(position)
         print(f"Position: {position}")
-        print(f"Distance from base: {distance:.3f}m (max ~0.85m)")
+        print(f"Distance from base: {distance:.3f}m (max ~1.19m)")
         print(f"Height: {position[2]:.3f}m")
         
         if distance > 0.8:
@@ -171,7 +171,7 @@ def test_minimal_case():
     
     print("\n=== MINIMAL TEST CASE ===\n")
     
-    hybrid = HybridUR5eKinematics(debug=True)
+    hybrid = HybridUR30Kinematics(debug=True)
     
     # Absolutely minimal test - very close, identity orientation
     minimal_position = [0.2, 0.0, 0.15]  # 20cm forward, 15cm up
@@ -211,7 +211,7 @@ def main():
     
     if not minimal_works:
         print("❌ Cannot proceed - even minimal test failed")
-        print("Check UR5eKinematics implementation")
+        print("Check UR30Kinematics implementation")
         return 1
     
     # Then try realistic poses
@@ -227,7 +227,7 @@ def main():
         
         # Show performance stats
         print("\n" + "="*50)
-        hybrid = HybridUR5eKinematics()
+        hybrid = HybridUR30Kinematics()
         hybrid.print_performance_summary()
         
         return 0

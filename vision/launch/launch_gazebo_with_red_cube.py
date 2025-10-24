@@ -29,6 +29,10 @@ from launch_ros.parameter_descriptions import ParameterValue
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
+    # Get package paths for model directories
+    robotiq_desc_path = get_package_share_directory('robotiq_description')
+    ur_desc_path = get_package_share_directory('ur_description')
+    
     # Set environment variables for Gazebo to find resources
     gazebo_resource_path = SetEnvironmentVariable(
         name='GAZEBO_RESOURCE_PATH',
@@ -37,7 +41,13 @@ def generate_launch_description():
 
     gazebo_model_path = SetEnvironmentVariable(
         name='GAZEBO_MODEL_PATH',
-        value=['/opt/ros/humble/share:/usr/share/gazebo-11/models']
+        value=[
+            '/workspace/gazebo_models:',
+            '/opt/ros/humble/share:',
+            '/usr/share/gazebo-11/models:',
+            robotiq_desc_path + ':',
+            ur_desc_path
+        ]
     )
 
     # Launch arguments
@@ -49,11 +59,11 @@ def generate_launch_description():
     ur_moveit_pkg = FindPackageShare('ur_moveit_config')
     vision_pkg = FindPackageShare('unified_vision_system')
     
-    # URDF/Xacro file
+    # URDF/Xacro file - using simplified gripper for stable simulation
     xacro_file = os.path.join(
         get_package_share_directory('unified_vision_system'),
         'urdf',
-        'ur30_robotiq_realsense.urdf.xacro'
+        'ur30_simple_gripper_realsense.urdf.xacro'
     )
     
     # Robot Description
@@ -77,7 +87,7 @@ def generate_launch_description():
     world_file = os.path.join(
         get_package_share_directory('unified_vision_system'),
         'worlds',
-        'ur5e_vision_world.world'
+        'ur30_vision_world.world'
     )
     
     # 1. Gazebo server and client
@@ -168,7 +178,7 @@ def generate_launch_description():
     rviz_config_file = os.path.join(
         get_package_share_directory('unified_vision_system'),
         'config',
-        'ur5e_vision_moveit.rviz'
+        'ur30_vision_moveit.rviz'
     )
     
     rviz = Node(
@@ -192,7 +202,7 @@ def generate_launch_description():
     #             output='screen',
     #             parameters=[{
     #                 'use_sim_time': True,
-    #                 'robot_namespace': 'ur5e',
+    #                 'robot_namespace': 'ur30',
     #                 'eye_in_hand': True,
     #                 'hand_eye_calibration_file': PathJoinSubstitution([
     #                     vision_pkg, 'config', 'hand_eye_calib_sim.npz'

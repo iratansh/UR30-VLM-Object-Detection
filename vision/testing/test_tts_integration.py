@@ -18,7 +18,7 @@ def test_tts_integration():
     """Test Construction TTS Manager functionality"""
     
     try:
-        from ConstructionTTSManager import (
+        from unified_vision_system.hri.ConstructionTTSManager import (
             ConstructionTTSManager,
             VoiceProfile, 
             TTSPriority,
@@ -116,7 +116,7 @@ def test_tts_integration():
         logger.info("="*50)
         
         try:
-            from ConstructionClarificationManager import (
+            from unified_vision_system.hri.ConstructionClarificationManager import (
                 ConstructionClarificationManager,
                 ClarificationStrategy,
                 UserExpertiseLevel

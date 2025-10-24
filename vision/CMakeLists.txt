@@ -9,8 +9,8 @@ ament_python_install_package(${PROJECT_NAME})
 
 # Install Python executables
 install(PROGRAMS
-  unified_vision_system_node.py
-  create_sim_calibration.py
+  scripts/unified_vision_system_node.py
+  scripts/create_sim_calibration.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

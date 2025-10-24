@@ -1,6 +1,6 @@
-# Docker Environment for UR5e VLM Object Detection System
+# Docker Environment for UR30 VLM Object Detection System
 
-This Docker setup provides a complete Ubuntu 22.04 environment with ROS2 Humble, CUDA support, and hardware access for the UR5e VLM Object Detection System.
+This Docker setup provides a complete Ubuntu 22.04 environment with ROS2 Humble, CUDA support, and hardware access for the UR30 VLM Object Detection System.
 
 ## Quick Start
 
@@ -50,7 +50,7 @@ This Docker setup provides a complete Ubuntu 22.04 environment with ROS2 Humble,
 - **MoveIt2** - Motion planning framework
 - **RViz2** - 3D visualization
 - **Gazebo** - Physics simulation with ros2_control
-- **UR5e packages** - Robot descriptions and configurations
+- **UR30 packages** - Robot descriptions and configurations
 - **Robotiq gripper** support
 
 ### AI/ML & Vision
@@ -139,7 +139,7 @@ ros2 run demo_nodes_cpp talker
 ```bash
 # Run unit tests
 ./start-docker.sh shell
-cd /home/ur5e_user/workspace
+cd /home/ur30_user/workspace
 python -m pytest vision/testing/
 
 # Test specific components
@@ -153,7 +153,7 @@ python vision/test_whisper_integration.py
 
 # In another terminal, run your code
 ./start-docker.sh shell
-cd /home/ur5e_user/workspace
+cd /home/ur30_user/workspace
 python vision/UnifiedVisionSystemSim.py
 ```
 
@@ -167,7 +167,7 @@ python vision/UnifiedVisionSystemSim.py
 
 # Run your system
 ./start-docker.sh shell
-cd /home/ur5e_user/workspace
+cd /home/ur30_user/workspace
 python vision/UnifiedVisionSystem.py
 ```
 
@@ -178,7 +178,7 @@ python vision/UnifiedVisionSystem.py
 ├── docker-compose.yml         # Multi-service configuration
 ├── docker-setup.sh           # Initial Docker setup
 ├── start-docker.sh           # Container management
-├── ur5e_vlm_environment.yml  # Conda environment
+├── ur30_vlm_environment.yml  # Conda environment
 ├── .dockerignore             # Build optimization
 └── vision/                   # Your code (mounted)
 ```

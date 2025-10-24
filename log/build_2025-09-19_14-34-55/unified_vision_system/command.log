@@ -1,4 +1,0 @@
-Invoking command in '/home/ur5e_user/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/ur5e_user/workspace/vision -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/unified_vision_system
-Invoked command in '/home/ur5e_user/workspace/build/unified_vision_system' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/ur5e_user/workspace/vision -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ur5e_user/workspace/install/unified_vision_system
-Invoking command in '/home/ur5e_user/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/ur5e_user/workspace/build/unified_vision_system -- -j12 -l12
-Invoked command in '/home/ur5e_user/workspace/build/unified_vision_system' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/ur5e_user/workspace/build/unified_vision_system -- -j12 -l12

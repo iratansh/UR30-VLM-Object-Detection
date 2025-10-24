@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Debug UR5e workspace and forward kinematics issues.
+Debug UR30 workspace and forward kinematics issues.
 This script will help identify the root cause of FK/IK mismatches.
 """
 
@@ -12,19 +12,19 @@ import os
 # Add the path to import our kinematics
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from UR5eKinematics import HybridUR5eKinematics, UR5eKinematics
+from unified_vision_system.control.UR30Kinematics import HybridUR30Kinematics, UR30Kinematics
 
-def debug_ur5e_workspace():
-    """Debug UR5e workspace and FK/IK consistency."""
+def debug_ur30_workspace():
+    """Debug UR30 workspace and FK/IK consistency."""
     
-    print("=== UR5e Workspace Debug ===\n")
+    print("=== UR30 Workspace Debug ===\n")
     
     # Initialize both solvers
-    hybrid = HybridUR5eKinematics(debug=False)
-    numerical = UR5eKinematics()
+    hybrid = HybridUR30Kinematics(debug=False)
+    numerical = UR30Kinematics()
     
-    # Test 1: Check DH parameters against known UR5e specs
-    print("1. UR5e DH Parameters Check:")
+    # Test 1: Check DH parameters against known UR30 specs
+    print("1. UR30 DH Parameters Check:")
     print(f"   d1 (base height): {numerical.d1*1000:.1f}mm (should be ~162.5mm)")
     print(f"   a2 (upper arm): {abs(numerical.a2)*1000:.1f}mm (should be ~425mm)")
     print(f"   a3 (forearm): {abs(numerical.a3)*1000:.1f}mm (should be ~392mm)")
@@ -61,7 +61,7 @@ def debug_ur5e_workspace():
         print(f"   Distance: {distance:.3f}m")
         
         # Check if position seems reasonable
-        if distance < 0.85 and position[2] > 0.05:  # Within reach and above ground
+        if distance < 1.19 and position[2] > 0.05:  # Within reach and above ground
             print(f"   ✅ Position looks reachable")
             
             # Test inverse kinematics
@@ -85,8 +85,8 @@ def debug_ur5e_workspace():
             else:
                 print(f"   ❌ IK failed for FK result")
         else:
-            if distance >= 0.85:
-                print(f"   ❌ Position beyond max reach (~0.85m)")
+            if distance >= 1.19:
+                print(f"   ❌ Position beyond max reach (~1.19m)")
             if position[2] <= 0.05:
                 print(f"   ❌ Position too low (collision risk)")
     
@@ -133,7 +133,7 @@ def test_realistic_target_poses():
     
     print("\n=== Testing Realistic Manipulation Poses ===\n")
     
-    hybrid = HybridUR5eKinematics(debug=True)
+    hybrid = HybridUR30Kinematics(debug=True)
     
     # Realistic object manipulation poses
     realistic_poses = [
@@ -259,7 +259,7 @@ def investigate_fk_issue():
     
     print("\n=== Forward Kinematics Investigation ===\n")
     
-    numerical = UR5eKinematics()
+    numerical = UR30Kinematics()
     
     # Test the "home" position that was failing
     home_joints = [0, -math.pi/2, 0, 0, 0, 0]
@@ -295,7 +295,7 @@ def investigate_fk_issue():
     expected_reach = abs(numerical.a2) + abs(numerical.a3)  # Should be roughly the max horizontal reach
     print(f"Expected max horizontal reach: {expected_reach:.3f}m")
     
-    if final_distance > 0.85:
+    if final_distance > 1.19:
         print("❌ FK producing poses beyond robot reach!")
         print("Possible issues:")
         print("  - Incorrect DH parameters")
@@ -322,7 +322,7 @@ def investigate_fk_issue():
         
         print(f"  {desc}: distance = {dist:.3f}m", end="")
         
-        if dist < 0.85 and pos[2] > 0.05:
+        if dist < 1.19 and pos[2] > 0.05:
             print(" ✅ Reasonable")
             reasonable_configs.append((joints, pose, desc))
         else:
@@ -334,7 +334,7 @@ def main():
     """Main debug routine."""
     
     # Step 1: Debug workspace and FK
-    working_poses, hybrid_working = debug_ur5e_workspace()
+    working_poses, hybrid_working = debug_ur30_workspace()
     
     # Step 2: Investigate FK issues
     reasonable_configs = investigate_fk_issue()

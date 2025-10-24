@@ -1,1 +1,0 @@
-rclpy;sensor_msgs;geometry_msgs;cv_bridge;tf2_ros;trajectory_msgs;moveit_msgs;gazebo_ros;gazebo_ros2_control;ros2_control;ros2_controllers;ur_description;ur_moveit_config;robotiq_description;robotiq_2f_85_gripper_visualization

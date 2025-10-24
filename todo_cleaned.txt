@@ -1,0 +1,15 @@
+UR5e → UR30 Migration Status
+============================
+
+Completed
+---------
+- Core vision/control stack defaults to UR30 (UnifiedVisionSystem, HybridIKWrapper, UR30Kinematics).
+- Workspace validator, calibration utilities, and grasp controller retuned for UR30 reach and geometry.
+- Simulation assets renamed (`ur30_vision_world.world`, `ur30_vision_moveit.rviz`) and launches updated.
+- Docker/tooling scripts and conda environment renamed to `ur30_*`.
+
+Next Actions
+------------
+- Rebuild the workspace (`colcon build --packages-select unified_vision_system`).
+- Recreate the conda environment (`conda env create -f ur30_vlm_environment.yml`).
+- Rebuild or restart the Docker stack (`ur30-vlm`).

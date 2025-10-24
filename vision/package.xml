@@ -2,7 +2,7 @@
 <package format="3">
   <name>unified_vision_system</name>
   <version>1.0.0</version>
-  <description>Unified Vision System for UR5e with Robotiq gripper</description>
+  <description>Unified Vision System for UR30 with Robotiq gripper</description>
   <maintainer email="iratansh@ualberta.ca">Ishaan Ratanshi</maintainer>
   <license>MIT</license>
 

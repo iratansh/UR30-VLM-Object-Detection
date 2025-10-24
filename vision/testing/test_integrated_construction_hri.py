@@ -9,7 +9,7 @@ This script demonstrates the complete refactored system integrating:
 - TTS speech synthesis for clarification dialogues
 
 Validates the system is ready for RViz/MoveIt2/Gazebo deployment
-and real UR5e arm testing.
+and real UR30 arm testing.
 """
 
 import sys
@@ -67,15 +67,15 @@ def test_integrated_construction_hri():
         # Import all system components
         logger.info("📦 Loading system components...")
         
-        from SpeechCommandProcessor import SpeechCommandProcessor
-        from OWLViTDetector import OWLViTDetector  
-        from ConstructionClarificationManager import (
+        from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
+        from unified_vision_system.perception.OWLViTDetector import OWLViTDetector  
+        from unified_vision_system.hri.ConstructionClarificationManager import (
             ConstructionClarificationManager,
             ClarificationStrategy,
             UserExpertiseLevel
         )
         from ConstructionRAGManager import ConstructionRAGManager
-        from ConstructionTTSManager import (
+        from unified_vision_system.hri.ConstructionTTSManager import (
             ConstructionTTSManager,
             VoiceProfile,
             TTSPriority
@@ -340,7 +340,7 @@ def test_integrated_construction_hri():
         tts_manager.cleanup()
         
         logger.info("\n🎉 INTEGRATED CONSTRUCTION HRI SYSTEM TEST COMPLETED SUCCESSFULLY!")
-        logger.info("    The system is ready for deployment on the UR5e robot arm.")
+        logger.info("    The system is ready for deployment on the UR30 robot arm.")
         logger.info("    All Phase 1 objectives have been achieved.")
         
         return True

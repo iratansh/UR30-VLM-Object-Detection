@@ -1,1 +1,0 @@
-/home/ur5e_user/workspace/build/robotiq_description/ament_cmake_core/robotiq_descriptionConfig-version.cmake

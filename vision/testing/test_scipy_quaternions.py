@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Fixed test to verify scipy quaternion conversion works correctly.
-Now uses REACHABLE poses for UR5e robot.
+Now uses REACHABLE poses for UR30 robot.
 """
 
 import numpy as np
@@ -21,14 +21,14 @@ except ImportError as e:
     print("Exiting test since scipy is required for this specific test")
     exit(0)
 
-from UR5eKinematics import HybridUR5eKinematics
+from unified_vision_system.control.UR30Kinematics import HybridUR30Kinematics
 
 def get_reachable_test_poses():
     """
-    Get validated reachable poses for UR5e testing.
+    Get validated reachable poses for UR30 testing.
     
     Returns:
-        List of (position, orientation_matrix, description) tuples that are within UR5e workspace
+        List of (position, orientation_matrix, description) tuples that are within UR30 workspace
     """
     # Identity orientation (gripper pointing forward)
     identity_orientation = np.eye(3)
@@ -55,7 +55,7 @@ def get_reachable_test_poses():
     ]
 
 def validate_pose_reachability(position):
-    """Quick workspace validation for UR5e."""
+    """Quick workspace validation for UR30."""
     x, y, z = position
     
     # Basic checks
@@ -74,7 +74,7 @@ def test_scipy_quaternion_conversion():
     
     print("=== Testing Scipy Quaternion Conversion ===\n")
     
-    hybrid = HybridUR5eKinematics(debug=True)
+    hybrid = HybridUR30Kinematics(debug=True)
     
     # Test cases: known rotation matrices and their expected quaternions
     test_cases = [
@@ -216,7 +216,7 @@ def test_ikfast_with_scipy():
         print("⚠️  ur_ikfast not available - skipping integration test")
         return True
     
-    hybrid = HybridUR5eKinematics(debug=True)
+    hybrid = HybridUR30Kinematics(debug=True)
     
     # Test with REACHABLE poses
     reachable_poses = get_reachable_test_poses()
@@ -283,7 +283,7 @@ def test_ikfast_with_scipy():
                 # Check workspace
                 x, y, z = position
                 radial_dist = math.sqrt(x*x + y*y + z*z)
-                print(f"  Debug: Radial distance = {radial_dist:.3f}m (max ~0.85m)")
+                print(f"  Debug: Radial distance = {radial_dist:.3f}m (max ~1.19m)")
                 
                 if radial_dist > 0.8:
                     print("  Likely cause: Position too far from robot base")
@@ -312,9 +312,9 @@ def test_workspace_validation():
     print("\n=== Testing Workspace Validation ===\n")
     
     # First test with known working poses from the main kinematics test
-    print("Testing with KNOWN WORKING poses from UR5eKinematics tests:")
+    print("Testing with KNOWN WORKING poses from UR30Kinematics tests:")
     
-    hybrid = HybridUR5eKinematics(debug=False)  # Turn off debug for cleaner output
+    hybrid = HybridUR30Kinematics(debug=False)  # Turn off debug for cleaner output
     
     # These are the exact poses that work in the main kinematics test
     known_working_joints = [
@@ -382,8 +382,8 @@ def test_workspace_validation():
         status = "✅ REACHABLE" if is_reachable else "❌ UNREACHABLE"
         print(f"{description:20} {position} | Radial: {radial_dist:.3f}m | {status}")
     
-    print(f"\nUR5e Workspace Guidelines:")
-    print(f"- Maximum reach: ~0.85m radial distance")
+    print(f"\nUR30 Workspace Guidelines:")
+    print(f"- Maximum reach: ~1.19m radial distance")
     print(f"- Minimum reach: ~0.15m (avoid self-collision)")
     print(f"- Height range: 0.05m to 0.8m")
     print(f"- Your original pose [0.4, 0.2, 0.3] has radial distance: {math.sqrt(0.4**2 + 0.2**2 + 0.3**2):.3f}m")
@@ -429,7 +429,7 @@ def main():
             print("- Fix ur_ikfast integration or workspace validation")
         
         print("\n💡 TIP: The original failing pose [0.4, 0.2, 0.3] is likely outside")
-        print("   the UR5e workspace. Use the reachable poses provided instead.")
+        print("   the UR30 workspace. Use the reachable poses provided instead.")
         return 1
 
 if __name__ == "__main__":

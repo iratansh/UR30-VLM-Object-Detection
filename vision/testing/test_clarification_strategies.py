@@ -46,7 +46,7 @@ def test_all_strategies():
     """Test all five clarification strategies comprehensively"""
     
     try:
-        from ConstructionClarificationManager import (
+        from unified_vision_system.hri.ConstructionClarificationManager import (
             ConstructionClarificationManager, 
             ClarificationStrategy,
             UserExpertiseLevel

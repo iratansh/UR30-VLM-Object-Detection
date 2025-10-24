@@ -8,12 +8,12 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 import math
-from UR5eKinematics import UR5eKinematics
+from unified_vision_system.control.UR30Kinematics import UR30Kinematics
 
 def test_fk():
     print("=== Forward Kinematics Debug ===")
     
-    kin = UR5eKinematics()
+    kin = UR30Kinematics()
     
     # Print DH parameters
     print(f"DH Parameters:")
@@ -42,8 +42,8 @@ def test_fk():
             print(f"  Position: [{pos[0]:.3f}, {pos[1]:.3f}, {pos[2]:.3f}]")
             print(f"  Distance: {distance:.3f}m")
             
-            if distance > 0.85:
-                print(f"  ❌ Beyond max reach!")
+            if distance > 1.19:
+                print(f"  ❌ Beyond max reach (~1.19m)!")
             else:
                 print(f"  ✅ Within reach")
                 

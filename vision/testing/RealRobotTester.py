@@ -1,5 +1,5 @@
 """
-Structured testing script for UR5e with eye-in-hand RealSense.
+Structured testing script for UR30 with eye-in-hand RealSense.
 Run these tests in order to safely validate the system.
 """
 
@@ -16,7 +16,7 @@ from typing import List, Tuple, Optional
 
 class RealRobotTester(Node):
     """
-    Safe testing procedures for real UR5e with eye-in-hand camera.
+    Safe testing procedures for real UR30 with eye-in-hand camera.
     """
     
     def __init__(self):
@@ -295,7 +295,7 @@ class RealRobotTester(Node):
     def run_all_tests(self):
         """Run all tests in sequence."""
         print("\n" + "="*60)
-        print("UR5E EYE-IN-HAND SYSTEM TEST")
+        print("UR30 EYE-IN-HAND SYSTEM TEST")
         print("="*60)
         print("\nSAFETY REMINDERS:")
         print("- Keep emergency stop within reach")

@@ -1,4 +1,4 @@
-# Ubuntu 22.04 based Docker environment for UR5e VLM Object Detection System
+# Ubuntu 22.04 based Docker environment for UR30 VLM Object Detection System
 # Includes ROS2 Humble, CUDA support, hardware access, and all dependencies
 
 FROM nvidia/cuda:12.1.0-devel-ubuntu22.04
@@ -129,12 +129,12 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Lin
 ENV PATH=/opt/miniconda3/bin:$PATH
 
 # Copy conda environment file and create environment
-COPY ur5e_vlm_environment.yml /tmp/ur5e_vlm_environment.yml
-RUN conda env create -f /tmp/ur5e_vlm_environment.yml && \
+COPY ur30_vlm_environment.yml /tmp/ur30_vlm_environment.yml
+RUN conda env create -f /tmp/ur30_vlm_environment.yml && \
     conda clean -a -y
 
 # Install spaCy English model
-RUN /opt/miniconda3/envs/ur5e_vlm_environment/bin/python -m spacy download en_core_web_sm
+RUN /opt/miniconda3/envs/ur30_vlm_environment/bin/python -m spacy download en_core_web_sm
 
 # Setup udev rules for hardware access
 RUN echo '# Intel RealSense cameras udev rules' > /etc/udev/rules.d/99-realsense-libusb.rules && \
@@ -152,7 +152,7 @@ RUN echo '# Audio devices permissions' > /etc/udev/rules.d/99-audio-permissions.
     echo 'KERNEL=="controlC[0-9]*", GROUP="audio", MODE="0664"' >> /etc/udev/rules.d/99-audio-permissions.rules
 
 # Create a non-root user
-ARG USERNAME=ur5e_user
+ARG USERNAME=ur30_user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -178,7 +178,7 @@ RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo '' >> /entrypoint.sh && \
     echo '# Initialize conda' >> /entrypoint.sh && \
     echo 'eval "$(/opt/miniconda3/bin/conda shell.bash hook)"' >> /entrypoint.sh && \
-    echo 'conda activate ur5e_vlm_environment' >> /entrypoint.sh && \
+    echo 'conda activate ur30_vlm_environment' >> /entrypoint.sh && \
     echo '' >> /entrypoint.sh && \
     echo '# Set up environment' >> /entrypoint.sh && \
     echo 'export ROS_DOMAIN_ID=0' >> /entrypoint.sh && \
@@ -191,7 +191,7 @@ RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo '  chmod 666 /dev/snd/* 2>/dev/null || true' >> /entrypoint.sh && \
     echo 'fi' >> /entrypoint.sh && \
     echo '' >> /entrypoint.sh && \
-    echo 'echo "🚀 UR5e VLM Environment Ready!"' >> /entrypoint.sh && \
+    echo 'echo "🚀 UR30 VLM Environment Ready!"' >> /entrypoint.sh && \
     echo 'echo "✓ ROS2 Humble activated"' >> /entrypoint.sh && \
     echo 'echo "✓ Conda environment activated"' >> /entrypoint.sh && \
     echo 'echo "✓ Hardware access configured"' >> /entrypoint.sh && \

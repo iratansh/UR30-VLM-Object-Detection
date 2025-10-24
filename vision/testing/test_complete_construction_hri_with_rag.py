@@ -10,7 +10,7 @@ This final validation test demonstrates the fully integrated construction HRI sy
 - RAG knowledge retrieval for context-aware responses
 - Transactive Memory Theory implementation
 
-Ready for RViz/MoveIt2/Gazebo deployment and UR5e robot testing.
+Ready for RViz/MoveIt2/Gazebo deployment and UR30 robot testing.
 """
 
 import sys
@@ -33,14 +33,14 @@ def test_complete_construction_hri_with_rag():
         # Import all system components
         logger.info("📦 Loading system components with RAG...")
         
-        from SpeechCommandProcessor import SpeechCommandProcessor
-        from OWLViTDetector import OWLViTDetector
-        from ConstructionClarificationManager import (
+        from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
+        from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
+        from unified_vision_system.hri.ConstructionClarificationManager import (
             ConstructionClarificationManager,
             ClarificationStrategy,
             UserExpertiseLevel
         )
-        from ConstructionTTSManager import (
+        from unified_vision_system.hri.ConstructionTTSManager import (
             ConstructionTTSManager,
             VoiceProfile,
             TTSPriority
@@ -345,7 +345,7 @@ def test_complete_construction_hri_with_rag():
         logger.info("    🧠 Transactive Memory Theory successfully implemented")
         logger.info("    📚 Construction knowledge base dynamically expandable")
         logger.info("    👷 Expertise-adaptive content with safety integration")
-        logger.info("    🤖 Ready for UR5e robot deployment with intelligent clarifications")
+        logger.info("    🤖 Ready for UR30 robot deployment with intelligent clarifications")
         
         return True
         

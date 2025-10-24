@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Complete Environment Setup Script for UR5e VLM Object Detection System
+# Complete Environment Setup Script for UR30 VLM Object Detection System
 # This script installs ALL necessary dependencies including ROS2, system libraries, and hardware drivers
 
 set -e  # Exit on any error
 
-echo "🚀 Starting comprehensive environment setup for UR5e VLM Object Detection System..."
+echo "🚀 Starting comprehensive environment setup for UR30 VLM Object Detection System..."
 
 # Colors for output
 RED='\033[0;31m'
@@ -203,17 +203,17 @@ fi
 
 # Create conda environment
 print_status "Creating conda environment from YAML file..."
-if [ -f "ur5e_vlm_environment.yml" ]; then
-    conda env create -f ur5e_vlm_environment.yml
+if [ -f "ur30_vlm_environment.yml" ]; then
+    conda env create -f ur30_vlm_environment.yml
     print_success "Conda environment created successfully"
 else
-    print_error "ur5e_vlm_environment.yml not found. Please ensure the file exists."
+    print_error "ur30_vlm_environment.yml not found. Please ensure the file exists."
     exit 1
 fi
 
 # Activate environment and install spaCy model
 print_status "Installing spaCy English model..."
-conda activate ur5e_vlm_environment
+conda activate ur30_vlm_environment
 python -m spacy download en_core_web_sm
 
 # Setup ROS2 environment
@@ -231,7 +231,7 @@ cat > setup_workspace.sh << 'EOF'
 source /opt/ros/humble/setup.bash
 
 # Activate conda environment
-conda activate ur5e_vlm_environment
+conda activate ur30_vlm_environment
 
 # Set ROS2 environment variables
 export ROS_DOMAIN_ID=0
@@ -240,7 +240,7 @@ export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 # Hardware permissions (run if needed)
 # sudo chmod 666 /dev/video* 2>/dev/null || true
 
-echo "🎉 Environment activated! ROS2 Humble + UR5e VLM Environment ready"
+echo "🎉 Environment activated! ROS2 Humble + UR30 VLM Environment ready"
 echo "Hardware interfaces configured for:"
 echo "  ✓ Intel RealSense cameras"
 echo "  ✓ Audio input/output (microphone/speakers)"
@@ -290,13 +290,13 @@ print_status "   - Test microphone: python -c 'import sounddevice; print(soundde
 print_status "   - Test ROS2: ros2 topic list"
 print_status ""
 print_status "Environment includes:"
-print_status "✓ ROS2 Humble with UR5e, MoveIt, Gazebo"
+print_status "✓ ROS2 Humble with UR30, MoveIt, Gazebo"
 print_status "✓ Intel RealSense SDK and Python bindings"
 print_status "✓ Audio system (ALSA/PulseAudio) with microphone/speaker support"
 print_status "✓ Computer vision (OpenCV, OWL-ViT, transformers)"
 print_status "✓ Speech processing (Whisper, TTS, spaCy)"
 print_status "✓ Deep learning (PyTorch, HuggingFace)"
 print_status "✓ USB device access and hardware permissions"
-print_status "✓ All Python dependencies for the UR5e VLM system"
+print_status "✓ All Python dependencies for the UR30 VLM system"
 print_status ""
 print_warning "Please reboot your system to ensure all hardware permissions take effect!"

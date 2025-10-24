@@ -2,13 +2,13 @@
 """
 UnifiedVisionSystem Simulator
 
-This simulator mocks hardware components (RealSense, UR5e) but tests
+This simulator mocks hardware components (RealSense, UR30) but tests
 the real vision and control logic. It provides a safe way to test the
 complete system before deploying to physical hardware.
 
 Key Features:
 - Mock RealSense camera with synthetic depth data
-- Mock UR5e robot with realistic joint limits
+- Mock UR30 robot with realistic joint limits
 - Real VLM, speech recognition, and IK calculations
 - Virtual workspace with objects
 - Collision detection
@@ -26,13 +26,13 @@ from dataclasses import dataclass
 import json
 
 # Import real components (these will work with mocked data)
-from UnifiedVisionSystem import UnifiedVisionSystem
-from DepthAwareDetector import Detection3D
-from OWLViTDetector import OWLViTDetector
-from SpeechCommandProcessor import SpeechCommandProcessor
-from UR5eKinematics import HybridUR5eKinematics
-from CameraCalibration import CameraCalibration
-from WorkSpaceValidator import WorkspaceValidator
+from unified_vision_system.system.UnifiedVisionSystem import UnifiedVisionSystem
+from unified_vision_system.perception.DepthAwareDetector import Detection3D
+from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
+from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
+from unified_vision_system.control.UR30Kinematics import HybridUR30Kinematics
+from unified_vision_system.calibration.CameraCalibration import CameraCalibration
+from unified_vision_system.perception.WorkSpaceValidator import WorkspaceValidator
 
 @dataclass
 class VirtualObject:
@@ -130,12 +130,12 @@ class MockRealSenseCamera:
         noisy_frame = frame.astype(np.int16) + noise
         return np.clip(noisy_frame, 100, 10000).astype(np.uint16)  # 10cm to 10m range
 
-class MockUR5eRobot:
-    """Mock UR5e robot with realistic kinematics and safety checks"""
+class MockUR30Robot:
+    """Mock UR30 robot with realistic kinematics and safety checks"""
     
     def __init__(self):
         self.current_joints = np.array([0.0, -np.pi/2, 0.0, -np.pi/2, 0.0, 0.0])
-        self.kinematics = HybridUR5eKinematics()
+        self.kinematics = HybridUR30Kinematics()
         self.joint_limits = [
             (-2*np.pi, 2*np.pi),   # Base
             (-np.pi, np.pi),       # Shoulder  
@@ -235,7 +235,7 @@ class UnifiedVisionSimulator:
         
         # Initialize mock hardware
         self.mock_camera = MockRealSenseCamera()
-        self.mock_robot = MockUR5eRobot()
+        self.mock_robot = MockUR30Robot()
         
         # Create virtual workspace
         self.virtual_objects = [
@@ -284,7 +284,7 @@ class UnifiedVisionSimulator:
             self.speech_processor = None
         
         # Use real kinematics
-        self.kinematics = HybridUR5eKinematics(debug=True)
+        self.kinematics = HybridUR30Kinematics(debug=True)
         
         # Mock calibration (eye-in-hand setup)
         self.calibration = CameraCalibration()
@@ -541,7 +541,7 @@ def main():
     print("- Real speech processing")  
     print("- Real IK calculations")
     print("- Mock RealSense camera")
-    print("- Mock UR5e robot")
+    print("- Mock UR30 robot")
     print("- Virtual workspace with objects")
     print("\nPress 'q' to quit, 'h' for home, 'r' to reset, 's' for speech command")
     print("="*50)
