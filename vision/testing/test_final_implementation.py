@@ -30,14 +30,14 @@ def test_phase_1_speech_processing():
     
     try:
         # Test Whisper ASR integration
-        from SpeechCommandProcessor import SpeechCommandProcessor
+        from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
         speech_processor = SpeechCommandProcessor()
         
         print("✅ Whisper ASR: Integrated in SpeechCommandProcessor")
         assert speech_processor.whisper_model is not None
         
         # Test Rasa NLP integration  
-        from ConstructionRasaNLP import ConstructionRasaNLP
+        from unified_vision_system.hri.ConstructionRasaNLP import ConstructionRasaNLP
         rasa_nlp = ConstructionRasaNLP()
         
         print("✅ Rasa NLP: Construction-specific intent recognition available")
@@ -53,7 +53,7 @@ def test_phase_1_speech_processing():
             print("⚠️  Rasa Integration: Using fallback processing")
         
         # Test Coqui TTS integration
-        from ConstructionTTSManager import ConstructionTTSManager
+        from unified_vision_system.hri.ConstructionTTSManager import ConstructionTTSManager
         tts_manager = ConstructionTTSManager()
         
         print("✅ Coqui TTS: Construction pronunciation and voice profiles available")
@@ -78,7 +78,7 @@ def test_phase_2_construction_detection():
     print("="*60)
     
     try:
-        from OWLViTDetector import OWLViTDetector
+        from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
         
         print("✅ OWL-ViT Integration: Available for zero-shot detection")
         
@@ -131,7 +131,7 @@ def test_phase_3_clarification_strategies():
     print("="*60)
     
     try:
-        from ConstructionClarificationManager import (
+        from unified_vision_system.hri.ConstructionClarificationManager import (
             ConstructionClarificationManager, ClarificationStrategy, 
             UserExpertiseLevel
         )
@@ -199,7 +199,7 @@ def test_phase_4_trust_evaluation():
     
     try:
         # Test Trust Questionnaire
-        from TrustQuestionnaire import ConstructionTrustQuestionnaire, TrustDimension
+        from unified_vision_system.metrics.TrustQuestionnaire import ConstructionTrustQuestionnaire, TrustDimension
         
         trust_questionnaire = ConstructionTrustQuestionnaire()
         
@@ -225,7 +225,7 @@ def test_phase_4_trust_evaluation():
         print(f"✅ Trust Questionnaire: {len(trust_questionnaire.questions)} questions across {len(expected_dimensions)} dimensions")
         
         # Test NASA-TLX Assessment
-        from NASATLXAssessment import ConstructionNASATLX, TLXDimension
+        from unified_vision_system.metrics.NASATLXAssessment import ConstructionNASATLX, TLXDimension
         
         nasa_tlx = ConstructionNASATLX()
         
@@ -243,7 +243,7 @@ def test_phase_4_trust_evaluation():
         print(f"✅ NASA-TLX: {len(expected_tlx_dimensions)} workload dimensions with construction adaptations")
         
         # Test Behavioral Metrics
-        from BehavioralMetrics import ConstructionBehavioralMetrics, BehaviorType
+        from unified_vision_system.metrics.BehavioralMetrics import ConstructionBehavioralMetrics, BehaviorType
         
         behavioral_metrics = ConstructionBehavioralMetrics()
         
@@ -259,7 +259,7 @@ def test_phase_4_trust_evaluation():
         print(f"✅ Behavioral Metrics: {len(expected_behaviors)} behavior types tracked")
         
         # Test Experimental Controller
-        from ExperimentalController import ConstructionExperimentalController, ExperimentCondition
+        from unified_vision_system.hri.ExperimentalController import ConstructionExperimentalController, ExperimentCondition
         
         controller = ConstructionExperimentalController("Test Study")
         
@@ -288,7 +288,7 @@ def test_phase_5_context_memory():
     print("="*60)
     
     try:
-        from ConstructionClarificationManager import ConstructionClarificationManager, ClarificationStrategy
+        from unified_vision_system.hri.ConstructionClarificationManager import ConstructionClarificationManager, ClarificationStrategy
         
         clarification_manager = ConstructionClarificationManager(memory_size=10)
         
@@ -344,7 +344,7 @@ def test_phase_6_professional_communication():
     print("="*60)
     
     try:
-        from ConstructionClarificationManager import ConstructionClarificationManager, UserExpertiseLevel
+        from unified_vision_system.hri.ConstructionClarificationManager import ConstructionClarificationManager, UserExpertiseLevel
         
         clarification_manager = ConstructionClarificationManager()
         
@@ -411,7 +411,7 @@ def test_phase_7_uncertainty_expression():
     print("="*60)
     
     try:
-        from ConstructionClarificationManager import ConstructionClarificationManager, ClarificationStrategy
+        from unified_vision_system.hri.ConstructionClarificationManager import ConstructionClarificationManager, ClarificationStrategy
         
         clarification_manager = ConstructionClarificationManager()
         

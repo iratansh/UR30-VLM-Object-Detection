@@ -1,0 +1,29 @@
+Panels:
+  - Class: rviz/Displays
+    Name: Displays
+  - Class: rviz/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz/TF
+      Enabled: true
+      Name: TF
+    - Class: rviz/RobotModel
+      Enabled: true
+      Name: Robot Model
+      Robot Description: robot_description
+      Visual Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: world
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 1.5
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0.4
+      Pitch: 0.785398
+      Yaw: 0.785398

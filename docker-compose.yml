@@ -1,14 +1,14 @@
 services:
-  ur5e-vlm:
+  ur30-vlm:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        USERNAME: ur5e_user
+        USERNAME: ur30_user
         USER_UID: 1000
         USER_GID: 1000
-    image: ur5e-vlm:latest
-    container_name: ur5e-vlm-container
+    image: ur30-vlm:latest
+    container_name: ur30-vlm-container
     
     # Enable GPU access
     deploy:
@@ -45,10 +45,10 @@ services:
     volumes:
       # X11 forwarding for GUI applications (RViz, Gazebo)
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /home/${USER}/.Xauthority:/home/ur5e_user/.Xauthority:rw
+      - /home/${USER}/.Xauthority:/home/ur30_user/.Xauthority:rw
       
       # Mount the project directory
-      - .:/home/ur5e_user/workspace:rw
+      - .:/home/ur30_user/workspace:rw
       
       # Device access
       - /dev:/dev:rw
@@ -66,7 +66,7 @@ services:
       - /dev/shm:/dev/shm:rw
       
       # Optional: Mount host's conda/pip cache to speed up builds
-      - ${HOME}/.cache/pip:/home/ur5e_user/.cache/pip:rw
+      - ${HOME}/.cache/pip:/home/ur30_user/.cache/pip:rw
     
     # Device access for USB, cameras, audio
     devices:
@@ -80,7 +80,7 @@ services:
       - /dev/ttyACM0:/dev/ttyACM0  # Arduino/microcontroller
     
     # Working directory
-    working_dir: /home/ur5e_user/workspace
+    working_dir: /home/ur30_user/workspace
     
     # Keep container running
     tty: true
@@ -91,10 +91,10 @@ services:
 
   # Optional: Separate service for Gazebo simulation
   gazebo-sim:
-    image: ur5e-vlm:latest
-    container_name: ur5e-gazebo-sim
+    image: ur30-vlm:latest
+    container_name: ur30-gazebo-sim
     depends_on:
-      - ur5e-vlm
+      - ur30-vlm
     
     environment:
       - DISPLAY=${DISPLAY}
@@ -118,19 +118,19 @@ services:
     
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /home/${USER}/.Xauthority:/home/ur5e_user/.Xauthority:rw
-      - .:/home/ur5e_user/workspace:rw
+      - /home/${USER}/.Xauthority:/home/ur30_user/.Xauthority:rw
+      - .:/home/ur30_user/workspace:rw
       - /dev/shm:/dev/shm:rw
     
-    working_dir: /home/ur5e_user/workspace
+    working_dir: /home/ur30_user/workspace
     
     # Command to run Gazebo simulation
     command: >
       bash -c "
       source /opt/ros/humble/setup.bash && 
       eval '$$(conda shell.bash hook)' && 
-      conda activate ur5e_vlm_environment && 
-      ros2 launch gazebo_ros gazebo.launch.py world:=/home/ur5e_user/workspace/vision/worlds/ur5e_world.sdf
+      conda activate ur30_vlm_environment && 
+      ros2 launch gazebo_ros gazebo.launch.py world:=/home/ur30_user/workspace/vision/worlds/ur30_vision_world.world
       "
     
     profiles: ["simulation"]  # Only start with --profile simulation

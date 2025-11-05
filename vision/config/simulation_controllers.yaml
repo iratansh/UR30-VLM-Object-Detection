@@ -43,4 +43,10 @@ scaled_joint_trajectory_controller:
 
 robotiq_gripper_controller:
   ros__parameters:
-    joint: robotiq_85_left_knuckle_joint
+    joint: gripper_left_finger_joint
+    action_monitor_rate: 20.0
+    goal_tolerance: 0.001
+    max_effort: 100.0
+    allow_stalling: true
+    stall_velocity_threshold: 0.001
+    stall_timeout: 1.0

@@ -97,7 +97,7 @@ def test_rag_integration():
         # Test with Clarification Manager integration
         logger.info("\n🤖 Testing Clarification Manager Integration...")
         
-        from ConstructionClarificationManager import (
+        from unified_vision_system.hri.ConstructionClarificationManager import (
             ConstructionClarificationManager,
             ClarificationStrategy,
             UserExpertiseLevel

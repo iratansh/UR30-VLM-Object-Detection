@@ -6,21 +6,21 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 import math
-from UR5eKinematics import UR5eKinematics
+from unified_vision_system.control.UR30Kinematics import UR30Kinematics
 
 def test_ur_home_position():
     """
-    Test what the UR5e "home" position should produce.
+    Test what the UR30 "home" position should produce.
     
     According to UR documentation, the robot in home position should have
     the end-effector roughly at the front of the workspace at a reasonable distance.
     """
     
-    print("=== UR5e Home Position Test ===")
+    print("=== UR30 Home Position Test ===")
     
-    kinematics = UR5eKinematics()
+    kinematics = UR30Kinematics()
     
-    # UR5e home position is typically [0, -90°, 0, -90°, 0, 0]
+    # UR30 home position is typically [0, -90°, 0, -90°, 0, 0]
     # This should put the end-effector pointing forward at about 0.8m reach
     home_joints_deg = [0, -90, 0, -90, 0, 0]
     home_joints_rad = [math.radians(angle) for angle in home_joints_deg]
@@ -36,7 +36,7 @@ def test_ur_home_position():
     print(f"Distance from base: {np.linalg.norm(position):.3f}m")
     
     # Expected: Should be around [0.8, 0, 0.2] with distance ~0.82m
-    expected_distance_range = (0.7, 0.9)  # Reasonable range for UR5e
+    expected_distance_range = (0.7, 0.9)  # Reasonable range for UR30
     
     actual_distance = np.linalg.norm(position)
     if expected_distance_range[0] <= actual_distance <= expected_distance_range[1]:

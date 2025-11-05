@@ -19,7 +19,7 @@ def test_construction_detection():
     try:
         # Test imports
         import torch
-        from OWLViTDetector import OWLViTDetector
+        from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
         from PIL import Image
         logger.info("✅ All required modules imported successfully")
         

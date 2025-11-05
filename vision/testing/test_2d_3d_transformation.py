@@ -10,7 +10,7 @@ This test validates the complete pipeline from speech recognition to 3D coordina
 5. Visualization and validation
 
 This allows you to verify the coordinate transformation logic without needing
-the physical UR5e or RealSense camera.
+the physical UR30 or RealSense camera.
 """
 
 import cv2
@@ -28,12 +28,12 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from OWLViTDetector import OWLViTDetector
-from SpeechCommandProcessor import SpeechCommandProcessor
-from CameraCalibration import CameraCalibration
-from GraspPointDetector import GraspPointDetector
-from DepthAwareDetector import Detection3D
-from WorkSpaceValidator import WorkspaceValidator
+from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
+from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
+from unified_vision_system.calibration.CameraCalibration import CameraCalibration
+from unified_vision_system.perception.GraspPointDetector import GraspPointDetector
+from unified_vision_system.perception.DepthAwareDetector import Detection3D
+from unified_vision_system.perception.WorkSpaceValidator import WorkspaceValidator
 
 class MockDepthGenerator:
     """Generate realistic depth maps from RGB images for testing"""

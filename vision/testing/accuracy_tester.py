@@ -16,9 +16,9 @@ import seaborn as sns
 from pathlib import Path
 
 try:
-    from OWLViTDetector import OWLViTDetector
-    from SpeechCommandProcessor import SpeechCommandProcessor
-    from CameraCalibration import CameraCalibration
+    from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
+    from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
+    from unified_vision_system.calibration.CameraCalibration import CameraCalibration
 except ImportError as e:
     print(f"Warning: Could not import modules: {e}")
     print("Make sure your modules are in the Python path")

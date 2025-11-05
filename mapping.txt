@@ -10,7 +10,7 @@ Hypothesis:
 
 Testing on macOS
 
-- Main System Architecture with technologies compatible macOS: Speech Input (Microphone) -> RAG Enhanced ASR -> Owl-Vit -> Backup numerical IK method (simulate UR5e joint positions to reach object and execute) 
+- Main System Architecture with technologies compatible macOS: Speech Input (Microphone) -> RAG Enhanced ASR -> Owl-Vit -> Backup numerical IK method (simulate UR30 joint positions to reach object and execute) 
 - Seperate Tests for testing the CoquiTTS responses for experiements based on study Research Questions: 
     - Setup: Multiple hammers visible (claw, ball-peen, framing): Condition A: Robot uses trade terms: "Is it the framing hammer or the claw hammer?" Condition B: Robot uses descriptors: "Is it the large hammer or the curved one?" Measure: Trust ratings, response time, error recovery behavior
     - Setup: Partially occluded tool, ambiguous visibility Condition A: Binary certainty: "I cannot see the wrench" Condition B: Graduated uncertainty: "I'm about 60% certain that's the wrench you mean" Measure: Trust maintenance after clarification, willingness to continue interaction
@@ -19,5 +19,5 @@ Testing on macOS
 
 Testing via main Linux System (RViz, Gazebo, MoveIt2)
 
-Main System Architecture: Speech Input (Microphone) -> RAG Enhanced ASR -> Owl-Vit (Running on RViz/Gazebo) -> Hybrid IK method (simulate UR5e joint positions to reach object and execute) -> UR5e executes user command -> Success Message via CoquiTTS
-                                                                                                                                                                                            -> UR5e doesn't execute user command -> Rely on Experimental Design for CoquiTTS (i.e Seperate Tests for testing the TTS responses for experiements based on study Research Questions Above)
+Main System Architecture: Speech Input (Microphone) -> RAG Enhanced ASR -> Owl-Vit (Running on RViz/Gazebo) -> Hybrid IK method (simulate UR30 joint positions to reach object and execute) -> UR30 executes user command -> Success Message via CoquiTTS
+                                                                                                                                                                                            -> UR30 doesn't execute user command -> Rely on Experimental Design for CoquiTTS (i.e Seperate Tests for testing the TTS responses for experiements based on study Research Questions Above)

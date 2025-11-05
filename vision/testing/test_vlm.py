@@ -1,6 +1,6 @@
 """
-Integrated Vision-Controlled UR5e System
-Combines voice commands, object detection, and UR5e control
+Integrated Vision-Controlled UR30 System
+Combines voice commands, object detection, and UR30 control
 """
 
 import cv2
@@ -14,10 +14,10 @@ from dataclasses import dataclass
 
 # Import your existing modules
 try:
-    from OWLViTDetector import OWLViTDetector
-    from SpeechCommandProcessor import SpeechCommandProcessor
-    from CameraCalibration import CameraCalibration
-    from UR5eKinematics import UR5eKinematics  # Our kinematics system
+    from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
+    from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
+    from unified_vision_system.calibration.CameraCalibration import CameraCalibration
+    from unified_vision_system.control.UR30Kinematics import UR30Kinematics  # Our kinematics system
     import pyrealsense2 as rs
 except ImportError as e:
     print(f"Warning: Could not import modules: {e}")
@@ -129,11 +129,11 @@ class RealSenseCamera:
         """Check if camera is opened"""
         return self.pipeline is not None
 
-class UR5eControlNode(Node):
-    """ROS2 node for UR5e control"""
+class UR30ControlNode(Node):
+    """ROS2 node for UR30 control"""
     
     def __init__(self):
-        super().__init__('ur5e_vision_controller')
+        super().__init__('ur30_vision_controller')
         
         # Action client for joint trajectory control
         self.trajectory_client = ActionClient(
@@ -142,7 +142,7 @@ class UR5eControlNode(Node):
             '/joint_trajectory_controller/follow_joint_trajectory'
         )
         
-        self.get_logger().info('UR5e Vision Controller Node started')
+        self.get_logger().info('UR30 Vision Controller Node started')
 
     def execute_trajectory(self, trajectory: JointTrajectory) -> bool:
         """Execute a joint trajectory on the robot"""
@@ -223,12 +223,12 @@ class IntegratedVisionSystem:
             self.camera = None
         
         # ROS2 components
-        self.kinematics = UR5eKinematics()
+        self.kinematics = UR30Kinematics()
         
         if self.use_ros2:
             try:
                 rclpy.init()
-                self.ros_node = UR5eControlNode()
+                self.ros_node = UR30ControlNode()
                 self.logger.info("✅ ROS2 node initialized")
             except Exception as e:
                 self.logger.error(f"ROS2 initialization failed: {e}")
@@ -252,7 +252,7 @@ class IntegratedVisionSystem:
 
     def _main_loop(self):
         """Main system loop"""
-        print("\n🤖 UR5e Vision Control System")
+        print("\n🤖 UR30 Vision Control System")
         print("=" * 50)
         print("Say commands like:")
         print("  - 'pick up the bottle'")
@@ -479,7 +479,7 @@ class IntegratedVisionSystem:
             cv2.putText(frame, text, (10, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
             y_offset += 25
         
-        cv2.imshow('UR5e Vision System', frame)
+        cv2.imshow('UR30 Vision System', frame)
 
     def shutdown(self):
         """Clean shutdown of all components"""
@@ -510,7 +510,7 @@ class IntegratedVisionSystem:
 class CommandFormatter:
     """Formats voice commands into ROS2 trajectories"""
     
-    def __init__(self, kinematics: UR5eKinematics):
+    def __init__(self, kinematics: UR30Kinematics):
         self.kinematics = kinematics
         self.logger = logging.getLogger(__name__)
     
@@ -591,7 +591,7 @@ class CommandFormatter:
     def _create_home_sequence(self) -> Dict[str, Any]:
         """Create home position trajectory"""
         
-        # UR5e home position (all joints at 0)
+        # UR30 home position (all joints at 0)
         home_joints = [0.0, -1.57, 0.0, -1.57, 0.0, 0.0]
         
         trajectory = self._create_joint_trajectory(home_joints, duration=5.0)
@@ -705,7 +705,7 @@ def setup_logging():
 def main():
     """Main function to run the integrated vision system test"""
     
-    print("🚀 UR5e Integrated Vision System Test")
+    print("🚀 UR30 Integrated Vision System Test")
     print("=" * 50)
     
     # Setup logging
@@ -713,7 +713,7 @@ def main():
     
     # Parse command line arguments
     import argparse
-    parser = argparse.ArgumentParser(description='UR5e Vision Control System')
+    parser = argparse.ArgumentParser(description='UR30 Vision Control System')
     parser.add_argument('--no-ros2', action='store_true', help='Run without ROS2 (simulation only)')
     parser.add_argument('--no-camera', action='store_true', help='Run without camera')
     parser.add_argument('--no-speech', action='store_true', help='Run without speech recognition')

@@ -24,14 +24,14 @@ import cv2
 
 # Import all construction modules for testing
 try:
-    from SpeechCommandProcessor import SpeechCommandProcessor
-    from ConstructionRasaNLP import ConstructionRasaNLP, ConstructionIntent, ConstructionEntity
-    from ConstructionTTSManager import ConstructionTTSManager, VoiceProfile, TTSPriority
-    from ConstructionClarificationManager import (
+    from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
+    from unified_vision_system.hri.ConstructionRasaNLP import ConstructionRasaNLP, ConstructionIntent, ConstructionEntity
+    from unified_vision_system.hri.ConstructionTTSManager import ConstructionTTSManager, VoiceProfile, TTSPriority
+    from unified_vision_system.hri.ConstructionClarificationManager import (
         ConstructionClarificationManager, ClarificationStrategy, 
         UserExpertiseLevel, ClarificationResponse
     )
-    from OWLViTDetector import OWLViTDetector
+    from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
     IMPORTS_AVAILABLE = True
 except ImportError as e:
     logging.error(f"Failed to import construction modules: {e}")

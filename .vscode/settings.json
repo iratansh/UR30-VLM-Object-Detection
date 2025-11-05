@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ur5e_project.sln"
+    "dotnet.defaultSolution": "ur30_project.sln"
 }

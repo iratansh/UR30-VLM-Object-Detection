@@ -1,0 +1,151 @@
+[0.014s] Invoking command in '/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=/workspace/install/ur_description:/workspace/install/robotiq_description:/opt/ros/humble:/workspace/install/robotiq_2f_85_gripper_visualization:/workspace/install/unified_vision_system:/workspace/install/robotiq_hardware_tests:/workspace/install/robotiq_driver:/workspace/install/serial:/workspace/install/robotiq_controllers CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /workspace/src/unified_vision_system -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/workspace/install/unified_vision_system
+[0.062s] -- The C compiler identification is GNU 11.4.0
+[0.105s] -- The CXX compiler identification is GNU 11.4.0
+[0.113s] -- Detecting C compiler ABI info
+[0.178s] -- Detecting C compiler ABI info - done
+[0.182s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.182s] -- Detecting C compile features
+[0.183s] -- Detecting C compile features - done
+[0.185s] -- Detecting CXX compiler ABI info
+[0.257s] -- Detecting CXX compiler ABI info - done
+[0.261s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.261s] -- Detecting CXX compile features
+[0.261s] -- Detecting CXX compile features - done
+[0.265s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.490s] -- Found Python3: /opt/miniconda3/bin/python3 (found version "3.11.5") found components: Interpreter 
+[0.541s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.707s] -- Configuring done
+[0.711s] -- Generating done
+[0.713s] -- Build files have been written to: /workspace/build/unified_vision_system
+[0.720s] Invoked command in '/workspace/build/unified_vision_system' returned '0': CMAKE_PREFIX_PATH=/workspace/install/ur_description:/workspace/install/robotiq_description:/opt/ros/humble:/workspace/install/robotiq_2f_85_gripper_visualization:/workspace/install/unified_vision_system:/workspace/install/robotiq_hardware_tests:/workspace/install/robotiq_driver:/workspace/install/serial:/workspace/install/robotiq_controllers CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /workspace/src/unified_vision_system -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/workspace/install/unified_vision_system
+[0.722s] Invoking command in '/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=/workspace/install/ur_description:/workspace/install/robotiq_description:/opt/ros/humble:/workspace/install/robotiq_2f_85_gripper_visualization:/workspace/install/unified_vision_system:/workspace/install/robotiq_hardware_tests:/workspace/install/robotiq_driver:/workspace/install/serial:/workspace/install/robotiq_controllers CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /workspace/build/unified_vision_system -- -j12 -l12
+[0.774s] Built target ament_cmake_python_symlink_unified_vision_system
+[0.884s] running egg_info
+[0.884s] creating unified_vision_system.egg-info
+[0.889s] writing unified_vision_system.egg-info/PKG-INFO
+[0.889s] writing dependency_links to unified_vision_system.egg-info/dependency_links.txt
+[0.890s] writing top-level names to unified_vision_system.egg-info/top_level.txt
+[0.890s] writing manifest file 'unified_vision_system.egg-info/SOURCES.txt'
+[0.905s] reading manifest file 'unified_vision_system.egg-info/SOURCES.txt'
+[0.905s] writing manifest file 'unified_vision_system.egg-info/SOURCES.txt'
+[0.929s] Built target ament_cmake_python_build_unified_vision_system_egg
+[0.939s] Invoked command in '/workspace/build/unified_vision_system' returned '0': CMAKE_PREFIX_PATH=/workspace/install/ur_description:/workspace/install/robotiq_description:/opt/ros/humble:/workspace/install/robotiq_2f_85_gripper_visualization:/workspace/install/unified_vision_system:/workspace/install/robotiq_hardware_tests:/workspace/install/robotiq_driver:/workspace/install/serial:/workspace/install/robotiq_controllers CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /workspace/build/unified_vision_system -- -j12 -l12
+[0.947s] Invoking command in '/workspace/build/unified_vision_system': CMAKE_PREFIX_PATH=/workspace/install/ur_description:/workspace/install/robotiq_description:/opt/ros/humble:/workspace/install/robotiq_2f_85_gripper_visualization:/workspace/install/unified_vision_system:/workspace/install/robotiq_hardware_tests:/workspace/install/robotiq_driver:/workspace/install/serial:/workspace/install/robotiq_controllers CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /workspace/build/unified_vision_system
+[0.954s] -- Install configuration: ""
+[0.954s] -- Execute custom install script
+[0.954s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/environment/pythonpath.sh
+[0.961s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/environment/pythonpath.dsv
+[0.969s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/PKG-INFO
+[0.977s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/SOURCES.txt
+[0.985s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/dependency_links.txt
+[0.993s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/top_level.txt
+[1.003s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/__init__.py
+[1.012s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/CameraCalibration.py
+[1.023s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/EyeInHandSafetyChecker.py
+[1.032s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/HandEyeCalibrator.py
+[1.039s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/__init__.py
+[1.047s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/HybridIKWrapper.py
+[1.055s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/UR30Kinematics.py
+[1.062s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/__init__.py
+[1.070s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/ur30_grasp_controller.py
+[1.077s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/ur30_robot_rtb.py
+[1.085s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionClarificationManager.py
+[1.092s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionRasaNLP.py
+[1.102s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionTTSManager.py
+[1.110s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/EnhancedConstructionRAG.py
+[1.118s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ExperimentalController.py
+[1.129s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/SpeechCommandProcessor.py
+[1.138s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/__init__.py
+[1.147s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/BehavioralMetrics.py
+[1.155s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/NASATLXAssessment.py
+[1.163s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/TrustQuestionnaire.py
+[1.171s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/__init__.py
+[1.179s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/DepthAwareDetector.py
+[1.187s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/GraspPointDetector.py
+[1.196s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/OWLViTDetector.py
+[1.206s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/WorkSpaceValidator.py
+[1.215s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/__init__.py
+[1.224s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/UnifiedVisionSystem.py
+[1.231s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/UnifiedVisionSystemSim.py
+[1.241s] -- Symlinking: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/__init__.py
+[1.247s] -- Symlinking: /workspace/install/unified_vision_system/lib/unified_vision_system/unified_vision_system_node.py
+[1.254s] -- Symlinking: /workspace/install/unified_vision_system/lib/unified_vision_system/create_sim_calibration.py
+[1.262s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/launch/.DS_Store
+[1.270s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/launch/launch_gazebo_with_red_cube.py
+[1.278s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/launch/test_unified_vision_system.py
+[1.286s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/config/simulation_controllers.yaml
+[1.293s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/config/simulation_controllers.yaml.sync
+[1.300s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/config/ur30_robotiq.srdf.xacro
+[1.307s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/config/ur30_vision_moveit.rviz
+[1.316s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/.DS_Store
+[1.323s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/robotiq_85_stable.urdf.xacro
+[1.330s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/robotiq_arg85.urdf
+[1.338s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/simple_parallel_gripper.urdf.xacro
+[1.346s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur30_camera_only.urdf.xacro
+[1.353s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur30_robotiq_realsense.urdf.xacro
+[1.360s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur30_simple_gripper_camera.urdf.xacro
+[1.367s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur30_simple_gripper_realsense.urdf.xacro
+[1.375s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/worlds/ur30_vision_world.world
+[1.383s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_finger_coarse.STL
+[1.390s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_finger_fine.STL
+[1.398s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_knuckle_coarse.STL
+[1.406s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/inner_knuckle_fine.STL
+[1.412s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_finger_coarse.STL
+[1.419s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_finger_fine.STL
+[1.427s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_knuckle_coarse.STL
+[1.435s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/outer_knuckle_fine.STL
+[1.443s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/robotiq_85_base_link_coarse.STL
+[1.452s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/meshes/robotiq_85_base_link_fine.STL
+[1.460s] -- Symlinking: /workspace/install/unified_vision_system/share/ament_index/resource_index/package_run_dependencies/unified_vision_system
+[1.468s] -- Symlinking: /workspace/install/unified_vision_system/share/ament_index/resource_index/parent_prefix_path/unified_vision_system
+[1.477s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/environment/ament_prefix_path.sh
+[1.486s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/environment/ament_prefix_path.dsv
+[1.493s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/environment/path.sh
+[1.502s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/environment/path.dsv
+[1.509s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.bash
+[1.517s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.sh
+[1.525s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.zsh
+[1.534s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.dsv
+[1.542s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/package.dsv
+[1.550s] -- Symlinking: /workspace/install/unified_vision_system/share/ament_index/resource_index/packages/unified_vision_system
+[1.559s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.566s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/cmake/unified_vision_systemConfig.cmake
+[1.574s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/cmake/unified_vision_systemConfig-version.cmake
+[1.582s] -- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/package.xml
+[1.649s] Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/__init__.py'...
+[1.649s] Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/CameraCalibration.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/EyeInHandSafetyChecker.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/HandEyeCalibrator.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/__init__.py'...
+[1.649s] Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/HybridIKWrapper.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/UR30Kinematics.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/__init__.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/ur30_grasp_controller.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/ur30_robot_rtb.py'...
+[1.649s] Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionClarificationManager.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionRasaNLP.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionTTSManager.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/EnhancedConstructionRAG.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ExperimentalController.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/SpeechCommandProcessor.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/__init__.py'...
+[1.649s] Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/BehavioralMetrics.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/NASATLXAssessment.py'...
+[1.649s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/TrustQuestionnaire.py'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/__init__.py'...
+[1.650s] Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/DepthAwareDetector.py'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/GraspPointDetector.py'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/OWLViTDetector.py'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/WorkSpaceValidator.py'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/__init__.py'...
+[1.650s] Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/UnifiedVisionSystem.py'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/UnifiedVisionSystemSim.py'...
+[1.650s] Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/__init__.py'...
+[1.655s] Invoked command in '/workspace/build/unified_vision_system' returned '0': CMAKE_PREFIX_PATH=/workspace/install/ur_description:/workspace/install/robotiq_description:/opt/ros/humble:/workspace/install/robotiq_2f_85_gripper_visualization:/workspace/install/unified_vision_system:/workspace/install/robotiq_hardware_tests:/workspace/install/robotiq_driver:/workspace/install/serial:/workspace/install/robotiq_controllers CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /workspace/build/unified_vision_system
