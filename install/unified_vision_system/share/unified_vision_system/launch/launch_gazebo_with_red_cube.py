@@ -1,0 +1,1 @@
+/workspace/src/unified_vision_system/launch/launch_gazebo_with_red_cube.py

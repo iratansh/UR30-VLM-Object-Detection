@@ -1,0 +1,17 @@
+In file included from /opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21,
+                 from /opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155,
+                 from /workspace/src/ros2_robotiq_gripper/robotiq_driver/include/robotiq_driver/hardware_interface.hpp:48,
+                 from /workspace/src/ros2_robotiq_gripper/robotiq_driver/src/hardware_interface.cpp:36:
+/workspace/src/ros2_robotiq_gripper/robotiq_driver/src/hardware_interface.cpp: In member function ‘virtual hardware_interface::CallbackReturn robotiq_driver::RobotiqGripperHardwareInterface::on_init(const hardware_interface::HardwareInfo&)’:
+/workspace/src/ros2_robotiq_gripper/robotiq_driver/src/hardware_interface.cpp:108:27: warning: too many arguments for format [-Wformat-extra-args]
+  108 |     RCLCPP_FATAL(kLogger, "Joint '%s' has does not have expected '%s' interface.", joint.name.c_str(),
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

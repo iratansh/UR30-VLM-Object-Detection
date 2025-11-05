@@ -1,0 +1,12 @@
+[0.000000] (-) TimerEvent: {}
+[0.000093] (-) JobUnselected: {'identifier': 'robotiq_2f_85_gripper_visualization'}
+[0.000141] (-) JobUnselected: {'identifier': 'robotiq_controllers'}
+[0.000151] (-) JobUnselected: {'identifier': 'robotiq_description'}
+[0.000159] (-) JobUnselected: {'identifier': 'robotiq_driver'}
+[0.000166] (-) JobUnselected: {'identifier': 'robotiq_hardware_tests'}
+[0.000174] (-) JobUnselected: {'identifier': 'serial'}
+[0.000181] (-) JobUnselected: {'identifier': 'ur_description'}
+[0.000190] (unified_vision_system) JobQueued: {'identifier': 'unified_vision_system', 'dependencies': OrderedDict([('robotiq_2f_85_gripper_visualization', '/workspace/install/robotiq_2f_85_gripper_visualization'), ('robotiq_description', '/workspace/install/robotiq_description'), ('ur_description', '/workspace/install/ur_description')])}
+[0.000205] (unified_vision_system) JobStarted: {'identifier': 'unified_vision_system'}
+[0.013160] (unified_vision_system) JobEnded: {'identifier': 'unified_vision_system', 'rc': 1}
+[0.023705] (-) EventReactorShutdown: {}

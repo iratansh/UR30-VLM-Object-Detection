@@ -2,7 +2,7 @@
 <sdf version="1.6">
   <world name="ur30_vision_world">
     
-    <!-- Updated physics for stability -->
+    <!-- Updated physics for maximum stability -->
     <physics name="default_physics" default="0" type="ode">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
@@ -10,14 +10,14 @@
       <ode>
         <solver>
           <type>world</type>
-          <iters>90</iters>
-          <sor>1.0</sor>
+          <iters>150</iters>
+          <sor>1.3</sor>
         </solver>
         <constraints>
-          <cfm>0.0</cfm>
+          <cfm>0.001</cfm>
           <erp>0.2</erp>
-          <contact_max_correcting_vel>2.0</contact_max_correcting_vel>
-          <contact_surface_layer>0.0005</contact_surface_layer>
+          <contact_max_correcting_vel>1.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
         </constraints>
       </ode>
     </physics>
@@ -299,7 +299,7 @@
     
     <!-- RED CUBE - Primary target for VLM testing -->
     <model name="red_cube">
-      <pose>0.4 0.05 0.46 0 0 0</pose> <!-- Positioned within robot reach and camera FOV -->
+      <pose>0.5 -0.5 0.83 0 0 0</pose> <!-- On table, aligned with robot Y position, in front -->
       <static>false</static>
       <link name="cube_link">
         <visual name="cube_visual">

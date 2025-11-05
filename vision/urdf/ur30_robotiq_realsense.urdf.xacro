@@ -26,7 +26,7 @@
     <origin xyz="0 0.02 -0.05" rpy="0 0.523599 0"/>
   </joint>
   <link name="camera_link"><inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.072"/><inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/></inertial><visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><box size="0.025 0.09 0.025"/></geometry><material name="black"><color rgba="0.1 0.1 0.1 1"/></material></visual><collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><box size="0.025 0.09 0.025"/></geometry></collision></link>
-  <joint name="camera_joint" type="fixed"><parent link="camera_mount_link"/><child link="camera_link"/><origin xyz="0 0 0.015" rpy="0 0 0"/></joint>
+  <joint name="camera_joint" type="fixed"><parent link="camera_mount_link"/><child link="camera_link"/><origin xyz="0 0 0.015" rpy="${-pi/2} ${-pi/2} 0"/></joint>
   <link name="camera_color_frame"/>
   <joint name="camera_color_joint" type="fixed"><parent link="camera_link"/><child link="camera_color_frame"/><origin xyz="0 0 0" rpy="0 0 0"/></joint>
   <link name="camera_color_optical_frame"/>
