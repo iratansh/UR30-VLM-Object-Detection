@@ -1,0 +1,60 @@
+[0.032s] Invoking command in '/workspace/build/robotiq_controllers': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /workspace/build/robotiq_controllers -- -j12 -l12
+[0.077s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.192s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.206s] -- Found class_loader: 2.2.0 (/opt/ros/humble/share/class_loader/cmake)
+[0.227s] -- Found controller_interface: 2.51.0 (/opt/ros/humble/share/controller_interface/cmake)
+[0.247s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.250s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.256s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.265s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.274s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.467s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.469s] -- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.487s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[0.496s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[0.514s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[0.521s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[0.532s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.580s] -- Found std_srvs: 4.9.0 (/opt/ros/humble/share/std_srvs/cmake)
+[0.594s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.667s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[0.667s] -- Configured cppcheck include dirs: /workspace/src/ros2_robotiq_gripper/robotiq_controllers/include
+[0.667s] -- Configured cppcheck exclude dirs and/or files: 
+[0.667s] -- Added test 'lint_cmake' to check CMake code style
+[0.670s] -- Configuring done
+[0.707s] -- Generating done
+[0.713s] -- Build files have been written to: /workspace/build/robotiq_controllers
+[0.737s] [35m[1mConsolidate compiler generated dependencies of target robotiq_controllers[0m
+[0.766s] [100%] Built target robotiq_controllers
+[0.785s] Invoked command in '/workspace/build/robotiq_controllers' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /workspace/build/robotiq_controllers -- -j12 -l12
+[0.786s] Invoking command in '/workspace/build/robotiq_controllers': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /workspace/build/robotiq_controllers
+[0.792s] -- Install configuration: ""
+[0.792s] -- Execute custom install script
+[0.792s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers//controller_plugins.xml
+[0.792s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/include/robotiq_controllers/robotiq_activation_controller.hpp
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/environment/library_path.sh
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/environment/library_path.dsv
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/ament_index/resource_index/package_run_dependencies/robotiq_controllers
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/ament_index/resource_index/parent_prefix_path/robotiq_controllers
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/environment/ament_prefix_path.sh
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/environment/ament_prefix_path.dsv
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/environment/path.sh
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/environment/path.dsv
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/local_setup.bash
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/local_setup.sh
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/local_setup.zsh
+[0.793s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/local_setup.dsv
+[0.794s] -- Symlinking: /workspace/install/robotiq_controllers/share/robotiq_controllers/package.dsv
+[0.802s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/ament_index/resource_index/packages/robotiq_controllers
+[0.802s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/ament_index/resource_index/controller_interface__pluginlib__plugin/robotiq_controllers
+[0.802s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.803s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_libraries-extras.cmake
+[0.803s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_targets-extras.cmake
+[0.803s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.803s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/robotiq_controllersConfig.cmake
+[0.803s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/robotiq_controllersConfig-version.cmake
+[0.803s] -- Up-to-date symlink: /workspace/install/robotiq_controllers/share/robotiq_controllers/package.xml
+[0.804s] -- Up-to-date: /workspace/install/robotiq_controllers/lib/librobotiq_controllers.so
+[0.804s] -- Up-to-date: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/export_robotiq_controllersExport.cmake
+[0.804s] -- Up-to-date: /workspace/install/robotiq_controllers/share/robotiq_controllers/cmake/export_robotiq_controllersExport-noconfig.cmake
+[0.807s] Invoked command in '/workspace/build/robotiq_controllers' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /workspace/build/robotiq_controllers

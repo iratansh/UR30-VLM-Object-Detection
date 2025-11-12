@@ -59,11 +59,11 @@ def generate_launch_description():
     ur_moveit_pkg = FindPackageShare('ur_moveit_config')
     vision_pkg = FindPackageShare('unified_vision_system')
     
-    # URDF/Xacro file - using simple gripper with camera
+    # URDF/Xacro file - using RealSense with fixed color camera config
     xacro_file = os.path.join(
         get_package_share_directory('unified_vision_system'),
         'urdf',
-        'ur30_simple_gripper_camera.urdf.xacro'
+        'ur30_simple_gripper_realsense.urdf.xacro'
     )
     
     # Robot Description

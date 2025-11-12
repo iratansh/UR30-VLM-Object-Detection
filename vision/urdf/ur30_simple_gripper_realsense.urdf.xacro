@@ -147,28 +147,18 @@
         </image>
         <clip>
           <near>0.28</near>
-          <far>3.0</far>
+          <far>10.0</far>
         </clip>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.02</stddev>
-        </noise>
       </camera>
       <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
         <ros>
           <namespace>/</namespace>
-          <remapping>~/image_raw:=camera/color/image_raw</remapping>
-          <remapping>~/image_depth:=camera/depth/image_rect_raw</remapping>
-          <remapping>~/camera_info:=camera/color/camera_info</remapping>
-          <remapping>~/camera_info_depth:=camera/depth/camera_info</remapping>
-          <remapping>~/points:=camera/depth/color/points</remapping>
+          <remapping>~/image_raw:=camera/image_raw</remapping>
+          <remapping>~/camera_info:=camera/camera_info</remapping>
         </ros>
         <camera_name>camera</camera_name>
         <frame_name>camera_color_optical_frame</frame_name>
-        <hack_baseline>0.0</hack_baseline>
-        <min_depth>0.28</min_depth>
-        <max_depth>3.0</max_depth>
+        <visualize>true</visualize>
       </plugin>
     </sensor>
   </gazebo>
