@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# scripts/unified_vision_system_node.py
 """
 ROS2 node wrapper for UnifiedVisionSystem
 """

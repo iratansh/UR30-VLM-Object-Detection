@@ -1,4 +1,3 @@
-#!/bin/bash
 # Script to build the ROS2 workspace with proper environment setup
 # This handles the conda vs system Python issue and sets CMake paths for system libraries
 

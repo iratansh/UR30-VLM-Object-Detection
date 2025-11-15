@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Normalize colcon install symlinks so they remain valid after moving the workspace.
 
 Colcon generates absolute symlinks inside the install tree when `--symlink-install`

@@ -1,4 +1,3 @@
-#!/bin/bash
 # Convenient script to launch Gazebo simulation
 # Usage: ./launch_sim.sh [use_rviz] [use_moveit]
 # Example: ./launch_sim.sh true false  (with RViz, without MoveIt)

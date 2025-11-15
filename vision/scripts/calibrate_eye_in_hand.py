@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Eye-in-Hand Calibration Script for UR30 with RealSense Camera
 

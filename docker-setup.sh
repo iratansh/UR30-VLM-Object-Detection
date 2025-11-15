@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Docker Setup Script for UR30 VLM Object Detection System
 # This script ensures Docker has proper GPU and hardware access
 

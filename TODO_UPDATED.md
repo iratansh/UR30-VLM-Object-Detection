@@ -73,22 +73,22 @@
   - Status: Already updated ✅
 
 ### Testing & Documentation
-- ✅ `vision/testing/test_ur30_core_functionality.py` – Comprehensive test suite created
-- ✅ `vision/testing/test_ur30_kinematics_standalone.py` – **80% PASS**
+- ✅ `tests/system/vision/test_ur30_core_functionality.py` – Comprehensive test suite created
+- ✅ `tests/system/vision/test_ur30_kinematics_standalone.py` – **80% PASS**
   - ✅ IK Performance: 0.3ms, 0.22mm error, 100% success
   - ⚠️ Minor FK test needs range adjustment (non-critical)
   
-- ✅ `vision/testing/test_workspace_validator_standalone.py` – **100% PASS**
+- ✅ `tests/system/vision/test_workspace_validator_standalone.py` – **100% PASS**
   - ✅ All 10 tests passing
   - ✅ Performance: 7.20µs per validation
   - ✅ All safety boundaries working
 
-- ✅ `vision/testing/test_owlvit_detector_standalone.py` – **100% PASS**
+- ✅ `tests/system/vision/test_owlvit_detector_standalone.py` – **100% PASS**
   - ✅ All 10 tests passing  
   - ✅ VLM working correctly
   - ✅ Detection consistency validated
 
-- ✅ `vision/testing/test_vlm.py` – Already references UR30
+- ✅ `tests/system/vision/test_vlm.py` – Already references UR30
   
 - ✅ `vision/launch/test_unified_vision_system.py` – **NO UR5e REFERENCES FOUND**
   - ✅ Launch narrative: "Launches Gazebo with UR30 + RealSense camera"
@@ -115,7 +115,7 @@
 ## REMAINING TASKS ⏳
 
 ### Camera Calibration Testing - HIGH PRIORITY
-⏳ `vision/testing/test_camera_calibration_standalone.py`
+⏳ `tests/system/vision/test_camera_calibration_standalone.py`
   - **BLOCKED:** CameraCalibration requires ROS2 (rclpy) dependencies
   - Cannot test standalone without ROS2
   - Options:
@@ -222,22 +222,22 @@ The following items were marked as TODO but verification shows they're **already
 ```bash
 # In Docker container
 docker exec -it ur5e-vlm-working bash -c \
-  "cd /workspace/vision/testing && \
+  "cd /workspace/tests/system/vision && \
    conda run -n ur5e_vlm_environment python test_ur30_kinematics_standalone.py"
 
 docker exec -it ur5e-vlm-working bash -c \
-  "cd /workspace/vision/testing && \
+  "cd /workspace/tests/system/vision && \
    conda run -n ur5e_vlm_environment python test_workspace_validator_standalone.py"
 
 docker exec -it ur5e-vlm-working bash -c \
-  "cd /workspace/vision/testing && \
+  "cd /workspace/tests/system/vision && \
    conda run -n ur5e_vlm_environment python test_owlvit_detector_standalone.py"
 ```
 
 ### Integration Tests (Requires ROS2)
 ```bash
 # In clean ROS2 environment (without conda)
-cd /workspace/vision/testing
+cd /workspace/tests/system/vision
 python3 test_ur30_core_functionality.py
 ```
 

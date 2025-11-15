@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Quick Gazebo Test - Minimal version to verify everything works
 """

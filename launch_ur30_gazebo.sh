@@ -1,4 +1,3 @@
-#!/bin/bash
 # Quick Gazebo UR30 Launch Script
 # Run this inside the Docker container
 

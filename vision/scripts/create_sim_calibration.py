@@ -1,5 +1,3 @@
-# scripts/create_sim_calibration.py
-#!/usr/bin/env python3
 """
 Create hand-eye calibration file for simulation.
 The transformation is from gripper to camera for eye-in-hand configuration.

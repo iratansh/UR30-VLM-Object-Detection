@@ -1,4 +1,3 @@
-#!/bin/bash
 # Script to restart Gazebo with UR30 world
 
 echo "======================================================================"

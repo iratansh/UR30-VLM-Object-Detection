@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # UR30 VLM Docker Management Script
 # Usage: ./start-docker.sh [build|run|simulation|stop|logs|shell|test]
 

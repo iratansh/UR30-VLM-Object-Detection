@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Camera View Saver - Save what the camera sees to debug cube position
 """

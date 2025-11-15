@@ -1,4 +1,3 @@
-# launch/launch_simulation_complete.py
 """
 Complete launch file for UnifiedVisionSystem simulation testing.
 Launches Gazebo, robot controllers, MoveIt2, and vision system.

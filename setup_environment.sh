@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Complete Environment Setup Script for UR30 VLM Object Detection System
 # This script installs ALL necessary dependencies including ROS2, system libraries, and hardware drivers
 

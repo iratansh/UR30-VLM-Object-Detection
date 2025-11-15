@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Comprehensive Construction HRI System Test for macOS
 

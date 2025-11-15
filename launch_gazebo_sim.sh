@@ -1,4 +1,3 @@
-#!/bin/bash
 # Complete build and launch script for UR30 Gazebo Simulation
 # This ensures all dependencies are met and environment is properly configured
 

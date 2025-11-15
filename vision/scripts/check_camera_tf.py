@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Camera TF Checker - Find out where the camera actually is
 """

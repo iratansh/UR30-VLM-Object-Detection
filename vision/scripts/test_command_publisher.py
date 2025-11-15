@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Test Command Publisher Node
 
