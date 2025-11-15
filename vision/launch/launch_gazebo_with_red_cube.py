@@ -29,7 +29,6 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     # Get package paths for model directories
-    robotiq_desc_path = get_package_share_directory('robotiq_description')
     ur_desc_path = get_package_share_directory('ur_description')
     
     # Set environment variables for Gazebo to find resources
@@ -44,7 +43,6 @@ def generate_launch_description():
             '/workspace/gazebo_models:',
             '/opt/ros/humble/share:',
             '/usr/share/gazebo-11/models:',
-            robotiq_desc_path + ':',
             ur_desc_path
         ]
     )
@@ -70,11 +68,11 @@ def generate_launch_description():
         PathJoinSubstitution([FindExecutable(name='xacro')]), ' ',
         xacro_file
     ])
-    # Semantic Description (SRDF) - updated to ur30
+    # Semantic Description (SRDF) - updated to simple gripper
     srdf_path = PathJoinSubstitution([
         FindPackageShare('unified_vision_system'),
         'config',
-        'ur30_robotiq.srdf.xacro'
+        'ur30_simple_gripper.srdf.xacro'
     ])
     robot_description_semantic_content = Command([
         PathJoinSubstitution([FindExecutable(name='xacro')]), ' ', srdf_path
@@ -122,7 +120,7 @@ def generate_launch_description():
     spawn_robot = ExecuteProcess(
         cmd=['/usr/bin/python3', '/opt/ros/humble/lib/gazebo_ros/spawn_entity.py',
              '-topic', 'robot_description',
-             '-entity', 'ur30_robotiq_realsense',
+             '-entity', 'ur30_simple_gripper_realsense',
              '-x', '0.0', '-y', '-0.5', '-z', '0.41', '-R', '0.0', '-P', '0.0', '-Y', '0.0'],
         output='screen',
         shell=False
