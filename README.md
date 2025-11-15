@@ -8,7 +8,7 @@ single validated scenario: **picking up the green book in simulation via
 construction-domain clarifications, advanced grasp policies, etc.) remains a work in
 progress and is being handed off for continued research.
 
-> **Status snapshot (April 2024 handoff)**
+> **Status snapshot (January 2026 handoff)**
 >
 > - ✅ Baseline scenario: `test_pick_green_book.py` succeeds against Gazebo + UR30 +
 >   simulated RealSense using color-based detection.
