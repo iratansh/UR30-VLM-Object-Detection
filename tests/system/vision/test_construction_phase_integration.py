@@ -13,6 +13,9 @@ HRI research phases, including:
 
 Tests validate implementation completeness and integration between components.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import logging
 import unittest

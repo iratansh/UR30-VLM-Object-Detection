@@ -12,6 +12,9 @@ This test validates the complete pipeline from speech recognition to 3D coordina
 This allows you to verify the coordinate transformation logic without needing
 the physical UR30 or RealSense camera.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import cv2
 import numpy as np

@@ -14,6 +14,9 @@ Phase Summary:
 ✅ Phase 6: Professional Identity-Aware Communication
 ✅ Phase 7: Graduated Uncertainty Expression
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import logging
 import time

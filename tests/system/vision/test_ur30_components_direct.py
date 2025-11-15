@@ -22,12 +22,14 @@ Tests compo        # Test valid position
 This script tests the same components as test_ur30_core_functionality.py
 but imports them directly to avoid ROS2 package dependencies.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import time
 import logging
 import traceback
-from pathlib import Path
 
 # Setup logging
 logging.basicConfig(
@@ -35,11 +37,6 @@ logging.basicConfig(
     format='%(levelname)s - %(name)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-# Add vision package to path
-VISION_DIR = Path(__file__).parent.parent
-sys.path.insert(0, str(VISION_DIR))
-
 
 def test_ur30_kinematics():
     """Test UR30 kinematics with Robotics Toolbox"""

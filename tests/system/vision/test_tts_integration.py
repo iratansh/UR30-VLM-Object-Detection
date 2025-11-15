@@ -5,6 +5,9 @@ Test script for Construction TTS Manager.
 This script validates the TTS integration for construction clarification
 dialogues and speech synthesis capabilities.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

@@ -17,6 +17,9 @@ Usage:
 Note: This test should be run WITHOUT ROS2 sourced to avoid dependency conflicts.
       Run from conda environment only: conda activate ur30_vlm_environment
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os
@@ -24,9 +27,6 @@ import numpy as np
 import time
 import logging
 from typing import List, Tuple, Optional
-
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 # Check if ROS2 is sourced (which causes conflicts with conda)
 if 'ROS_DISTRO' in os.environ:

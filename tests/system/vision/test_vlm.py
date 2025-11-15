@@ -2,6 +2,9 @@
 Integrated Vision-Controlled UR30 System
 Combines voice commands, object detection, and UR30 control
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import cv2
 import numpy as np

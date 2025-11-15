@@ -9,6 +9,9 @@ This script validates all five clarification strategies for construction HRI res
 4. Options-Based Strategy - Multiple choice clarifications
 5. Expertise-Adaptive Strategy - User skill level adaptation
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

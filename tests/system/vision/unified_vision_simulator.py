@@ -14,6 +14,9 @@ Key Features:
 - Collision detection
 - Performance metrics
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import numpy as np
 import cv2

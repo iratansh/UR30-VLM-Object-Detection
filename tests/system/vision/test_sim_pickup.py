@@ -4,6 +4,9 @@
 Simple test script to verify simulation setup.
 Sends a "pick up the red cube" command to the vision system.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import rclpy
 from rclpy.node import Node

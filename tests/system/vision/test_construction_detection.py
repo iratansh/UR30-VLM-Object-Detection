@@ -5,6 +5,9 @@ Test script for Construction Tool Detection in OWLViTDetector.
 This script validates that the construction tool detection works correctly
 with professional trade terminology.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

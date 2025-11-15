@@ -3,6 +3,9 @@
 Debug UR30 workspace and forward kinematics issues.
 This script will help identify the root cause of FK/IK mismatches.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import numpy as np
 import math

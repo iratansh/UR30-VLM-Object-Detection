@@ -2,6 +2,9 @@
 """
 Quick debug script to check forward kinematics output
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

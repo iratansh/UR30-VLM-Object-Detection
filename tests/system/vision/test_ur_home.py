@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

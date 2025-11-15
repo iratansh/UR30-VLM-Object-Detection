@@ -3,6 +3,9 @@
 Quick test with GUARANTEED working poses for UR30.
 These poses are within the physical workspace and should work.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import numpy as np
 import math

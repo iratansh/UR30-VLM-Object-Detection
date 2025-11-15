@@ -2,6 +2,9 @@
 Structured testing script for UR30 with eye-in-hand RealSense.
 Run these tests in order to safely validate the system.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import numpy as np
 import rclpy

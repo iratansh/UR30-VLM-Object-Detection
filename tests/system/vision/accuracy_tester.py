@@ -2,6 +2,9 @@
 Accuracy Tester for Vision System
 Integrates with existing OWL-ViT detection system to provide comprehensive accuracy evaluation.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import cv2
 import numpy as np

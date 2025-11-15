@@ -11,6 +11,9 @@ This script demonstrates the complete refactored system integrating:
 Validates the system is ready for RViz/MoveIt2/Gazebo deployment
 and real UR30 arm testing.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

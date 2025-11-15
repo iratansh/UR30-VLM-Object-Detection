@@ -6,6 +6,9 @@ This script validates the RAG (Retrieval-Augmented Generation) integration
 with the Construction Clarification Manager, testing context-aware responses
 and knowledge base retrieval for construction HRI.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

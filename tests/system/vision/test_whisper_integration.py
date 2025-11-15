@@ -5,6 +5,9 @@ Test script for Whisper ASR integration in SpeechCommandProcessor.
 This script validates that the Whisper integration works correctly
 for construction site speech recognition.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

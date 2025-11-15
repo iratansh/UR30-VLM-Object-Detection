@@ -5,6 +5,9 @@ Integration Test for UnifiedVisionSystem with Hybrid IK
 This script tests the integration of the hybrid IK system with the UnifiedVisionSystem
 to ensure all components work together correctly.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import numpy as np

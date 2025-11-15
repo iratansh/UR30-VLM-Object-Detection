@@ -9,15 +9,12 @@ Usage:
     conda activate ur30_vlm_environment
     python test_workspace_validator_standalone.py
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
 
-import sys
-import os
+
 import numpy as np
 import time
-
-# Add parent directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../unified_vision_system/perception'))
 
 def test_workspace_validator_import():
     """Test if WorkspaceValidator can be imported"""

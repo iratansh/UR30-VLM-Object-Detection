@@ -12,6 +12,9 @@ This final validation test demonstrates the fully integrated construction HRI sy
 
 Ready for RViz/MoveIt2/Gazebo deployment and UR30 robot testing.
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
+
 
 import sys
 import os

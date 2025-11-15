@@ -9,14 +9,12 @@ Usage:
     conda activate ur30_vlm_environment
     python test_ur30_kinematics_standalone.py
 """
+from _path_setup import setup_test_paths
+setup_test_paths()
 
-import sys
-import os
+
 import numpy as np
 import time
-
-# Add parent directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 def test_rtb_availability():
     """Test if Robotics Toolbox is available"""
@@ -32,8 +30,7 @@ def test_rtb_availability():
         print("✅ roboticstoolbox imported successfully")
         
         # Try to import the UR30 model directly
-        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../unified_vision_system/control'))
-        from ur30_robot_rtb import UR30
+        from unified_vision_system.control.ur30_robot_rtb import UR30
         robot = UR30()
         print(f"✅ UR30 robot model created: {robot.name}")
         
