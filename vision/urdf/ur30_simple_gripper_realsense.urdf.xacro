@@ -63,7 +63,7 @@
   <joint name="camera_mount_joint" type="fixed">
     <parent link="gripper_base_link"/>
     <child link="camera_mount_link"/>
-    <origin xyz="0 0.02 0.01" rpy="0 0.523599 0"/>
+    <origin xyz="0 0.08 0.02" rpy="0 ${pi/6} 0"/>
   </joint>
   
   <!-- RealSense D435i Camera -->
@@ -93,7 +93,7 @@
   <joint name="camera_joint" type="fixed">
     <parent link="camera_mount_link"/>
     <child link="camera_link"/>
-    <origin xyz="0 0 0.015" rpy="${-pi/2} ${-pi/2} 0"/>
+    <origin xyz="0 0 0.015" rpy="0 0 0"/>
   </joint>
   
   <!-- Camera frames -->
@@ -134,9 +134,12 @@
     <material>Gazebo/Black</material>
   </gazebo>
   
-  <!-- RealSense Camera Sensor -->
+  <!-- RealSense Camera: Separate RGB and Depth sensors -->
   <gazebo reference="camera_link">
-    <sensor type="depth" name="realsense_d435i">
+    <!-- RGB Camera -->
+    <sensor type="camera" name="color">
+      <always_on>true</always_on>
+      <visualize>false</visualize>
       <update_rate>30</update_rate>
       <camera>
         <horizontal_fov>1.204</horizontal_fov>
@@ -150,7 +153,7 @@
           <far>10.0</far>
         </clip>
       </camera>
-      <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <ros>
           <namespace>/</namespace>
           <remapping>~/image_raw:=camera/image_raw</remapping>
@@ -158,7 +161,39 @@
         </ros>
         <camera_name>camera</camera_name>
         <frame_name>camera_color_optical_frame</frame_name>
-        <visualize>true</visualize>
+        <hack_baseline>0.07</hack_baseline>
+      </plugin>
+    </sensor>
+  </gazebo>
+  
+  <gazebo reference="camera_depth_frame">
+    <!-- Depth Camera -->
+    <sensor type="depth" name="depth">
+      <always_on>true</always_on>
+      <visualize>false</visualize>
+      <update_rate>30</update_rate>
+      <camera>
+        <horizontal_fov>1.204</horizontal_fov>
+        <image>
+          <width>848</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.28</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+      <plugin name="depth_camera_controller" filename="libgazebo_ros_depth_camera.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/depth/image_raw:=camera/depth/image_raw</remapping>
+          <remapping>~/depth/camera_info:=camera/depth/camera_info</remapping>
+          <remapping>~/points:=camera/depth/points</remapping>
+        </ros>
+        <camera_name>camera</camera_name>
+        <frame_name>camera_depth_optical_frame</frame_name>
+        <hack_baseline>0.07</hack_baseline>
       </plugin>
     </sensor>
   </gazebo>

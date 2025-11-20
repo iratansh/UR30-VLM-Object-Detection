@@ -1,0 +1,89 @@
+Built target ament_cmake_python_symlink_unified_vision_system
+running egg_info
+writing unified_vision_system.egg-info/PKG-INFO
+writing dependency_links to unified_vision_system.egg-info/dependency_links.txt
+writing top-level names to unified_vision_system.egg-info/top_level.txt
+reading manifest file 'unified_vision_system.egg-info/SOURCES.txt'
+writing manifest file 'unified_vision_system.egg-info/SOURCES.txt'
+Built target ament_cmake_python_build_unified_vision_system_egg
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/environment/pythonpath.sh
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/environment/pythonpath.dsv
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/PKG-INFO
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/SOURCES.txt
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/dependency_links.txt
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system-1.0.0-py3.11.egg-info/top_level.txt
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/__init__.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/CameraCalibration.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/EyeInHandSafetyChecker.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/HandEyeCalibrator.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/__init__.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/HybridIKWrapper.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/UR30Kinematics.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/__init__.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/ur30_grasp_controller.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control/ur30_robot_rtb.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionClarificationManager.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionRasaNLP.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ConstructionTTSManager.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/EnhancedConstructionRAG.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/ExperimentalController.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/SpeechCommandProcessor.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/__init__.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/BehavioralMetrics.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/NASATLXAssessment.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/TrustQuestionnaire.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/__init__.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/DepthAwareDetector.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/GraspPointDetector.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/OWLViTDetector.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/WorkSpaceValidator.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/__init__.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/UnifiedVisionSystem.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/UnifiedVisionSystemSim.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/__init__.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/unified_vision_system/unified_vision_system_node.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/lib/unified_vision_system/create_sim_calibration.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/launch/.DS_Store
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/launch/launch_gazebo_with_red_cube.py
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/config/simulation_controllers.yaml
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/config/simulation_controllers.yaml.sync
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/config/ur30_robotiq.srdf.xacro
+-- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/config/ur30_simple_gripper.srdf.xacro
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/config/ur30_vision_moveit.rviz
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/.DS_Store
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/simple_parallel_gripper.urdf.xacro
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur30_camera_only.urdf.xacro
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur30_simple_gripper_camera.urdf.xacro
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/urdf/ur30_simple_gripper_realsense.urdf.xacro
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/worlds/ur30_vision_world.world
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/ament_index/resource_index/package_run_dependencies/unified_vision_system
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/ament_index/resource_index/parent_prefix_path/unified_vision_system
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/environment/path.sh
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/environment/path.dsv
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.bash
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.sh
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.zsh
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/local_setup.dsv
+-- Symlinking: /workspace/install/unified_vision_system/share/unified_vision_system/package.dsv
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/ament_index/resource_index/packages/unified_vision_system
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/cmake/unified_vision_systemConfig.cmake
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/cmake/unified_vision_systemConfig-version.cmake
+-- Up-to-date symlink: /workspace/install/unified_vision_system/share/unified_vision_system/package.xml
+Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system'...
+Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/__init__.py'...
+Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration'...
+Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/calibration/__init__.py'...
+Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/control'...
+Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri'...
+Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/hri/__init__.py'...
+Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics'...
+Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/metrics/__init__.py'...
+Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception'...
+Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/perception/__init__.py'...
+Listing '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system'...
+Compiling '/workspace/install/unified_vision_system/lib/python3.11/site-packages/unified_vision_system/system/__init__.py'...

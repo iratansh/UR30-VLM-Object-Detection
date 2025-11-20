@@ -311,8 +311,8 @@ class BaselinePickTest(Node):
             largest_contour = max(all_contours, key=cv2.contourArea)
             area = cv2.contourArea(largest_contour)
             
-            # Lower threshold for detection
-            if area < 50:  # Reduced from 100 to be more sensitive
+            # Very low threshold for distant objects
+            if area < 10:  # Allow detection of very small objects for distant book
                 self.get_logger().error(f"❌ Green object too small (area: {area:.0f} pixels)")
                 # Save debug with all contours
                 debug_img = self.latest_image.copy()
@@ -731,9 +731,14 @@ class BaselinePickTest(Node):
         self.get_logger().info("STARTING BASELINE TEST")
         self.get_logger().info("=" * 80)
         self.get_logger().info("")
-        self.get_logger().info("⚠️  This test requires the robot to be positioned")
-        self.get_logger().info("   where the camera can see the green book.")
-        self.get_logger().info("   If detection fails, restart the Gazebo simulation.")
+        
+        # Step 0: Move to observation pose
+        self.get_logger().info("Step 0: Moving robot to observation pose...")
+        # Spin a few times to let subscribers connect
+        for _ in range(5):
+            rclpy.spin_once(self, timeout_sec=0.2)
+        self.move_to_observation_pose()
+        time.sleep(4.0)  # Wait for robot to reach position and settle
         
         # Step 1: Wait for camera
         self.get_logger().info("")
