@@ -58,16 +58,16 @@ class TestResults:
     
     def add_pass(self, test_name: str):
         self.passed += 1
-        logger.info(f"✅ PASS: {test_name}")
+        logger.info(f"PASS PASS: {test_name}")
     
     def add_fail(self, test_name: str, error: str):
         self.failed += 1
         self.errors.append((test_name, error))
-        logger.error(f"❌ FAIL: {test_name} - {error}")
+        logger.error(f"FAIL FAIL: {test_name} - {error}")
     
     def add_skip(self, test_name: str, reason: str):
         self.skipped += 1
-        logger.warning(f"⏭️  SKIP: {test_name} - {reason}")
+        logger.warning(f"Skip  SKIP: {test_name} - {reason}")
     
     def print_summary(self):
         total = self.passed + self.failed + self.skipped
@@ -75,9 +75,9 @@ class TestResults:
         print("TEST SUMMARY")
         print("="*70)
         print(f"Total tests: {total}")
-        print(f"✅ Passed: {self.passed}")
-        print(f"❌ Failed: {self.failed}")
-        print(f"⏭️  Skipped: {self.skipped}")
+        print(f"PASS Passed: {self.passed}")
+        print(f"FAIL Failed: {self.failed}")
+        print(f"Skip  Skipped: {self.skipped}")
         print(f"Success rate: {self.passed/max(1,total)*100:.1f}%")
         
         if self.errors:
@@ -372,9 +372,9 @@ def test_hybrid_ik_wrapper():
                 allow_approximation=True
             )
             if success:
-                logger.info(f"  ✓ {orientation}: {metadata['solve_time_ms']:.1f}ms")
+                logger.info(f"  - {orientation}: {metadata['solve_time_ms']:.1f}ms")
             else:
-                logger.info(f"  ✗ {orientation}: failed")
+                logger.info(f"  - {orientation}: failed")
         
         results.add_pass("Multiple grasp orientations")
         

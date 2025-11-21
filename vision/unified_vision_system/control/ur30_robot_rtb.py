@@ -17,7 +17,7 @@ class UR30(DHRobot):
     DH Parameters (Modified DH Convention):
     a:  [0.0000, -0.6370, -0.5037, 0.0000, 0.0000, 0.0000]
     d:  [0.2363, 0.0000, 0.0000, 0.2010, 0.1593, 0.1543]
-    alpha: [0, π/2, 0, 0, π/2, -π/2]
+    alpha: [0, pi/2, 0, 0, pi/2, -pi/2]
     """
     
     def __init__(self):

@@ -25,18 +25,18 @@ def test_workspace_validator_import():
     try:
         # Try direct import first
         from WorkSpaceValidator import WorkspaceValidator
-        print("✅ WorkspaceValidator imported successfully (direct import)")
+        print("PASS WorkspaceValidator imported successfully (direct import)")
         return True, WorkspaceValidator
     except ImportError as e:
-        print(f"❌ Direct import failed: {e}")
+        print(f"FAIL Direct import failed: {e}")
         
         try:
             # Try package import
             from unified_vision_system.perception.WorkSpaceValidator import WorkspaceValidator
-            print("✅ WorkspaceValidator imported successfully (package import)")
+            print("PASS WorkspaceValidator imported successfully (package import)")
             return True, WorkspaceValidator
         except ImportError as e2:
-            print(f"❌ Package import failed: {e2}")
+            print(f"FAIL Package import failed: {e2}")
             return False, None
 
 def test_basic_initialization(WorkspaceValidator):
@@ -48,7 +48,7 @@ def test_basic_initialization(WorkspaceValidator):
     try:
         # Test default initialization
         validator = WorkspaceValidator()
-        print("✅ Default initialization successful")
+        print("PASS Default initialization successful")
         
         # Test with custom parameters
         params = {
@@ -56,7 +56,7 @@ def test_basic_initialization(WorkspaceValidator):
             'max_object_volume': 0.01
         }
         validator_custom = WorkspaceValidator(params=params)
-        print("✅ Custom parameters initialization successful")
+        print("PASS Custom parameters initialization successful")
         
         # Check UR30-specific parameters
         if hasattr(validator, 'MAX_REACH'):
@@ -64,17 +64,17 @@ def test_basic_initialization(WorkspaceValidator):
             print(f"   MAX_REACH: {max_reach}m")
             
             if abs(max_reach - 1.19) < 0.01:
-                print("✅ UR30 max reach correctly set (1.19m)")
+                print("PASS UR30 max reach correctly set (1.19m)")
                 return True, validator
             else:
-                print(f"⚠️  WARNING: MAX_REACH is {max_reach}m, expected 1.19m")
+                print(f"WARNING  WARNING: MAX_REACH is {max_reach}m, expected 1.19m")
                 return True, validator
         else:
-            print("⚠️  WARNING: MAX_REACH attribute not found")
+            print("WARNING  WARNING: MAX_REACH attribute not found")
             return True, validator
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False, None
@@ -111,10 +111,10 @@ def test_reachable_points(validator):
             result = validator.is_reachable(x, y, z)
             
             if result == expected:
-                status = "✅"
+                status = "PASS"
                 passed += 1
             else:
-                status = "❌"
+                status = "FAIL"
                 failed += 1
             
             print(f"  {status} {desc}")
@@ -122,16 +122,16 @@ def test_reachable_points(validator):
             print(f"      Expected: {expected}, Got: {result}")
             
         except Exception as e:
-            print(f"  ❌ {desc}: Exception - {e}")
+            print(f"  FAIL {desc}: Exception - {e}")
             failed += 1
     
     print(f"\nResults: {passed}/{len(test_points)} passed")
     
     if passed >= len(test_points) * 0.8:
-        print("✅ PASS: Reachability validation working correctly")
+        print("PASS PASS: Reachability validation working correctly")
         return True
     else:
-        print("❌ FAIL: Too many reachability validation errors")
+        print("FAIL FAIL: Too many reachability validation errors")
         return False
 
 def test_ur30_workspace_boundaries(validator):
@@ -162,17 +162,17 @@ def test_ur30_workspace_boundaries(validator):
             z_ok = abs(z_bounds[0] - expected_z[0]) < 0.05 and abs(z_bounds[1] - expected_z[1]) < 0.05
             
             if x_ok and y_ok and z_ok:
-                print("✅ Workspace bounds match UR30 specifications")
+                print("PASS Workspace bounds match UR30 specifications")
                 return True
             else:
-                print("⚠️  WARNING: Workspace bounds may need adjustment for UR30")
+                print("WARNING  WARNING: Workspace bounds may need adjustment for UR30")
                 return True  # Still pass, just warn
         else:
-            print("⚠️  WARNING: Workspace bounds attributes not found")
+            print("WARNING  WARNING: Workspace bounds attributes not found")
             return True
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_safety_scores(validator):
@@ -196,19 +196,19 @@ def test_safety_scores(validator):
             score = validator.get_safety_score(x, y, z)
             
             if 0.0 <= score <= 1.0:
-                print(f"  ✅ {desc}: score={score:.3f}")
+                print(f"  PASS {desc}: score={score:.3f}")
                 passed += 1
             else:
-                print(f"  ❌ {desc}: score={score:.3f} (out of range [0,1])")
+                print(f"  FAIL {desc}: score={score:.3f} (out of range [0,1])")
                 
         except Exception as e:
-            print(f"  ❌ {desc}: Exception - {e}")
+            print(f"  FAIL {desc}: Exception - {e}")
     
     if passed == len(test_points):
-        print("✅ PASS: Safety scores in valid range")
+        print("PASS PASS: Safety scores in valid range")
         return True
     else:
-        print("❌ FAIL: Some safety scores invalid")
+        print("FAIL FAIL: Some safety scores invalid")
         return False
 
 def test_safe_mode_validation(validator):
@@ -230,14 +230,14 @@ def test_safe_mode_validation(validator):
         
         # Safe mode should be more restrictive
         if safe_mode <= normal_mode:  # safe_mode should be False or same
-            print("✅ PASS: Safe mode is more restrictive than normal mode")
+            print("PASS PASS: Safe mode is more restrictive than normal mode")
             return True
         else:
-            print("⚠️  WARNING: Safe mode less restrictive than normal mode")
+            print("WARNING  WARNING: Safe mode less restrictive than normal mode")
             return True  # Still pass with warning
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_collision_detection(validator):
@@ -260,23 +260,23 @@ def test_collision_detection(validator):
                 has_collision = validator.has_collision(*point)
                 
                 if has_collision == expects_collision:
-                    print(f"  ✅ {desc}: collision={has_collision}")
+                    print(f"  PASS {desc}: collision={has_collision}")
                     passed += 1
                 else:
-                    print(f"  ⚠️  {desc}: expected collision={expects_collision}, got {has_collision}")
+                    print(f"  WARNING  {desc}: expected collision={expects_collision}, got {has_collision}")
             
             if passed >= 2:
-                print("✅ PASS: Collision detection working")
+                print("PASS PASS: Collision detection working")
                 return True
             else:
-                print("⚠️  MARGINAL: Collision detection may need tuning")
+                print("WARNING  MARGINAL: Collision detection may need tuning")
                 return True
         else:
-            print("⏭️  SKIP: Collision detection method not available")
+            print("Skip  SKIP: Collision detection method not available")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True  # Don't fail on this test
 
 def test_orientation_validation(validator):
@@ -298,22 +298,22 @@ def test_orientation_validation(validator):
             passed = 0
             for R, desc in test_orientations:
                 is_valid = validator.is_orientation_valid(R)
-                print(f"  {desc}: {'✅' if is_valid else '⚠️'} {is_valid}")
+                print(f"  {desc}: {'PASS' if is_valid else 'WARNING'} {is_valid}")
                 if is_valid:
                     passed += 1
             
             if passed >= 3:
-                print("✅ PASS: Orientation validation working")
+                print("PASS PASS: Orientation validation working")
                 return True
             else:
-                print("⚠️  MARGINAL: Orientation validation may be too restrictive")
+                print("WARNING  MARGINAL: Orientation validation may be too restrictive")
                 return True
         else:
-            print("⏭️  SKIP: Orientation validation method not available")
+            print("Skip  SKIP: Orientation validation method not available")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_volume_validation(validator):
@@ -325,11 +325,11 @@ def test_volume_validation(validator):
     try:
         if hasattr(validator, 'is_volume_valid'):
             test_volumes = [
-                (1e-7, False, "Too small (0.0001 cm³)"),
-                (1e-6, True, "Min valid (0.001 cm³)"),
-                (0.001, True, "Normal object (1000 cm³)"),
-                (0.01, True, "Max valid (10,000 cm³)"),
-                (0.1, False, "Too large (100,000 cm³)"),
+                (1e-7, False, "Too small (0.0001 cm^3)"),
+                (1e-6, True, "Min valid (0.001 cm^3)"),
+                (0.001, True, "Normal object (1000 cm^3)"),
+                (0.01, True, "Max valid (10,000 cm^3)"),
+                (0.1, False, "Too large (100,000 cm^3)"),
             ]
             
             passed = 0
@@ -337,23 +337,23 @@ def test_volume_validation(validator):
                 is_valid = validator.is_volume_valid(volume)
                 
                 if is_valid == expected:
-                    print(f"  ✅ {desc}: valid={is_valid}")
+                    print(f"  PASS {desc}: valid={is_valid}")
                     passed += 1
                 else:
-                    print(f"  ❌ {desc}: expected {expected}, got {is_valid}")
+                    print(f"  FAIL {desc}: expected {expected}, got {is_valid}")
             
             if passed >= 4:
-                print("✅ PASS: Volume validation working")
+                print("PASS PASS: Volume validation working")
                 return True
             else:
-                print("⚠️  MARGINAL: Volume validation may need adjustment")
+                print("WARNING  MARGINAL: Volume validation may need adjustment")
                 return True
         else:
-            print("⏭️  SKIP: Volume validation method not available")
+            print("Skip  SKIP: Volume validation method not available")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_performance_benchmark(validator):
@@ -382,20 +382,20 @@ def test_performance_benchmark(validator):
         
         avg_time_us = (elapsed / num_tests) * 1e6
         print(f"Validated {num_tests} points in {elapsed:.3f}s")
-        print(f"Average time per validation: {avg_time_us:.2f}µs")
+        print(f"Average time per validation: {avg_time_us:.2f}us")
         
         if avg_time_us < 100:  # Less than 100 microseconds
-            print("✅ PASS: Excellent performance (<100µs per check)")
+            print("PASS PASS: Excellent performance (<100us per check)")
             return True
         elif avg_time_us < 1000:  # Less than 1 millisecond
-            print("✅ PASS: Good performance (<1ms per check)")
+            print("PASS PASS: Good performance (<1ms per check)")
             return True
         else:
-            print("⚠️  WARNING: Performance may need optimization (>1ms per check)")
+            print("WARNING  WARNING: Performance may need optimization (>1ms per check)")
             return True
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def main():
@@ -410,13 +410,13 @@ def main():
     # Test 1: Import
     import_ok, WorkspaceValidator = test_workspace_validator_import()
     if not import_ok:
-        print("\n❌ Cannot proceed without WorkspaceValidator import")
+        print("\nFAIL Cannot proceed without WorkspaceValidator import")
         return
     
     # Test 2: Initialization
     init_ok, validator = test_basic_initialization(WorkspaceValidator)
     if not init_ok or validator is None:
-        print("\n❌ Cannot proceed without successful initialization")
+        print("\nFAIL Cannot proceed without successful initialization")
         return
     
     # Run remaining tests
@@ -441,20 +441,20 @@ def main():
     print("TEST SUMMARY")
     print("="*70)
     print(f"Total tests: {total}")
-    print(f"✅ Passed: {passed}")
-    print(f"❌ Failed: {total - passed}")
+    print(f"PASS Passed: {passed}")
+    print(f"FAIL Failed: {total - passed}")
     print(f"Success rate: {passed/total*100:.1f}%")
     print(f"Total time: {elapsed:.2f}s")
     print("="*70)
     
     if passed == total:
-        print("\n🎉 ALL TESTS PASSED!")
+        print("\nComplete ALL TESTS PASSED!")
         print("Workspace validator is working correctly for UR30.")
     elif passed >= total * 0.8:
-        print("\n✅ MOST TESTS PASSED")
+        print("\nPASS MOST TESTS PASSED")
         print("Workspace validator is functional but may need minor tuning.")
     else:
-        print("\n⚠️  SOME TESTS FAILED")
+        print("\nWARNING  SOME TESTS FAILED")
         print("Workspace validator may need attention.")
     
     print()

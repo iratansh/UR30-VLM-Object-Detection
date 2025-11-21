@@ -6,13 +6,13 @@ This comprehensive test verifies that all 7 phases of the construction HRI
 research system have been fully implemented and tested.
 
 Phase Summary:
-✅ Phase 1: Speech Processing Stack (Whisper ASR + Rasa NLP + Coqui TTS)
-✅ Phase 2: Construction-Specific Object Detection  
-✅ Phase 3: Five Clarification Strategy System
-✅ Phase 4: Trust and Evaluation Framework
-✅ Phase 5: Context Memory and History Awareness
-✅ Phase 6: Professional Identity-Aware Communication
-✅ Phase 7: Graduated Uncertainty Expression
+PASS Phase 1: Speech Processing Stack (Whisper ASR + Rasa NLP + Coqui TTS)
+PASS Phase 2: Construction-Specific Object Detection  
+PASS Phase 3: Five Clarification Strategy System
+PASS Phase 4: Trust and Evaluation Framework
+PASS Phase 5: Context Memory and History Awareness
+PASS Phase 6: Professional Identity-Aware Communication
+PASS Phase 7: Graduated Uncertainty Expression
 """
 from _path_setup import setup_test_paths
 setup_test_paths()
@@ -36,14 +36,14 @@ def test_phase_1_speech_processing():
         from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
         speech_processor = SpeechCommandProcessor()
         
-        print("✅ Whisper ASR: Integrated in SpeechCommandProcessor")
+        print("PASS Whisper ASR: Integrated in SpeechCommandProcessor")
         assert speech_processor.whisper_model is not None
         
         # Test Rasa NLP integration  
         from unified_vision_system.hri.ConstructionRasaNLP import ConstructionRasaNLP
         rasa_nlp = ConstructionRasaNLP()
         
-        print("✅ Rasa NLP: Construction-specific intent recognition available")
+        print("PASS Rasa NLP: Construction-specific intent recognition available")
         assert rasa_nlp is not None
         
         # Test command processing with Rasa
@@ -51,26 +51,26 @@ def test_phase_1_speech_processing():
         result = speech_processor.process_command(test_command)
         
         if result:
-            print(f"✅ Rasa Integration: Command '{test_command}' -> Intent: {result.get('intent')}")
+            print(f"PASS Rasa Integration: Command '{test_command}' -> Intent: {result.get('intent')}")
         else:
-            print("⚠️  Rasa Integration: Using fallback processing")
+            print("WARNING  Rasa Integration: Using fallback processing")
         
         # Test Coqui TTS integration
         from unified_vision_system.hri.ConstructionTTSManager import ConstructionTTSManager
         tts_manager = ConstructionTTSManager()
         
-        print("✅ Coqui TTS: Construction pronunciation and voice profiles available")
+        print("PASS Coqui TTS: Construction pronunciation and voice profiles available")
         
         # Test TTS with construction terminology
         test_phrase = "I found a sawzall on the workbench"
         success = tts_manager.speak_clarification(test_phrase, blocking=False)
         assert success
         
-        print("✅ PHASE 1 COMPLETE: Speech processing stack fully implemented")
+        print("PASS PHASE 1 COMPLETE: Speech processing stack fully implemented")
         return True
         
     except Exception as e:
-        print(f"❌ PHASE 1 FAILED: {e}")
+        print(f"FAIL PHASE 1 FAILED: {e}")
         return False
 
 def test_phase_2_construction_detection():
@@ -83,7 +83,7 @@ def test_phase_2_construction_detection():
     try:
         from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
         
-        print("✅ OWL-ViT Integration: Available for zero-shot detection")
+        print("PASS OWL-ViT Integration: Available for zero-shot detection")
         
         detector = OWLViTDetector()
         
@@ -92,14 +92,14 @@ def test_phase_2_construction_detection():
         assert "framing hammer" in hammer_queries
         assert "claw hammer" in hammer_queries
         
-        print(f"✅ Construction Tools: {len(detector.construction_tools)} tool categories")
+        print(f"PASS Construction Tools: {len(detector.construction_tools)} tool categories")
         print(f"   Sample queries for 'hammer': {hammer_queries[:3]}")
         
         # Test professional terminology mapping
         assert "Phillips head screwdriver" in str(detector.construction_tools)
         assert "adjustable wrench" in str(detector.construction_tools)
         
-        print("✅ Professional Terminology: Trade-specific tool names mapped")
+        print("PASS Professional Terminology: Trade-specific tool names mapped")
         
         # Test tool categorization
         categories = {
@@ -117,13 +117,13 @@ def test_phase_2_construction_detection():
         for tool, expected in expected_categories.items():
             assert categories[tool] == expected
             
-        print("✅ Tool Categorization: Construction workflow categories implemented")
+        print("PASS Tool Categorization: Construction workflow categories implemented")
         
-        print("✅ PHASE 2 COMPLETE: Construction object detection fully implemented")
+        print("PASS PHASE 2 COMPLETE: Construction object detection fully implemented")
         return True
         
     except Exception as e:
-        print(f"❌ PHASE 2 FAILED: {e}")
+        print(f"FAIL PHASE 2 FAILED: {e}")
         return False
 
 def test_phase_3_clarification_strategies():
@@ -160,7 +160,7 @@ def test_phase_3_clarification_strategies():
             assert response.strategy == strategy
             assert len(response.text) > 0
             
-        print("✅ All Five Strategies: Direct, History-Aware, Confidence-Based, Options-Based, Expertise-Adaptive")
+        print("PASS All Five Strategies: Direct, History-Aware, Confidence-Based, Options-Based, Expertise-Adaptive")
         
         # Test expertise level adaptation
         expertise_levels = [
@@ -178,19 +178,19 @@ def test_phase_3_clarification_strategies():
             )
             assert response is not None
             
-        print("✅ Expertise Adaptation: 4 construction expertise levels supported")
+        print("PASS Expertise Adaptation: 4 construction expertise levels supported")
         
         # Test construction jargon integration
         jargon_count = len(clarification_manager.construction_jargon)
         assert jargon_count > 20  # Should have substantial jargon database
         
-        print(f"✅ Construction Jargon: {jargon_count} professional terms integrated")
+        print(f"PASS Construction Jargon: {jargon_count} professional terms integrated")
         
-        print("✅ PHASE 3 COMPLETE: Five clarification strategies fully implemented")
+        print("PASS PHASE 3 COMPLETE: Five clarification strategies fully implemented")
         return True
         
     except Exception as e:
-        print(f"❌ PHASE 3 FAILED: {e}")
+        print(f"FAIL PHASE 3 FAILED: {e}")
         return False
 
 def test_phase_4_trust_evaluation():
@@ -225,7 +225,7 @@ def test_phase_4_trust_evaluation():
             assert dim in questions_by_dimension
             assert questions_by_dimension[dim] > 0
             
-        print(f"✅ Trust Questionnaire: {len(trust_questionnaire.questions)} questions across {len(expected_dimensions)} dimensions")
+        print(f"PASS Trust Questionnaire: {len(trust_questionnaire.questions)} questions across {len(expected_dimensions)} dimensions")
         
         # Test NASA-TLX Assessment
         from unified_vision_system.metrics.NASATLXAssessment import ConstructionNASATLX, TLXDimension
@@ -243,7 +243,7 @@ def test_phase_4_trust_evaluation():
         
         assert len(nasa_tlx.dimensions) == len(expected_tlx_dimensions)
         
-        print(f"✅ NASA-TLX: {len(expected_tlx_dimensions)} workload dimensions with construction adaptations")
+        print(f"PASS NASA-TLX: {len(expected_tlx_dimensions)} workload dimensions with construction adaptations")
         
         # Test Behavioral Metrics
         from unified_vision_system.metrics.BehavioralMetrics import ConstructionBehavioralMetrics, BehaviorType
@@ -259,7 +259,7 @@ def test_phase_4_trust_evaluation():
             BehaviorType.TASK_COMPLETION
         ]
         
-        print(f"✅ Behavioral Metrics: {len(expected_behaviors)} behavior types tracked")
+        print(f"PASS Behavioral Metrics: {len(expected_behaviors)} behavior types tracked")
         
         # Test Experimental Controller
         from unified_vision_system.hri.ExperimentalController import ConstructionExperimentalController, ExperimentCondition
@@ -274,13 +274,13 @@ def test_phase_4_trust_evaluation():
             ExperimentCondition.TREATMENT_ADAPTIVE
         ]
         
-        print(f"✅ Experimental Controller: {len(expected_conditions)} A/B test conditions available")
+        print(f"PASS Experimental Controller: {len(expected_conditions)} A/B test conditions available")
         
-        print("✅ PHASE 4 COMPLETE: Trust and evaluation framework fully implemented")
+        print("PASS PHASE 4 COMPLETE: Trust and evaluation framework fully implemented")
         return True
         
     except Exception as e:
-        print(f"❌ PHASE 4 FAILED: {e}")
+        print(f"FAIL PHASE 4 FAILED: {e}")
         return False
 
 def test_phase_5_context_memory():
@@ -306,7 +306,7 @@ def test_phase_5_context_memory():
         
         assert len(clarification_manager.task_memory) == 2
         
-        print("✅ Task Memory: Shared history system for transactive memory")
+        print("PASS Task Memory: Shared history system for transactive memory")
         
         # Test history-aware responses
         test_objects = [{"label": "hammer", "trade_term": "claw hammer"}]
@@ -318,7 +318,7 @@ def test_phase_5_context_memory():
         # Should reference previous tools from history
         assert "framing hammer" in response.text or "hammer" in response.text
         
-        print("✅ History-Aware Responses: 'Like the X from earlier' functionality implemented")
+        print("PASS History-Aware Responses: 'Like the X from earlier' functionality implemented")
         
         # Test context-aware "measure twice, cut once" behavior
         low_confidence_response = clarification_manager.request_clarification(
@@ -330,13 +330,13 @@ def test_phase_5_context_memory():
         verification_keywords = ["double", "check", "sure", "confident"]
         has_verification = any(word in low_confidence_response.text.lower() for word in verification_keywords)
         
-        print("✅ Context Awareness: Construction culture alignment (measure twice, cut once)")
+        print("PASS Context Awareness: Construction culture alignment (measure twice, cut once)")
         
-        print("✅ PHASE 5 COMPLETE: Context memory and history awareness fully implemented")
+        print("PASS PHASE 5 COMPLETE: Context memory and history awareness fully implemented")
         return True
         
     except Exception as e:
-        print(f"❌ PHASE 5 FAILED: {e}")
+        print(f"FAIL PHASE 5 FAILED: {e}")
         return False
 
 def test_phase_6_professional_communication():
@@ -368,7 +368,7 @@ def test_phase_6_professional_communication():
         for term in professional_terms:
             assert term in jargon
             
-        print(f"✅ Professional Jargon: {len(professional_terms)} verified construction terms")
+        print(f"PASS Professional Jargon: {len(professional_terms)} verified construction terms")
         
         # Test expertise-level communication adaptation
         expertise_responses = {}
@@ -387,7 +387,7 @@ def test_phase_6_professional_communication():
         
         assert len(apprentice_response) > len(master_response)
         
-        print("✅ Expertise Adaptation: Different communication styles for apprentice vs master")
+        print("PASS Expertise Adaptation: Different communication styles for apprentice vs master")
         
         # Test trade terminology usage
         sample_response = clarification_manager.request_clarification(
@@ -397,13 +397,13 @@ def test_phase_6_professional_communication():
         # Should use professional term, not generic
         assert "framing hammer" in sample_response.text
         
-        print("✅ Trade Terminology: Professional terms used instead of generic descriptions")
+        print("PASS Trade Terminology: Professional terms used instead of generic descriptions")
         
-        print("✅ PHASE 6 COMPLETE: Professional identity-aware communication fully implemented")
+        print("PASS PHASE 6 COMPLETE: Professional identity-aware communication fully implemented")
         return True
         
     except Exception as e:
-        print(f"❌ PHASE 6 FAILED: {e}")
+        print(f"FAIL PHASE 6 FAILED: {e}")
         return False
 
 def test_phase_7_uncertainty_expression():
@@ -433,7 +433,7 @@ def test_phase_7_uncertainty_expression():
             assert "%" in response.text
             assert any(char.isdigit() for char in response.text)
             
-        print("✅ Percentage Confidence: Graduated uncertainty expression (80%, 70%, 40%)")
+        print("PASS Percentage Confidence: Graduated uncertainty expression (80%, 70%, 40%)")
         
         # Test "measure twice, cut once" culture alignment
         low_confidence_response = clarification_manager.request_clarification(
@@ -444,7 +444,7 @@ def test_phase_7_uncertainty_expression():
         verification_words = ["double", "check", "sure", "confident", "certain"]
         has_verification = any(word in low_confidence_response.text.lower() for word in verification_words)
         
-        print("✅ Construction Culture: 'Measure twice, cut once' verification behavior")
+        print("PASS Construction Culture: 'Measure twice, cut once' verification behavior")
         
         # Test confidence-based response adaptation
         high_confidence_response = clarification_manager.request_clarification(
@@ -460,22 +460,22 @@ def test_phase_7_uncertainty_expression():
         # High confidence should be more direct
         assert len(high_confidence_response.text) <= len(medium_confidence_response.text)
         
-        print("✅ Adaptive Responses: Different response styles based on confidence level")
+        print("PASS Adaptive Responses: Different response styles based on confidence level")
         
-        print("✅ PHASE 7 COMPLETE: Graduated uncertainty expression fully implemented")
+        print("PASS PHASE 7 COMPLETE: Graduated uncertainty expression fully implemented")
         return True
         
     except Exception as e:
-        print(f"❌ PHASE 7 FAILED: {e}")
+        print(f"FAIL PHASE 7 FAILED: {e}")
         return False
 
 def run_final_verification():
     """Run complete final verification of all phases"""
     
-    print("\n" + "🏗️ "*20)
+    print("\n" + "Construction "*20)
     print("CONSTRUCTION HRI RESEARCH SYSTEM")
     print("FINAL IMPLEMENTATION VERIFICATION")
-    print("🏗️ "*20)
+    print("Construction "*20)
     
     start_time = time.time()
     
@@ -498,7 +498,7 @@ def run_final_verification():
             result = test_function()
             phase_results[phase_name] = result
         except Exception as e:
-            print(f"❌ {phase_name} CRITICAL FAILURE: {e}")
+            print(f"FAIL {phase_name} CRITICAL FAILURE: {e}")
             phase_results[phase_name] = False
     
     # Final summary
@@ -511,7 +511,7 @@ def run_final_verification():
     print("="*80)
     
     for phase_name, result in phase_results.items():
-        status = "✅ COMPLETE" if result else "❌ FAILED"
+        status = "PASS COMPLETE" if result else "FAIL FAILED"
         print(f"{phase_name}: {status}")
     
     print("\n" + "-"*80)
@@ -519,11 +519,11 @@ def run_final_verification():
     print(f"VERIFICATION TIME: {total_time:.2f} seconds")
     
     if successful_phases == total_phases:
-        print("\n🎉 ALL PHASES SUCCESSFULLY IMPLEMENTED!")
+        print("\nComplete ALL PHASES SUCCESSFULLY IMPLEMENTED!")
         print("Construction HRI research system is ready for experimental deployment.")
         return True
     else:
-        print(f"\n⚠️  {total_phases - successful_phases} phases need attention before deployment.")
+        print(f"\nWARNING  {total_phases - successful_phases} phases need attention before deployment.")
         return False
 
 if __name__ == "__main__":

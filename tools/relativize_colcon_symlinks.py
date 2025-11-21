@@ -2,7 +2,7 @@
 
 Colcon generates absolute symlinks inside the install tree when `--symlink-install`
 (or the default for some packages) is used. If the workspace is relocated after
-building—such as when the same tree is mounted inside a different Docker path—
+building-such as when the same tree is mounted inside a different Docker path-
 those symlinks point at stale absolute paths (e.g. `/home/ur30_user/workspace`).
 
 Running this script rewrites any symlink that points into the old workspace so

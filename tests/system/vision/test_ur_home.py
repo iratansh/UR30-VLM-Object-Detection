@@ -23,7 +23,7 @@ def test_ur_home_position():
     
     kinematics = UR30Kinematics()
     
-    # UR30 home position is typically [0, -90°, 0, -90°, 0, 0]
+    # UR30 home position is typically [0, -90deg, 0, -90deg, 0, 0]
     # This should put the end-effector pointing forward at about 0.8m reach
     home_joints_deg = [0, -90, 0, -90, 0, 0]
     home_joints_rad = [math.radians(angle) for angle in home_joints_deg]
@@ -43,19 +43,19 @@ def test_ur_home_position():
     
     actual_distance = np.linalg.norm(position)
     if expected_distance_range[0] <= actual_distance <= expected_distance_range[1]:
-        print("✅ Distance is in expected range!")
+        print("PASS Distance is in expected range!")
     else:
-        print(f"❌ Distance {actual_distance:.3f}m is outside expected range {expected_distance_range}")
+        print(f"FAIL Distance {actual_distance:.3f}m is outside expected range {expected_distance_range}")
         print("This suggests an issue with the DH parameters or joint conventions")
     
-    # Also test the "all joints at -90°" configuration which should be compact
-    print(f"\n=== Testing joints all at -90° ===")
+    # Also test the "all joints at -90deg" configuration which should be compact
+    print(f"\n=== Testing joints all at -90deg ===")
     test_joints = [math.radians(-90)] * 6
     pose2 = kinematics.forward_kinematics(test_joints)
     position2 = pose2[:3, 3]
     distance2 = np.linalg.norm(position2)
     
-    print(f"All -90° position: [{position2[0]:.3f}, {position2[1]:.3f}, {position2[2]:.3f}]")
+    print(f"All -90deg position: [{position2[0]:.3f}, {position2[1]:.3f}, {position2[2]:.3f}]")
     print(f"Distance: {distance2:.3f}m")
     
     # Test some other common configurations
@@ -63,7 +63,7 @@ def test_ur_home_position():
     test_configs = [
         ([0, 0, 0, 0, 0, 0], "All zeros"),
         ([0, -45, -45, 0, 0, 0], "Arm extended forward"),
-        ([90, -90, 0, -90, 0, 0], "90° rotated base"),
+        ([90, -90, 0, -90, 0, 0], "90deg rotated base"),
     ]
     
     for joints_deg, name in test_configs:

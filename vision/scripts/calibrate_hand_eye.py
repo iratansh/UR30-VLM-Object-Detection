@@ -400,7 +400,7 @@ def main():
         
         if T_result is not None:
             calibrator.save_calibration(T_result, args.save_file)
-            logger.info(f"✅ Calibration saved to {args.save_file}")
+            logger.info(f"Calibration saved to {args.save_file}")
             
             # Display results
             if eye_in_hand:

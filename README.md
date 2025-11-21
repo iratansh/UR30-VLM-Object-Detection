@@ -10,12 +10,9 @@ progress and is being handed off for continued research.
 
 > **Status snapshot (January 2026 handoff)**
 >
-> - ✅ Baseline scenario: `test_pick_green_book.py` succeeds against Gazebo + UR30 +
->   simulated RealSense using color-based detection.
-> - ⚠️ Remainder of the Unified Vision System is feature-complete but not fully
->   validated; many components depend on unavailable hardware or pending calibration.
-> - 🎓 Codebase is part of an active study. Expect experimental scripts, TODOs, and
->   partially stubbed integrations.
+> - Baseline scenario: `test_pick_green_book.py` succeeds against Gazebo + UR30 + simulated RealSense using color-based detection.
+> - Remainder of the Unified Vision System is feature-complete but not fully validated; many components depend on unavailable hardware or pending calibration.
+> - Codebase is part of an active study. Expect experimental scripts, TODOs, and partially stubbed integrations.
 
 ---
 
@@ -43,13 +40,11 @@ development.
 High-level data flow for the validated baseline:
 
 ```
-Speech cmd (optional) ─┐
-                      │            ┌─────────────────────┐
-Gazebo UR30 + RealSense ──► ROS2 ──►│ UnifiedVisionSystem │──► Hybrid IK / UR30 action
-(Color + depth feeds)  │           └─────────────────────┘
-                      │                   │
-              test_pick_green_book.py     ▼
-                (color detector)    UR30 motion + gripper
+Speech cmd (optional) -> 
+                       -> ROS2 -> [UnifiedVisionSystem] -> Hybrid IK / UR30 action
+Gazebo UR30 + RealSense (color + depth feeds)            |
+                       -> test_pick_green_book.py        v
+                          (color detector)        UR30 motion + gripper
 ```
 
 ## Repository Layout
@@ -114,7 +109,7 @@ The current, validated workflow targets the **green book pick-up baseline**:
 3. **What it does**
 
    - Subscribes to the simulated RealSense RGB + depth feeds.
-   - Performs color-based segmentation tuned for Gazebo’s green book.
+   - Performs color-based segmentation tuned for Gazebo's green book.
    - Converts depth to 3D, solves IK with `UR30Kinematics`, and commands the UR controller.
    - Prints detailed progress logs and halts if safety thresholds are violated.
 4. **Troubleshooting**
@@ -167,7 +162,7 @@ Each of these files now begins with descriptive module docstrings plus inline co
 
 ## Research Backlog & Non-complete Features
 
-This repo intentionally contains unfinished or blocked items—see `TODO_UPDATED.md` for
+This repo intentionally contains unfinished or blocked items - see `TODO_UPDATED.md` for
 daily notes. Highlights:
 
 - Camera calibration standalone tests (`tests/system/vision/test_camera_calibration_standalone.py`) are blocked by ROS2 dependencies; must be validated in a full ROS session.
@@ -176,7 +171,7 @@ daily notes. Highlights:
   participants and have mock fallbacks for offline development.
 - Documentation for additional ROS launch topologies (`vision/scripts/test_gazebo_simulation.launch.py`) still needs verification once MoveIt integration stabilizes.
 
-Treat the backlog as the authoritative roadmap—update it when you validate or change
+Treat the backlog as the authoritative roadmap - update it when you validate or change
 any subsystem.
 
 ## Handoff Checklist

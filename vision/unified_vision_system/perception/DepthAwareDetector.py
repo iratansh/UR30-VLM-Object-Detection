@@ -159,7 +159,7 @@ class DepthAwareDetector:
         self.edge_threshold = 0.01  # 1cm threshold for edge detection
 
         self.logger.info(
-            f"✅ Depth-aware detection initialized for {self.calibration.source_type}"
+            f"Depth-aware detection initialized for {self.calibration.source_type}"
             f" (filters: {self.use_filters})"
         )
 
@@ -186,7 +186,7 @@ class DepthAwareDetector:
         self.stereo_map_right = None
         self.stereo_matcher = cv2.StereoBM_create(numDisparities=16 * 5, blockSize=21)
 
-        self.logger.info("📷 Stereo camera system initialized")
+        self.logger.info("Camera Stereo camera system initialized")
 
     def _get_stereo_frames(self) -> Tuple[np.ndarray, np.ndarray]:
         """DEPRECATED.
@@ -672,7 +672,7 @@ class DepthAwareDetector:
 
         if not (workspace_validator.min_object_volume <= detection.volume <= workspace_validator.max_object_volume):
             self.logger.warning(
-                f"Object {detection.label} size may be problematic: {detection.volume:.6f}m³"
+                f"Object {detection.label} size may be problematic: {detection.volume:.6f}m^3"
             )
             return False
 
@@ -681,7 +681,7 @@ class DepthAwareDetector:
             # Check if the approach vector makes sense for eye-in-hand
             # Should be mostly downward
             approach_z = detection.approach_vector[2]
-            if approach_z > -0.7:  # cos(45°) ≈ 0.7
+            if approach_z > -0.7:  # cos(45deg) ~ 0.7
                 self.logger.warning(
                     f"Approach vector not suitable for eye-in-hand: z={approach_z:.2f}"
                 )
@@ -725,7 +725,7 @@ class DepthAwareDetector:
             f"{detection.label} ({detection.confidence:.2f}) - {config_text}",
             f"3D: ({detection.grasp_point_3d[0]:.3f}, {detection.grasp_point_3d[1]:.3f}, {detection.grasp_point_3d[2]:.3f})",
             f"Depth Conf: {detection.depth_confidence:.2f}",
-            f"Volume: {detection.volume*1000000:.1f}cm³",
+            f"Volume: {detection.volume*1000000:.1f}cm^3",
         ]
 
         for i, text in enumerate(info_text):
@@ -801,7 +801,7 @@ class DepthAwareDetector:
             if hasattr(self, "right_camera"):
                 self.right_camera.release()
 
-        self.logger.info("📷 Camera resources cleaned up")
+        self.logger.info("Camera Camera resources cleaned up")
 
     def _calculate_depth_confidence(self, depth_frame: np.ndarray, bbox_2d: List[int]) -> float:
         """

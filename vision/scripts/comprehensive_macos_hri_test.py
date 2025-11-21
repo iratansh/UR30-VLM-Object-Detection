@@ -46,7 +46,7 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 def test_enhanced_rag_system():
     """Test the Enhanced RAG system for construction HRI integration"""
     print("\n" + "="*70)
-    print("🧠 ENHANCED RAG SYSTEM FOR HRI")
+    print("Brain ENHANCED RAG SYSTEM FOR HRI")
     print("="*70)
     
     results = {}
@@ -57,7 +57,7 @@ def test_enhanced_rag_system():
         with tempfile.TemporaryDirectory() as temp_dir:
             rag = EnhancedConstructionRAG(db_path=temp_dir)
 
-            print(f"✅ RAG System: Initialized with {len(rag.knowledge_items)} knowledge items")
+            print(f"RAG System: Initialized with {len(rag.knowledge_items)} knowledge items")
 
             # Extended test commands including ambiguity cases
             test_commands = [
@@ -68,12 +68,12 @@ def test_enhanced_rag_system():
                 "Grab the rock"                     # Ambiguous (baseline mapping)
             ]
 
-            print("\n🎤 Testing ASR -> OWL-ViT Integration:")
+            print("\nSimulated command Testing ASR -> OWL-ViT Integration:")
             for cmd in test_commands:
                 result = rag.process_asr_for_object_detection(cmd, "journeyman")
                 print(f"   Command: '{cmd}'")
-                print(f"   → OWL-ViT targets: {result['target_objects_for_owlvit']}")
-                print(f"   → Construction terms: {result['detected_construction_terms']}")
+                print(f"   -> OWL-ViT targets: {result['target_objects_for_owlvit']}")
+                print(f"   -> Construction terms: {result['detected_construction_terms']}")
                 # Assertions (soft validation) inside try scope
                 if "framing hammer" in cmd.lower():
                     assert any("hammer" in t for t in result['target_objects_for_owlvit']), "Framing hammer mapping failed"
@@ -85,7 +85,7 @@ def test_enhanced_rag_system():
                     assert any("drywall" in t for t in result['target_objects_for_owlvit']), "Sheet rock mapping failed"
 
             # Clarification generation tests
-            print("\n🗨️  Testing Clarification Response Generation:")
+            print("\nQuote  Testing Clarification Response Generation:")
             trade_objects = [
                 {"label": "framing hammer", "confidence": 0.8, "bbox": [0.2, 0.3, 0.4, 0.7]},
                 {"label": "claw hammer", "confidence": 0.7, "bbox": [0.6, 0.2, 0.8, 0.6]}
@@ -97,16 +97,16 @@ def test_enhanced_rag_system():
                 print(f"   {expertise.upper()}: {display_text}")
 
             results['enhanced_rag'] = True
-            print("✅ Enhanced RAG: All HRI integration features working")
+            print("Enhanced RAG: All HRI integration features working")
     except Exception as e:
-        print(f"❌ Enhanced RAG failed: {e}")
+        print(f"ERROR Enhanced RAG failed: {e}")
         results['enhanced_rag'] = False
     return results
 
 def test_core_nlp_speech_components():
     """Test NLP and speech processing components"""
     print("\n" + "="*70)
-    print("🧠 CORE NLP & SPEECH COMPONENTS")
+    print("Brain CORE NLP & SPEECH COMPONENTS")
     print("="*70)
     
     results = {}
@@ -128,14 +128,14 @@ def test_core_nlp_speech_components():
         print("Testing construction command parsing (RQ2: Vocabulary adaptation):")
         for cmd in test_commands:
             result = rasa_nlp.parse_construction_command(cmd)
-            print(f"   '{cmd}' → {result.intent}")
+            print(f"   '{cmd}' -> {result.intent}")
             assert result.intent in ['pickup_tool', 'find_tool', 'place_tool']
         
-        print("✅ ConstructionRasaNLP: Trade vocabulary processing working")
+        print("ConstructionRasaNLP: Trade vocabulary processing working")
         results['rasa_nlp'] = True
         
     except Exception as e:
-        print(f"❌ ConstructionRasaNLP failed: {e}")
+        print(f"ERROR ConstructionRasaNLP failed: {e}")
         results['rasa_nlp'] = False
     
     # Test TTS Manager (Response generation)
@@ -153,13 +153,13 @@ def test_core_nlp_speech_components():
         print("\nTesting TTS construction pronunciations:")
         for phrase in test_phrases:
             processed = tts._apply_construction_pronunciations(phrase)
-            print(f"   '{phrase}' → '{processed}'")
+            print(f"   '{phrase}' -> '{processed}'")
         
-        print("✅ ConstructionTTSManager: Professional pronunciation working")
+        print("ConstructionTTSManager: Professional pronunciation working")
         results['tts'] = True
         
     except Exception as e:
-        print(f"❌ ConstructionTTSManager failed: {e}")
+        print(f"ERROR ConstructionTTSManager failed: {e}")
         results['tts'] = False
     
     return results
@@ -167,7 +167,7 @@ def test_core_nlp_speech_components():
 def test_clarification_strategies():
     """Test the 5 clarification strategy system for research hypotheses"""
     print("\n" + "="*70)
-    print("🤖 CLARIFICATION STRATEGY SYSTEM (H1, H2, H3)")
+    print("Robot CLARIFICATION STRATEGY SYSTEM (H1, H2, H3)")
     print("="*70)
     
     results = {}
@@ -199,10 +199,10 @@ def test_clarification_strategies():
             print(f"   {strategy.value} ({research_link})")
             # Show more context and handle shorter messages better
             display_text = response.text[:80] + "..." if len(response.text) > 80 else response.text
-            print(f"   → '{display_text}'")
+            print(f"   -> '{display_text}'")
             assert len(response.text) > 0
         
-        print(f"\n✅ All 5 Clarification Strategies: Supporting research design")
+        print(f"\nOK All 5 Clarification Strategies: Supporting research design")
         
         # Test expertise adaptation for RQ2
         print("\nTesting expertise-level adaptation (RQ2):")
@@ -221,12 +221,12 @@ def test_clarification_strategies():
         manager.update_task_memory("hammer", "pickup", True)
         manager.update_task_memory("screwdriver", "find", False) 
         print(f"   Memory entries: {len(manager.task_memory)}")
-        print(f"   ✅ Context tracking for trust maintenance")
+        print("   Context tracking for trust maintenance")
         
         results['clarification'] = True
         
     except Exception as e:
-        print(f"❌ Clarification system failed: {e}")
+        print(f"ERROR Clarification system failed: {e}")
         results['clarification'] = False
     
     return results
@@ -234,7 +234,7 @@ def test_clarification_strategies():
 def test_research_measurement_framework():
     """Test research measurement components for data collection"""
     print("\n" + "="*70)
-    print("📊 RESEARCH MEASUREMENT FRAMEWORK")
+    print("Metrics RESEARCH MEASUREMENT FRAMEWORK")
     print("="*70)
     
     results = {}
@@ -254,10 +254,10 @@ def test_research_measurement_framework():
         print(f"   Questions: {len(trust_q.questions)} construction-specific items")
         
         results['trust'] = True
-        print("✅ Trust Questionnaire: Ready for A/B testing")
+        print("Trust Questionnaire: Ready for A/B testing")
         
     except Exception as e:
-        print(f"❌ Trust Questionnaire failed: {e}")
+        print(f"ERROR Trust Questionnaire failed: {e}")
         results['trust'] = False
     
     # Test NASA-TLX (Cognitive load measurement for RQ1)
@@ -274,10 +274,10 @@ def test_research_measurement_framework():
         print(f"   Dimensions: {len(assessment.responses)} TLX factors")
         
         results['nasa_tlx'] = True
-        print("✅ NASA-TLX: Ready for cognitive load competition measurement")
+        print("NASA-TLX: Ready for cognitive load competition measurement")
         
     except Exception as e:
-        print(f"❌ NASA-TLX failed: {e}")
+        print(f"ERROR NASA-TLX failed: {e}")
         results['nasa_tlx'] = False
     
     # Test Behavioral Metrics (Response time, error recovery for all hypotheses)
@@ -297,10 +297,10 @@ def test_research_measurement_framework():
         print(f"   Interaction patterns: Recorded for analysis")
         
         results['behavioral'] = True
-        print("✅ Behavioral Metrics: Ready for comprehensive data collection")
+        print("Behavioral Metrics: Ready for comprehensive data collection")
         
     except Exception as e:
-        print(f"❌ Behavioral Metrics failed: {e}")
+        print(f"ERROR Behavioral Metrics failed: {e}")
         results['behavioral'] = False
     
     return results
@@ -308,7 +308,7 @@ def test_research_measurement_framework():
 def test_experimental_design_controller():
     """Test A/B testing framework for hypothesis validation"""
     print("\n" + "="*70)
-    print("🧪 EXPERIMENTAL DESIGN CONTROLLER")
+    print("Lab EXPERIMENTAL DESIGN CONTROLLER")
     print("="*70)
     
     results = {}
@@ -361,9 +361,9 @@ def test_experimental_design_controller():
             )
             
             participant_id = controller.enroll_participant(participant)
-            print(f"   {expertise.value}: {years} years experience → {participant_id}")
+            print(f"   {expertise.value}: {years} years experience -> {participant_id}")
         
-        print(f"   ✅ {len(expertise_levels)} expertise levels supported")
+        print(f"   {len(expertise_levels)} expertise levels supported")
         
         # Test session management
         session_id = controller.start_experimental_session("P_journeyman", 0)
@@ -377,10 +377,10 @@ def test_experimental_design_controller():
         controller.end_experimental_session()
         
         results['experiment'] = True
-        print("✅ Experimental Controller: Ready for hypothesis-driven A/B testing")
+        print("Experimental Controller: Ready for hypothesis-driven A/B testing")
         
     except Exception as e:
-        print(f"❌ Experimental Controller failed: {e}")
+        print(f"ERROR Experimental Controller failed: {e}")
         results['experiment'] = False
     
     return results
@@ -388,25 +388,25 @@ def test_experimental_design_controller():
 def test_simulation_integration_readiness():
     """Test readiness for RViz/Gazebo/MoveIt2 simulation integration"""
     print("\n" + "="*70)
-    print("🎮 SIMULATION INTEGRATION READINESS")
+    print("Controls SIMULATION INTEGRATION READINESS")
     print("="*70)
     
     results = {}
     
     # Test system architecture pipeline readiness
     pipeline_components = [
-        ("Speech Input Interface", "Microphone → RAG Enhanced ASR"),
-        ("ASR Processing", "Construction vocabulary → Intent recognition"),
-        ("RAG Enhancement", "Trade terminology → OWL-ViT target mapping"),
-        ("Object Detection Interface", "RGB image + text queries → Bbox + confidence"),
-        ("IK Simulation Interface", "Object coordinates → UR30 joint positions"),
-        ("TTS Response Interface", "Clarification strategy → Audio output"),
-        ("Experimental Data Collection", "All interactions → Research database")
+        ("Speech Input Interface", "Microphone -> RAG Enhanced ASR"),
+        ("ASR Processing", "Construction vocabulary -> Intent recognition"),
+        ("RAG Enhancement", "Trade terminology -> OWL-ViT target mapping"),
+        ("Object Detection Interface", "RGB image + text queries -> Bbox + confidence"),
+        ("IK Simulation Interface", "Object coordinates -> UR30 joint positions"),
+        ("TTS Response Interface", "Clarification strategy -> Audio output"),
+        ("Experimental Data Collection", "All interactions -> Research database")
     ]
     
     print("Testing system architecture pipeline:")
     for component, description in pipeline_components:
-        print(f"   ✅ {component}: {description}")
+        print(f"   {component}: {description}")
         results[f"pipeline_{component.lower().replace(' ', '_')}"] = True
     
     # Test hypothesis-specific scenarios readiness
@@ -437,21 +437,21 @@ def test_simulation_integration_readiness():
     ]
     
     for scenario in research_scenarios:
-        print(f"\n   📋 {scenario['hypothesis']}")
+        print(f"\n   Assessment {scenario['hypothesis']}")
         print(f"      Setup: {scenario['setup']}")
         print(f"      Condition A: {scenario['condition_a']}")
         print(f"      Condition B: {scenario['condition_b']}")  
         print(f"      Measures: {scenario['measures']}")
         results[f"scenario_{scenario['hypothesis'][:2].lower()}"] = True
     
-    print(f"\n✅ All research scenarios: Ready for simulation deployment")
+    print(f"\nOK All research scenarios: Ready for simulation deployment")
     
     return results
 
 def test_complete_hri_workflow():
     """Test complete HRI workflow end-to-end"""
     print("\n" + "="*70)
-    print("🤖 COMPLETE HRI WORKFLOW SIMULATION")
+    print("Robot COMPLETE HRI WORKFLOW SIMULATION")
     print("="*70)
     
     results = {}
@@ -468,16 +468,16 @@ def test_complete_hri_workflow():
             
             # Simulate complete workflow for each hypothesis
             
-            print("\n🧪 H1 Testing Workflow: Trade-specific vs Generic terminology")
+            print("\nLab H1 Testing Workflow: Trade-specific vs Generic terminology")
             
             # H1: Trade-specific terminology scenario
             worker_command = "Get me the framing hammer"
-            print(f"   👷 Worker: '{worker_command}'")
+            print(f"   Operator Worker: '{worker_command}'")
             
             # ASR processing with trade terminology
             asr_result = rag.process_asr_for_object_detection(worker_command, "journeyman")
-            print(f"   🎤 ASR: Detected '{asr_result['detected_construction_terms']}'")
-            print(f"   🎯 OWL-ViT targets: {asr_result['target_objects_for_owlvit']}")
+            print(f"   Simulated command ASR: Detected '{asr_result['detected_construction_terms']}'")
+            print(f"   Goal OWL-ViT targets: {asr_result['target_objects_for_owlvit']}")
             
             # Simulate object detection results
             detected_objects = [
@@ -490,9 +490,9 @@ def test_complete_hri_workflow():
             trade_response = rag.generate_camera_clarification_response(
                 detected_objects, worker_command, camera_info, "journeyman"
             )
-            print(f"   🤖 Trade-specific response: '{trade_response[:60]}...'")
+            print(f"   Robot Trade-specific response: '{trade_response[:60]}...'")
             
-            print("\n🧪 H2 Testing Workflow: Graduated uncertainty expression")
+            print("\nLab H2 Testing Workflow: Graduated uncertainty expression")
             
             # H2: Graduated uncertainty scenario  
             uncertain_objects = [{"label": "wrench", "confidence": 0.6, "bbox": [0.3, 0.4, 0.5, 0.8]}]
@@ -501,9 +501,9 @@ def test_complete_hri_workflow():
                 "get me the wrench", uncertain_objects, [0.6], 
                 ClarificationStrategy.CONFIDENCE_BASED
             )
-            print(f"   🤖 Uncertainty response: '{uncertainty_response.text}'")
+            print(f"   Robot Uncertainty response: '{uncertainty_response.text}'")
             
-            print("\n🧪 H3 Testing Workflow: Context-aware memory")
+            print("\nLab H3 Testing Workflow: Context-aware memory")
             
             # H3: Context-aware memory scenario
             clarification_manager.update_task_memory("Phillips screwdriver", "used", True)
@@ -512,13 +512,13 @@ def test_complete_hri_workflow():
                 "get the Phillips head", [{"label": "Phillips screwdriver", "confidence": 0.9}], [0.9],
                 ClarificationStrategy.HISTORY_AWARE  
             )
-            print(f"   🤖 Memory-aware response: '{memory_response.text}'")
+            print(f"   Robot Memory-aware response: '{memory_response.text}'")
             
             results['complete_workflow'] = True
-            print(f"\n✅ Complete HRI Workflow: All hypotheses testable end-to-end")
+            print(f"\nOK Complete HRI Workflow: All hypotheses testable end-to-end")
             
     except Exception as e:
-        print(f"❌ Complete workflow failed: {e}")
+        print(f"ERROR Complete workflow failed: {e}")
         results['complete_workflow'] = False
     
     return results
@@ -526,9 +526,9 @@ def test_complete_hri_workflow():
 def run_comprehensive_macos_hri_test():
     """Run complete comprehensive test of all HRI components"""
     
-    print("🤖" * 25)
+    print("Robot" * 25)
     print("COMPREHENSIVE CONSTRUCTION HRI SYSTEM TEST - macOS")
-    print("🤖" * 25)
+    print("Robot" * 25)
     print("\nValidating ALL components for construction robot HRI research")
     print("Research Focus: Trust development through clarification strategies\n")
     
@@ -554,11 +554,11 @@ def run_comprehensive_macos_hri_test():
             results = test_func()
             all_results.update(results)
         except Exception as e:
-            print(f"❌ {suite_name} test suite failed: {e}")
+            print(f"ERROR {suite_name} test suite failed: {e}")
     
     # Final comprehensive summary
     print("\n" + "="*90)
-    print("🎯 COMPREHENSIVE HRI SYSTEM READINESS SUMMARY")
+    print("Goal COMPREHENSIVE HRI SYSTEM READINESS SUMMARY")
     print("="*90)
     
     working_components = []
@@ -570,43 +570,43 @@ def run_comprehensive_macos_hri_test():
         else:
             failed_components.append(component)
     
-    print(f"\n✅ WORKING: {len(working_components)} components ready")
+    print(f"\nOK WORKING: {len(working_components)} components ready")
     for comp in working_components:
-        print(f"   ✓ {comp.replace('_', ' ').title()}")
+        print(f"   {comp.replace('_', ' ').title()}")
     
     if failed_components:
-        print(f"\n❌ FAILED: {len(failed_components)} components need attention")
+        print(f"\nERROR FAILED: {len(failed_components)} components need attention")
         for comp in failed_components:
-            print(f"   ✗ {comp.replace('_', ' ').title()}")
+            print(f"   FAIL {comp.replace('_', ' ').title()}")
     
     success_rate = len(working_components) / len(all_results) * 100 if all_results else 0
     
-    print(f"\n📊 OVERALL SYSTEM READINESS: {success_rate:.0f}%")
+    print(f"\nMetrics OVERALL SYSTEM READINESS: {success_rate:.0f}%")
     
     # Research readiness assessment
-    print(f"\n🔬 RESEARCH STUDY READINESS:")
-    print(f"   • RQ1 (Trust + Cognitive Load): {'✅' if success_rate >= 90 else '⚠️'}")
-    print(f"   • RQ2 (Vocabulary Adaptation): {'✅' if success_rate >= 90 else '⚠️'}")
-    print(f"   • H1 (Trade Terminology): {'✅' if success_rate >= 90 else '⚠️'}")
-    print(f"   • H2 (Graduated Uncertainty): {'✅' if success_rate >= 90 else '⚠️'}")
-    print(f"   • H3 (Context Memory): {'✅' if success_rate >= 90 else '⚠️'}")
+    print(f"\nLab RESEARCH STUDY READINESS:")
+    print(f"   - RQ1 (Trust + Cognitive Load): {'Pass' if success_rate >= 90 else 'Warning'}")
+    print(f"   - RQ2 (Vocabulary Adaptation): {'Pass' if success_rate >= 90 else 'Warning'}")
+    print(f"   - H1 (Trade Terminology): {'Pass' if success_rate >= 90 else 'Warning'}")
+    print(f"   - H2 (Graduated Uncertainty): {'Pass' if success_rate >= 90 else 'Warning'}")
+    print(f"   - H3 (Context Memory): {'Pass' if success_rate >= 90 else 'Warning'}")
     
     if success_rate >= 90:
-        print(f"\n🚀 READY FOR SIMULATION DEPLOYMENT!")
-        print(f"\n📋 Next Steps:")
+        print(f"\nStart READY FOR SIMULATION DEPLOYMENT!")
+        print(f"\nAssessment Next Steps:")
         print(f"   1. Deploy to Linux system with RViz/Gazebo/MoveIt2")
         print(f"   2. Connect UR30 robot arm with Hybrid IK")
         print(f"   3. Integrate RealSense camera for object detection")
         print(f"   4. Run pilot testing with construction workers")
         print(f"   5. Execute full experimental protocol")
-        print(f"\n🎯 ALL RESEARCH HYPOTHESES ARE TESTABLE!")
+        print(f"\nGoal ALL RESEARCH HYPOTHESES ARE TESTABLE!")
     else:
-        print(f"\n⚠️  Additional development needed before deployment")
+        print(f"\nWarning  Additional development needed before deployment")
         print(f"   Focus on failed components above")
     
     return success_rate >= 90
 
 if __name__ == "__main__":
     success = run_comprehensive_macos_hri_test()
-    print(f"\n{'🎉' if success else '⚠️'} Test {'PASSED' if success else 'NEEDS WORK'}: Construction HRI System")
+    print(f"\n{'Complete' if success else 'Warning'} Test {'PASSED' if success else 'NEEDS WORK'}: Construction HRI System")
     sys.exit(0 if success else 1)

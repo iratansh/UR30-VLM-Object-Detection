@@ -30,11 +30,11 @@ def test_complete_construction_hri_with_rag():
     """Test the complete construction HRI system with RAG integration"""
     
     try:
-        logger.info("🏗️ COMPLETE CONSTRUCTION HRI SYSTEM WITH RAG")
+        logger.info("Construction COMPLETE CONSTRUCTION HRI SYSTEM WITH RAG")
         logger.info("="*65)
         
         # Import all system components
-        logger.info("📦 Loading system components with RAG...")
+        logger.info("Objects Loading system components with RAG...")
         
         from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
         from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
@@ -50,10 +50,10 @@ def test_complete_construction_hri_with_rag():
         )
         from ConstructionRAGManager import ConstructionRAGManager
         
-        logger.info("✅ All components loaded successfully")
+        logger.info("PASS All components loaded successfully")
         
         # Initialize complete system
-        logger.info("\n🔧 INITIALIZING COMPLETE SYSTEM WITH RAG")
+        logger.info("\nStatus INITIALIZING COMPLETE SYSTEM WITH RAG")
         logger.info("-" * 50)
         
         # Core components
@@ -71,10 +71,10 @@ def test_complete_construction_hri_with_rag():
             construction_mode=True
         )
         
-        logger.info("✅ Complete system initialized with RAG enhancement")
+        logger.info("PASS Complete system initialized with RAG enhancement")
         
         # Test comprehensive workflow with RAG
-        logger.info("\n🧠 TESTING RAG-ENHANCED HRI WORKFLOWS")
+        logger.info("\nBrain TESTING RAG-ENHANCED HRI WORKFLOWS")
         logger.info("-" * 50)
         
         # Create construction scene with tools
@@ -107,11 +107,11 @@ def test_complete_construction_hri_with_rag():
         confidence_scores = [tool['confidence'] for tool in construction_scene]
         
         # Scenario 1: Safety-aware RAG enhancement
-        logger.info("\n📋 SCENARIO 1: Safety-Aware RAG Enhancement")
+        logger.info("\nAssessment SCENARIO 1: Safety-Aware RAG Enhancement")
         logger.info("   User: 'Get me the saw'")
         
         command_info = speech_processor.process_command("get me the saw")
-        logger.info(f"   🗣️ Parsed: {command_info}")
+        logger.info(f"   Speech Parsed: {command_info}")
         
         # Detect saw (should trigger safety knowledge)
         saw_detections = [construction_scene[1]]  # circular saw
@@ -125,22 +125,22 @@ def test_complete_construction_hri_with_rag():
             strategy=ClarificationStrategy.EXPERTISE_ADAPTIVE
         )
         
-        logger.info(f"   🤖 RAG Response: '{rag_enhanced_response.text}'")
-        logger.info(f"   🧠 RAG Enhanced: {rag_enhanced_response.metadata.get('rag_enhanced', False)}")
+        logger.info(f"   Robot RAG Response: '{rag_enhanced_response.text}'")
+        logger.info(f"   Brain RAG Enhanced: {rag_enhanced_response.metadata.get('rag_enhanced', False)}")
         
         if rag_enhanced_response.metadata.get('rag_enhanced'):
             confidence = rag_enhanced_response.metadata['rag_confidence']
-            logger.info(f"   📊 RAG Confidence: {confidence:.2f}")
+            logger.info(f"   Metrics RAG Confidence: {confidence:.2f}")
             
             # Should include safety information for power tools
             if 'safety' in rag_enhanced_response.text.lower():
-                logger.info("   ✅ Safety knowledge successfully retrieved and applied")
+                logger.info("   PASS Safety knowledge successfully retrieved and applied")
         
         # Speak the enhanced response
         tts_manager.speak_clarification(rag_enhanced_response.text, blocking=True)
         
         # Scenario 2: Learning-oriented response for apprentice
-        logger.info("\n📋 SCENARIO 2: Educational Enhancement for Apprentice")
+        logger.info("\nAssessment SCENARIO 2: Educational Enhancement for Apprentice")
         logger.info("   Context: Apprentice asking about hammer types")
         
         # Switch to apprentice expertise level
@@ -154,16 +154,16 @@ def test_complete_construction_hri_with_rag():
             strategy=ClarificationStrategy.EXPERTISE_ADAPTIVE
         )
         
-        logger.info(f"   🤖 Educational Response: '{hammer_response.text}'")
+        logger.info(f"   Robot Educational Response: '{hammer_response.text}'")
         
         # Should include educational content for apprentices
         if 'tip' in hammer_response.text.lower() or 'rough carpentry' in hammer_response.text.lower():
-            logger.info("   ✅ Educational content successfully provided via RAG")
+            logger.info("   PASS Educational content successfully provided via RAG")
         
         tts_manager.speak_clarification(hammer_response.text, blocking=True)
         
         # Scenario 3: History-aware RAG enhancement
-        logger.info("\n📋 SCENARIO 3: History-Aware Context with RAG")
+        logger.info("\nAssessment SCENARIO 3: History-Aware Context with RAG")
         
         # Build task history that RAG can reference
         clarification_mgr.update_task_memory("safety glasses", "pickup", True, "good choice")
@@ -178,19 +178,19 @@ def test_complete_construction_hri_with_rag():
             strategy=ClarificationStrategy.HISTORY_AWARE
         )
         
-        logger.info(f"   🤖 History-Aware: '{history_response.text}'")
+        logger.info(f"   Robot History-Aware: '{history_response.text}'")
         
         # Should reference previous failure and potentially suggest maintenance
         if 'before' in history_response.text.lower() or 'earlier' in history_response.text.lower():
-            logger.info("   ✅ Task history successfully integrated")
+            logger.info("   PASS Task history successfully integrated")
         
         if history_response.metadata.get('rag_enhanced'):
-            logger.info(f"   🧠 Enhanced with maintenance knowledge")
+            logger.info(f"   Brain Enhanced with maintenance knowledge")
         
         tts_manager.speak_clarification(history_response.text, blocking=True)
         
         # Scenario 4: Multi-tool procedure guidance
-        logger.info("\n📋 SCENARIO 4: Multi-Tool Procedure Guidance")
+        logger.info("\nAssessment SCENARIO 4: Multi-Tool Procedure Guidance")
         logger.info("   Context: User needs guidance on proper tool sequence")
         
         # Switch back to journeyman level
@@ -205,16 +205,16 @@ def test_complete_construction_hri_with_rag():
             strategy=ClarificationStrategy.OPTIONS_BASED
         )
         
-        logger.info(f"   🤖 Procedure Guidance: '{procedure_response.text}'")
+        logger.info(f"   Robot Procedure Guidance: '{procedure_response.text}'")
         
         # RAG should enhance with procedure knowledge
         if procedure_response.metadata.get('rag_enhanced'):
-            logger.info("   ✅ Procedure knowledge integrated via RAG")
+            logger.info("   PASS Procedure knowledge integrated via RAG")
         
         tts_manager.speak_clarification(procedure_response.text, blocking=True)
         
         # Test knowledge base expansion during operation
-        logger.info("\n📝 TESTING DYNAMIC KNOWLEDGE EXPANSION")
+        logger.info("\nNote TESTING DYNAMIC KNOWLEDGE EXPANSION")
         logger.info("-" * 40)
         
         # Access RAG manager directly to add new knowledge
@@ -231,7 +231,7 @@ def test_complete_construction_hri_with_rag():
             )
             
             clarification_mgr.rag_manager.add_knowledge_item(new_knowledge)
-            logger.info("✅ Added situational knowledge to RAG system")
+            logger.info("PASS Added situational knowledge to RAG system")
             
             # Test retrieval of new knowledge
             enhanced_saw_response = clarification_mgr.request_clarification(
@@ -241,13 +241,13 @@ def test_complete_construction_hri_with_rag():
                 strategy=ClarificationStrategy.DIRECT
             )
             
-            logger.info(f"   🤖 Enhanced Response: '{enhanced_saw_response.text}'")
+            logger.info(f"   Robot Enhanced Response: '{enhanced_saw_response.text}'")
             
             if 'blade' in enhanced_saw_response.text.lower():
-                logger.info("   ✅ New knowledge successfully integrated")
+                logger.info("   PASS New knowledge successfully integrated")
         
         # Test expertise progression with RAG adaptation
-        logger.info("\n👷 TESTING EXPERTISE PROGRESSION WITH RAG")
+        logger.info("\nOperator TESTING EXPERTISE PROGRESSION WITH RAG")
         logger.info("-" * 40)
         
         expertise_levels = [
@@ -274,13 +274,13 @@ def test_complete_construction_hri_with_rag():
             
             if expertise_response.metadata.get('rag_enhanced'):
                 confidence = expertise_response.metadata['rag_confidence']
-                logger.info(f"     🧠 RAG enhanced (confidence: {confidence:.2f})")
+                logger.info(f"     Brain RAG enhanced (confidence: {confidence:.2f})")
             
             # Speak with appropriate voice profile
             tts_manager.speak_clarification(expertise_response.text, blocking=True)
         
         # Performance analysis with RAG
-        logger.info("\n📊 RAG-ENHANCED SYSTEM PERFORMANCE")
+        logger.info("\nMetrics RAG-ENHANCED SYSTEM PERFORMANCE")
         logger.info("-" * 40)
         
         # Get clarification performance metrics
@@ -309,7 +309,7 @@ def test_complete_construction_hri_with_rag():
         logger.info(f"   Speech queue: {tts_capabilities['queue_size']} items")
         
         # Export enhanced research data
-        logger.info("\n💾 EXPORTING RAG-ENHANCED RESEARCH DATA")
+        logger.info("\nSaved EXPORTING RAG-ENHANCED RESEARCH DATA")
         logger.info("-" * 40)
         
         # Export clarification data
@@ -324,36 +324,36 @@ def test_complete_construction_hri_with_rag():
             logger.info(f"   Knowledge base: {knowledge_file}")
         
         # Final system status with RAG
-        logger.info("\n✅ RAG-ENHANCED SYSTEM STATUS")
+        logger.info("\nPASS RAG-ENHANCED SYSTEM STATUS")
         logger.info("=" * 50)
-        logger.info("   ✅ Whisper ASR: Speech recognition operational")
-        logger.info("   ✅ OWL-ViT: Construction tool detection ready")
-        logger.info("   ✅ Clarification Manager: 5 strategies with RAG enhancement")
-        logger.info("   ✅ TTS Manager: Context-aware speech synthesis")
-        logger.info("   ✅ RAG Manager: Knowledge retrieval and enhancement")
-        logger.info("   ✅ Construction Knowledge: Professional terminology integrated")
-        logger.info("   ✅ Expertise Adaptation: Dynamic content adjustment")
-        logger.info("   ✅ History Awareness: Transactive memory implementation")
-        logger.info("   ✅ Safety Integration: Context-aware safety reminders")
-        logger.info("   ✅ Research Framework: A/B testing with RAG metrics")
-        logger.info("\n🏗️ READY FOR CONSTRUCTION SITE DEPLOYMENT WITH FULL RAG CAPABILITIES")
+        logger.info("   PASS Whisper ASR: Speech recognition operational")
+        logger.info("   PASS OWL-ViT: Construction tool detection ready")
+        logger.info("   PASS Clarification Manager: 5 strategies with RAG enhancement")
+        logger.info("   PASS TTS Manager: Context-aware speech synthesis")
+        logger.info("   PASS RAG Manager: Knowledge retrieval and enhancement")
+        logger.info("   PASS Construction Knowledge: Professional terminology integrated")
+        logger.info("   PASS Expertise Adaptation: Dynamic content adjustment")
+        logger.info("   PASS History Awareness: Transactive memory implementation")
+        logger.info("   PASS Safety Integration: Context-aware safety reminders")
+        logger.info("   PASS Research Framework: A/B testing with RAG metrics")
+        logger.info("\nConstruction READY FOR CONSTRUCTION SITE DEPLOYMENT WITH FULL RAG CAPABILITIES")
         
         # Cleanup
-        logger.info("\n🧹 CLEANING UP RAG-ENHANCED SYSTEM")
+        logger.info("\nCleanup CLEANING UP RAG-ENHANCED SYSTEM")
         speech_processor.cleanup()
         tts_manager.cleanup()
         
-        logger.info("\n🎉 RAG-ENHANCED CONSTRUCTION HRI SYSTEM TEST COMPLETED!")
-        logger.info("    ✨ RAG provides context-aware, knowledge-enhanced responses")
-        logger.info("    🧠 Transactive Memory Theory successfully implemented")
-        logger.info("    📚 Construction knowledge base dynamically expandable")
-        logger.info("    👷 Expertise-adaptive content with safety integration")
-        logger.info("    🤖 Ready for UR30 robot deployment with intelligent clarifications")
+        logger.info("\nComplete RAG-ENHANCED CONSTRUCTION HRI SYSTEM TEST COMPLETED!")
+        logger.info("    Ready RAG provides context-aware, knowledge-enhanced responses")
+        logger.info("    Brain Transactive Memory Theory successfully implemented")
+        logger.info("    Books Construction knowledge base dynamically expandable")
+        logger.info("    Operator Expertise-adaptive content with safety integration")
+        logger.info("    Robot Ready for UR30 robot deployment with intelligent clarifications")
         
         return True
         
     except Exception as e:
-        logger.error(f"❌ RAG-enhanced system test failed: {e}")
+        logger.error(f"FAIL RAG-enhanced system test failed: {e}")
         import traceback
         traceback.print_exc()
         return False

@@ -22,11 +22,11 @@ def test_rag_integration():
     """Test Construction RAG integration comprehensively"""
     
     try:
-        logger.info("🧠 CONSTRUCTION RAG INTEGRATION TEST")
+        logger.info("Brain CONSTRUCTION RAG INTEGRATION TEST")
         logger.info("="*50)
         
         # Test RAG Manager independently
-        logger.info("📚 Testing RAG Manager...")
+        logger.info("Books Testing RAG Manager...")
         
         from ConstructionRAGManager import (
             ConstructionRAGManager,
@@ -35,17 +35,17 @@ def test_rag_integration():
         )
         
         rag_manager = ConstructionRAGManager()
-        logger.info("✅ RAG Manager initialized")
+        logger.info("PASS RAG Manager initialized")
         
         # Test knowledge base statistics
         stats = rag_manager.get_knowledge_stats()
-        logger.info(f"📊 Knowledge base stats:")
+        logger.info(f"Metrics Knowledge base stats:")
         logger.info(f"   Total items: {stats['total_items']}")
         logger.info(f"   Categories: {dict(stats['categories'])}")
         logger.info(f"   Expertise levels: {dict(stats['expertise_levels'])}")
         
         # Test knowledge retrieval
-        logger.info("\n🔍 Testing Knowledge Retrieval...")
+        logger.info("\nDetecting Testing Knowledge Retrieval...")
         
         test_queries = [
             ("hammer safety", ["framing hammer"], "apprentice"),
@@ -68,7 +68,7 @@ def test_rag_integration():
                 logger.info(f"     - {item.id}: {item.content[:60]}... (Category: {item.category})")
         
         # Test response enhancement
-        logger.info("\n✨ Testing Response Enhancement...")
+        logger.info("\nReady Testing Response Enhancement...")
         
         mock_tools = [{
             'trade_term': 'framing hammer',
@@ -98,7 +98,7 @@ def test_rag_integration():
             logger.info(f"   Retrieved items: {len(rag_response.retrieved_items)}")
         
         # Test with Clarification Manager integration
-        logger.info("\n🤖 Testing Clarification Manager Integration...")
+        logger.info("\nRobot Testing Clarification Manager Integration...")
         
         from unified_vision_system.hri.ConstructionClarificationManager import (
             ConstructionClarificationManager,
@@ -121,7 +121,7 @@ def test_rag_integration():
         }]
         mock_confidences = [0.85]
         
-        logger.info("\n🔧 Testing RAG-Enhanced Clarification Strategies...")
+        logger.info("\nStatus Testing RAG-Enhanced Clarification Strategies...")
         
         strategies_to_test = [
             ClarificationStrategy.DIRECT,
@@ -143,12 +143,12 @@ def test_rag_integration():
             logger.info(f"     Metadata: {response.metadata}")
             
             if response.metadata.get('rag_enhanced'):
-                logger.info(f"     ✅ RAG enhanced (confidence: {response.metadata['rag_confidence']:.2f})")
+                logger.info(f"     PASS RAG enhanced (confidence: {response.metadata['rag_confidence']:.2f})")
             else:
-                logger.info(f"     ➖ No RAG enhancement applied")
+                logger.info(f"     - No RAG enhancement applied")
         
         # Test tool usage patterns
-        logger.info("\n🔄 Testing Tool Usage Patterns...")
+        logger.info("\nLoop Testing Tool Usage Patterns...")
         
         # Simulate tool usage sequence
         tool_sequences = [
@@ -167,7 +167,7 @@ def test_rag_integration():
             logger.info(f"   After '{current_tool}' in cutting: {suggestions}")
         
         # Test knowledge base expansion
-        logger.info("\n📝 Testing Knowledge Base Expansion...")
+        logger.info("\nNote Testing Knowledge Base Expansion...")
         
         new_knowledge = ConstructionKnowledgeItem(
             id="test_safety_001",
@@ -178,7 +178,7 @@ def test_rag_integration():
         )
         
         rag_manager.add_knowledge_item(new_knowledge)
-        logger.info(f"✅ Added knowledge item: {new_knowledge.id}")
+        logger.info(f"PASS Added knowledge item: {new_knowledge.id}")
         
         # Test the new knowledge in retrieval
         drill_items = rag_manager._retrieve_relevant_knowledge(
@@ -190,10 +190,10 @@ def test_rag_integration():
         logger.info(f"   Found {len(drill_items)} items about drilling safety")
         for item in drill_items:
             if "electrical" in item.content.lower():
-                logger.info(f"   ✅ New knowledge item found: {item.id}")
+                logger.info(f"   PASS New knowledge item found: {item.id}")
         
         # Test history-aware enhancement
-        logger.info("\n🧠 Testing History-Aware Enhancement...")
+        logger.info("\nBrain Testing History-Aware Enhancement...")
         
         # Add some task memory
         clarification_mgr.update_task_memory("framing hammer", "pickup", True)
@@ -218,7 +218,7 @@ def test_rag_integration():
             logger.info(f"   Enhanced with RAG (confidence: {history_response.metadata['rag_confidence']:.2f})")
         
         # Test expertise progression impact
-        logger.info("\n👷 Testing Expertise Progression Impact...")
+        logger.info("\nOperator Testing Expertise Progression Impact...")
         
         expertise_levels = [UserExpertiseLevel.APPRENTICE, UserExpertiseLevel.JOURNEYMAN, 
                            UserExpertiseLevel.FOREMAN, UserExpertiseLevel.MASTER]
@@ -243,7 +243,7 @@ def test_rag_integration():
                 logger.info(f"      RAG enhanced: {response.metadata['rag_confidence']:.2f} confidence")
         
         # Performance metrics
-        logger.info("\n📊 RAG Performance Metrics...")
+        logger.info("\nMetrics RAG Performance Metrics...")
         
         final_stats = rag_manager.get_knowledge_stats()
         logger.info(f"   Knowledge base usage:")
@@ -258,7 +258,7 @@ def test_rag_integration():
         rag_manager.save_knowledge_base(knowledge_file)
         logger.info(f"   Knowledge base saved to: {knowledge_file}")
         
-        logger.info("\n✅ CONSTRUCTION RAG INTEGRATION TEST COMPLETED SUCCESSFULLY!")
+        logger.info("\nPASS CONSTRUCTION RAG INTEGRATION TEST COMPLETED SUCCESSFULLY!")
         logger.info("    RAG enhancement provides context-aware responses")
         logger.info("    Knowledge retrieval supports expertise adaptation") 
         logger.info("    History-aware responses utilize task memory")
@@ -267,7 +267,7 @@ def test_rag_integration():
         return True
         
     except Exception as e:
-        logger.error(f"❌ RAG integration test failed: {e}")
+        logger.error(f"FAIL RAG integration test failed: {e}")
         import traceback
         traceback.print_exc()
         return False

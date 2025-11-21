@@ -30,7 +30,7 @@ colcon build \
 echo ""
 echo "=== Build Complete ==="
 echo ""
-echo "✅ Successfully built packages:"
+echo "Successfully built packages:"
 echo "  - serial (ROS2 serial communication library)"
 echo "  - ur_description (UR30 robot URDF/meshes)"
 echo "  - unified_vision_system (Vision system with custom gripper)"

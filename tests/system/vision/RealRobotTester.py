@@ -139,7 +139,7 @@ class RealRobotTester(Node):
             self.publish_status("Failed to receive joint states", "ERROR")
             return False
         
-        self.publish_status(f"Current joints: {[f'{np.degrees(j):.1f}°' for j in self.current_joints]}")
+        self.publish_status(f"Current joints: {[f'{np.degrees(j):.1f}deg' for j in self.current_joints]}")
         self.test_results['communication'] = True
         return True
     
@@ -338,7 +338,7 @@ class RealRobotTester(Node):
         print("="*60)
         
         for test_name, result in self.test_results.items():
-            status = "✅ PASS" if result else "❌ FAIL"
+            status = "PASS PASS" if result else "FAIL FAIL"
             print(f"{test_name}: {status}")
         
         total_tests = len(tests)
@@ -347,9 +347,9 @@ class RealRobotTester(Node):
         print(f"\nTotal: {passed_tests}/{total_tests} tests passed")
         
         if passed_tests == total_tests:
-            print("\n✅ All tests passed! System ready for operation.")
+            print("\nPASS All tests passed! System ready for operation.")
         else:
-            print("\n⚠️  Some tests failed. Address issues before proceeding.")
+            print("\nWARNING  Some tests failed. Address issues before proceeding.")
     
     def cleanup(self):
         """Cleanup and return to safe position."""

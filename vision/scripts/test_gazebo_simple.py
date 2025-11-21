@@ -45,9 +45,9 @@ try:
     from sensor_msgs.msg import Image, JointState
     from geometry_msgs.msg import PoseStamped
     from cv_bridge import CvBridge
-    print("✅ ROS2 imports successful")
+    print("ROS2 imports successful")
 except ImportError as e:
-    print(f"❌ Failed to import ROS2: {e}")
+    print(f"ERROR Failed to import ROS2: {e}")
     print("\nPlease ensure:")
     print("  1. ROS2 Humble is sourced: source /opt/ros/humble/setup.bash")
     print("  2. Running in Docker container: docker exec -it ur5e-vlm-working bash")
@@ -60,28 +60,28 @@ WorkspaceValidator = None
 
 try:
     from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
-    print("✅ OWL-ViT detector imported")
+    print("OWL-ViT detector imported")
 except ImportError as e:
-    print(f"⚠️  OWL-ViT import failed: {e}")
+    print(f"Warning  OWL-ViT import failed: {e}")
 
 try:
     from unified_vision_system.control.UR30Kinematics import UR30Kinematics
-    print("✅ UR30 Kinematics imported")
+    print("UR30 Kinematics imported")
 except ImportError as e:
-    print(f"⚠️  UR30 Kinematics import failed: {e}")
+    print(f"Warning  UR30 Kinematics import failed: {e}")
 
 try:
     from unified_vision_system.perception.WorkSpaceValidator import WorkSpaceValidator as WorkspaceValidator
-    print("✅ Workspace Validator imported")
+    print("Workspace Validator imported")
 except ImportError as e:
-    print(f"⚠️  Workspace Validator import failed: {e}")
+    print(f"Warning  Workspace Validator import failed: {e}")
     print("  Test will run without workspace validation")
 
 if OWLViTDetector is None:
-    print("❌ Cannot run test without OWL-ViT detector")
+    print("ERROR Cannot run test without OWL-ViT detector")
     sys.exit(1)
 
-print("✅ Vision system imports ready")
+print("Vision system imports ready")
 
 
 class GazeboVisionTest(Node):
@@ -95,20 +95,20 @@ class GazeboVisionTest(Node):
         # Create components
         try:
             self.detector = OWLViTDetector()
-            self.get_logger().info("✅ OWL-ViT detector initialized")
+            self.get_logger().info("OWL-ViT detector initialized")
             
             self.kinematics = UR30Kinematics() if UR30Kinematics else None
             if self.kinematics:
-                self.get_logger().info("✅ UR30 Kinematics initialized")
+                self.get_logger().info("UR30 Kinematics initialized")
             
             self.validator = WorkspaceValidator() if WorkspaceValidator else None
             if self.validator:
-                self.get_logger().info("✅ Workspace Validator initialized")
+                self.get_logger().info("Workspace Validator initialized")
             
             self.bridge = CvBridge()
-            self.get_logger().info("✅ All components initialized")
+            self.get_logger().info("All components initialized")
         except Exception as e:
-            self.get_logger().error(f"❌ Component initialization failed: {e}")
+            self.get_logger().error(f"ERROR Component initialization failed: {e}")
             raise
         
         # Subscribers
@@ -174,7 +174,7 @@ class GazeboVisionTest(Node):
         if not self.command_sent:
             self.get_logger().info("")
             self.get_logger().info("=" * 70)
-            self.get_logger().info("📢 SENDING TEST COMMAND: 'pick up the red cube'")
+            self.get_logger().info("Sending command SENDING TEST COMMAND: 'pick up the red cube'")
             self.get_logger().info("=" * 70)
             
             msg = String()
@@ -193,7 +193,7 @@ class GazeboVisionTest(Node):
             return
         
         self.get_logger().info("")
-        self.get_logger().info("🔍 Running detection pipeline...")
+        self.get_logger().info("Detecting Running detection pipeline...")
         
         try:
             # Run OWL-ViT detection
@@ -204,7 +204,7 @@ class GazeboVisionTest(Node):
             )
             
             if detections:
-                self.get_logger().info(f"  ✅ Found {len(detections)} detection(s)!")
+                self.get_logger().info(f"  Found {len(detections)} detection(s)")
                 
                 for i, det in enumerate(detections):
                     self.get_logger().info(f"     Detection {i+1}: {det.get('label', 'unknown')} "
@@ -215,10 +215,10 @@ class GazeboVisionTest(Node):
                 self.get_logger().info("  3. Planning trajectory...")
                 self.get_logger().info("  4. Executing motion...")
                 self.get_logger().info("")
-                self.get_logger().info("✅ Pipeline demonstration complete!")
+                self.get_logger().info("Pipeline demonstration complete!")
                 
             else:
-                self.get_logger().warn("  ⚠️  No detections found")
+                self.get_logger().warn("  Warning  No detections found")
                 self.get_logger().info("     This may be normal in simulation if:")
                 self.get_logger().info("       - Red cube is not in camera view")
                 self.get_logger().info("       - Lighting is insufficient")
@@ -240,7 +240,7 @@ def main():
     except KeyboardInterrupt:
         print("\n\nTest interrupted by user")
     except Exception as e:
-        print(f"\n\n❌ Test failed: {e}")
+        print(f"\n\nERROR Test failed: {e}")
         import traceback
         traceback.print_exc()
     finally:

@@ -46,12 +46,12 @@ def test_fk():
             print(f"  Distance: {distance:.3f}m")
             
             if distance > 1.19:
-                print(f"  ❌ Beyond max reach (~1.19m)!")
+                print(f"  FAIL Beyond max reach (~1.19m)!")
             else:
-                print(f"  ✅ Within reach")
+                print(f"  PASS Within reach")
                 
         except Exception as e:
-            print(f"  ❌ FK Error: {e}")
+            print(f"  FAIL FK Error: {e}")
     
     # Test if a known good position can be reached
     print("\n=== Testing IK on simple position ===")
@@ -77,10 +77,10 @@ def test_fk():
                 print(f"    Achieved: {achieved_pos}")
                 print(f"    Error: {error*1000:.1f}mm")
         else:
-            print("  ❌ No solutions found!")
+            print("  FAIL No solutions found!")
             
     except Exception as e:
-        print(f"  ❌ IK Error: {e}")
+        print(f"  FAIL IK Error: {e}")
 
 if __name__ == "__main__":
     test_fk()

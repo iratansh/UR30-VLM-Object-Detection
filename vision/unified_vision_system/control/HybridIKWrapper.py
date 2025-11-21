@@ -181,7 +181,7 @@ class VLMKinematicsController:
             
             if self.debug:
                 print(f"Exact solution found in {solve_time_ms:.1f}ms")
-                print(f"Position error: {pos_error_mm:.1f}mm, Orientation error: {ori_error_deg:.1f}°")
+                print(f"Position error: {pos_error_mm:.1f}mm, Orientation error: {ori_error_deg:.1f}deg")
             
             return True, best_joints, metadata
         
@@ -301,7 +301,7 @@ class VLMKinematicsController:
         ])
     
     def _create_angled_grasp_orientation(self) -> np.ndarray:
-        """Create angled grasp orientation matrix (45° from vertical)."""
+        """Create angled grasp orientation matrix (45deg from vertical)."""
         angle = math.pi / 4  # 45 degrees
         cos_a = math.cos(angle)
         sin_a = math.sin(angle)
@@ -417,7 +417,7 @@ def test_vlm_integration():
             object_position=pos,
             object_type=obj_type
         )
-        print(f"{obj_type} at {pos}: {'✓' if success else '✗'} "
+        print(f"{obj_type} at {pos}: {'success' if success else 'fail'} "
               f"({metadata['solve_time_ms']:.1f}ms)")
     
     # Test 3: VLM target with custom orientation
@@ -434,7 +434,7 @@ def test_vlm_integration():
         allow_approximation=True
     )
     
-    print(f"Custom orientation: {'✓' if success else '✗'}")
+    print(f"Custom orientation: {'success' if success else 'fail'}")
     print(f"Is approximation: {metadata['is_approximation']}")
     print(f"Position error: {metadata['position_error_mm']:.1f}mm")
     

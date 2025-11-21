@@ -141,7 +141,7 @@ class ConstructionTTSManager:
         if self.enable_background_speech:
             self._start_speech_thread()
         
-        self.logger.info(f"✅ Construction TTS Manager initialized")
+        self.logger.info(f"Construction TTS Manager initialized")
         self.logger.info(f"   Voice profile: {voice_profile.value}")
         self.logger.info(f"   Background speech: {enable_background_speech}")
         self.logger.info(f"   Construction mode: {construction_mode}")
@@ -155,7 +155,7 @@ class ConstructionTTSManager:
                 from TTS.api import TTS
                 # Initialize CoquiTTS with a compatible model for Python 3.9
                 self.coqui_tts = TTS("tts_models/en/ljspeech/tacotron2-DDC", progress_bar=False, gpu=False)
-                self.logger.info("✅ CoquiTTS engine initialized successfully")
+                self.logger.info("CoquiTTS engine initialized successfully")
                 return
             except Exception as e:
                 self.logger.error(f"Failed to initialize CoquiTTS engine: {e}")
@@ -168,7 +168,7 @@ class ConstructionTTSManager:
             result = subprocess.run(['say', '-v', '?'], capture_output=True, text=True, timeout=5)
             if result.returncode == 0:
                 self.system_tts_available = True
-                self.logger.info("✅ macOS system TTS available as fallback")
+                self.logger.info("macOS system TTS available as fallback")
                 return
         except:
             pass
@@ -185,7 +185,7 @@ class ConstructionTTSManager:
             # Configure voice settings based on profile
             self._apply_voice_profile(self.voice_profile)
             
-            self.logger.info("✅ TTS engine initialized successfully")
+            self.logger.info("TTS engine initialized successfully")
             
         except Exception as e:
             self.logger.error(f"Failed to initialize TTS engine: {e}")
@@ -241,7 +241,7 @@ class ConstructionTTSManager:
         self.stop_speech = False
         self.speech_thread = threading.Thread(target=self._speech_processor, daemon=True)
         self.speech_thread.start()
-        self.logger.info("🔊 Background speech thread started")
+        self.logger.info("Audio Background speech thread started")
 
     def _speech_processor(self):
         """Background thread for processing speech queue"""
@@ -315,7 +315,7 @@ class ConstructionTTSManager:
                     self._clear_speech_queue()
                 
                 self.speech_queue.put(speech_request)
-                self.logger.info(f"🔊 Queued speech ({priority.name}): '{text}'")
+                self.logger.info(f"Audio Queued speech ({priority.name}): '{text}'")
                 return True
                 
             except Exception as e:
@@ -366,7 +366,7 @@ class ConstructionTTSManager:
                     speech_thread = threading.Thread(target=play_audio, daemon=True)
                     speech_thread.start()
                 
-                self.logger.info(f"🔊 [CoquiTTS] Speaking: '{speech_request['original_text']}'")
+                self.logger.info(f"Audio [CoquiTTS] Speaking: '{speech_request['original_text']}'")
                 return True
                 
             except Exception as e:
@@ -393,7 +393,7 @@ class ConstructionTTSManager:
                     speech_thread = threading.Thread(target=system_speak, daemon=True)
                     speech_thread.start()
                 
-                self.logger.info(f"🔊 [SYSTEM TTS] Speaking: '{speech_request['original_text']}'")
+                self.logger.info(f"Audio [SYSTEM TTS] Speaking: '{speech_request['original_text']}'")
                 return True
                 
             except Exception as e:
@@ -403,7 +403,7 @@ class ConstructionTTSManager:
         # Original pyttsx3 implementation
         if not self.tts_engine:
             # Mock implementation for when TTS not available
-            self.logger.info(f"🔊 [MOCK TTS] Speaking: '{text}'")
+            self.logger.info(f"Audio [MOCK TTS] Speaking: '{text}'")
             time.sleep(len(text) * 0.05)  # Simulate speech duration
             return True
 
@@ -431,7 +431,7 @@ class ConstructionTTSManager:
                 speech_thread = threading.Thread(target=run_speech, daemon=True)
                 speech_thread.start()
             
-            self.logger.info(f"🔊 Speaking: '{speech_request['original_text']}'")
+            self.logger.info(f"Audio Speaking: '{speech_request['original_text']}'")
             return True
             
         except Exception as e:
@@ -475,7 +475,7 @@ class ConstructionTTSManager:
                 break
         
         if cleared_count > 0:
-            self.logger.info(f"🔊 Cleared {cleared_count} pending speech requests for critical message")
+            self.logger.info(f"Audio Cleared {cleared_count} pending speech requests for critical message")
 
     def stop_current_speech(self):
         """Stop any currently playing speech"""
@@ -484,7 +484,7 @@ class ConstructionTTSManager:
             try:
                 self.tts_engine.stop()
                 self.is_speaking = False
-                self.logger.info("🔊 Stopped current speech")
+                self.logger.info("Audio Stopped current speech")
             except Exception as e:
                 self.logger.error(f"Failed to stop speech: {e}")
 
@@ -495,7 +495,7 @@ class ConstructionTTSManager:
         self.voice_profile = profile
         self._apply_voice_profile(profile)
         
-        self.logger.info(f"🔊 Voice profile updated: {old_profile.value} -> {profile.value}")
+        self.logger.info(f"Audio Voice profile updated: {old_profile.value} -> {profile.value}")
 
     def is_speech_active(self) -> bool:
         """Check if TTS is currently speaking"""
@@ -549,7 +549,7 @@ class ConstructionTTSManager:
             except Exception as e:
                 self.logger.error(f"Error cleaning up TTS engine: {e}")
         
-        self.logger.info("🔊 TTS Manager cleaned up")
+        self.logger.info("Audio TTS Manager cleaned up")
 
 # Integration helper function
 def create_construction_tts(expertise_level: str = "journeyman") -> ConstructionTTSManager:

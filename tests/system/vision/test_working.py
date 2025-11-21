@@ -42,7 +42,7 @@ def test_guaranteed_working_poses():
         },
         {
             "position": [0.2, -0.15, 0.25],  # Other side
-            "orientation": np.array([        # 45° tilt
+            "orientation": np.array([        # 45deg tilt
                 [0.707, 0, 0.707],
                 [0, -1, 0],
                 [0.707, 0, -0.707]
@@ -78,10 +78,10 @@ def test_guaranteed_working_poses():
         print(f"Height: {position[2]:.3f}m")
         
         if distance > 0.8:
-            print("⚠️  WARNING: Position might be too far")
+            print("WARNING  WARNING: Position might be too far")
         
         if position[2] < 0.05:
-            print("⚠️  WARNING: Position too low")
+            print("WARNING  WARNING: Position too low")
         
         # Create target pose
         target_pose = np.eye(4)
@@ -95,7 +95,7 @@ def test_guaranteed_working_poses():
         solutions = hybrid.inverse_kinematics(target_pose, timeout_ms=500)
         
         if solutions:
-            print(f"✅ SUCCESS! Found {len(solutions)} solutions")
+            print(f"PASS SUCCESS! Found {len(solutions)} solutions")
             
             best_solution = solutions[0]
             print(f"Best solution (degrees): {[round(math.degrees(j), 1) for j in best_solution]}")
@@ -111,17 +111,17 @@ def test_guaranteed_working_poses():
             
             print(f"Verification:")
             print(f"  Position error: {pos_error:.1f}mm")
-            print(f"  Orientation error: {rot_error_deg:.1f}°")
+            print(f"  Orientation error: {rot_error_deg:.1f}deg")
             
             if pos_error < 20.0 and rot_error_deg < 15.0:
-                print(f"  ✅ Solution is accurate enough for real use")
+                print(f"  PASS Solution is accurate enough for real use")
                 success_count += 1
             else:
-                print(f"  ⚠️  Solution has higher error than ideal")
+                print(f"  WARNING  Solution has higher error than ideal")
                 success_count += 0.5
                 
         else:
-            print("❌ FAILED: No solutions found")
+            print("FAIL FAILED: No solutions found")
             
             # Try simpler version
             print("  Trying with identity orientation...")
@@ -131,11 +131,11 @@ def test_guaranteed_working_poses():
             simple_solutions = hybrid.inverse_kinematics(simple_pose, timeout_ms=200)
             
             if simple_solutions:
-                print("  ✅ Position is reachable with identity orientation")
+                print("  PASS Position is reachable with identity orientation")
                 print("  Issue: Requested orientation might be difficult")
                 success_count += 0.3
             else:
-                print("  ❌ Position itself seems unreachable")
+                print("  FAIL Position itself seems unreachable")
                 
                 # Debug info
                 print(f"  Debug: Distance = {distance:.3f}m, Height = {position[2]:.3f}m")
@@ -148,11 +148,11 @@ def test_guaranteed_working_poses():
     print(f"RESULTS: {success_count}/{total_tests} poses successful ({success_rate:.1%})")
     
     if success_rate >= 0.7:
-        print("✅ EXCELLENT! System is working well")
+        print("PASS EXCELLENT! System is working well")
         print("\nYour ur_ikfast + scipy integration is working!")
         print("The original test was just using unreachable poses.")
         
-        print(f"\n🎯 USE THESE POSES in your application:")
+        print(f"\nGoal USE THESE POSES in your application:")
         for pose_info in guaranteed_poses:
             pos = pose_info["position"]
             print(f"  - {pose_info['description']}: [{pos[0]}, {pos[1]}, {pos[2]}]")
@@ -160,12 +160,12 @@ def test_guaranteed_working_poses():
         return True
         
     elif success_rate >= 0.4:
-        print("⚠️  PARTIALLY WORKING - Some issues remain")
+        print("WARNING  PARTIALLY WORKING - Some issues remain")
         print("Check the debug output above for clues")
         return False
         
     else:
-        print("❌ MAJOR ISSUES - System not working properly")
+        print("FAIL MAJOR ISSUES - System not working properly")
         print("Need to investigate further")
         return False
 
@@ -191,7 +191,7 @@ def test_minimal_case():
     solutions = hybrid.inverse_kinematics(target_pose, timeout_ms=1000)  # Long timeout
     
     if solutions:
-        print(f"✅ MINIMAL TEST PASSED! Found {len(solutions)} solutions")
+        print(f"PASS MINIMAL TEST PASSED! Found {len(solutions)} solutions")
         best = solutions[0]
         print(f"Joint solution (deg): {[round(math.degrees(j), 1) for j in best]}")
         
@@ -202,7 +202,7 @@ def test_minimal_case():
         
         return True
     else:
-        print("❌ MINIMAL TEST FAILED!")
+        print("FAIL MINIMAL TEST FAILED!")
         print("This indicates a fundamental problem with the IK system")
         return False
 
@@ -213,7 +213,7 @@ def main():
     minimal_works = test_minimal_case()
     
     if not minimal_works:
-        print("❌ Cannot proceed - even minimal test failed")
+        print("FAIL Cannot proceed - even minimal test failed")
         print("Check UR30Kinematics implementation")
         return 1
     
@@ -221,7 +221,7 @@ def main():
     realistic_works = test_guaranteed_working_poses()
     
     if realistic_works:
-        print("\n🎉 SUCCESS! Your system is ready for use!")
+        print("\nComplete SUCCESS! Your system is ready for use!")
         print("\nNext steps:")
         print("1. Use the working poses in your applications")
         print("2. Implement workspace validation before IK calls")
@@ -235,7 +235,7 @@ def main():
         
         return 0
     else:
-        print("\n⚠️  Issues remain but system partially working")
+        print("\nWARNING  Issues remain but system partially working")
         print("Check the debug output for specific problems")
         return 1
 

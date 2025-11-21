@@ -33,27 +33,27 @@ def test_hybrid_ik_integration():
     print("\n1. Testing Hybrid IK System...")
     try:
         hybrid_ik = HybridUR30Kinematics(debug=True)
-        print(f"✓ Hybrid IK System initialized")
+        print(f"- Hybrid IK System initialized")
         print(f"  ur_ikfast available: {hybrid_ik.ikfast_available}")
         
         # Test forward kinematics
         test_joints = [0.0, -np.pi/2, 0.0, 0.0, 0.0, 0.0]
         fk_result = hybrid_ik.forward_kinematics(test_joints)
-        print(f"✓ Forward kinematics test passed")
+        print(f"- Forward kinematics test passed")
         
         # Test inverse kinematics
         ik_solutions = hybrid_ik.inverse_kinematics(fk_result)
-        print(f"✓ Inverse kinematics test: {len(ik_solutions)} solutions found")
+        print(f"- Inverse kinematics test: {len(ik_solutions)} solutions found")
         
     except Exception as e:
-        print(f"✗ Hybrid IK System test failed: {e}")
+        print(f"- Hybrid IK System test failed: {e}")
         return False
     
     # Test 2: VLM Kinematics Controller
     print("\n2. Testing VLM Kinematics Controller...")
     try:
         vlm_controller = VLMKinematicsController(debug=True)
-        print(f"✓ VLM Controller initialized")
+        print(f"- VLM Controller initialized")
         
         # Test object pickup solving
         success, joints, metadata = vlm_controller.solve_for_object_pickup(
@@ -62,17 +62,17 @@ def test_hybrid_ik_integration():
         )
         
         if success:
-            print(f"✓ Object pickup test passed")
+            print(f"- Object pickup test passed")
             print(f"  Solve time: {metadata['solve_time_ms']:.1f}ms")
             print(f"  Solvers used: {metadata['solver_used']}")
         else:
             print(f"! Object pickup test: no solution found")
         
     except Exception as e:
-        print(f"✗ VLM Controller test failed: {e}")
+        print(f"- VLM Controller test failed: {e}")
         return False
     
-    print("\n✓ All component tests passed!")
+    print("\n- All component tests passed!")
     return True
 
 def test_unified_vision_system_initialization():
@@ -90,25 +90,25 @@ def test_unified_vision_system_initialization():
         
         # Test 1: Basic kinematics
         kinematics = UR30Kinematics()
-        print("✓ Basic UR30Kinematics initialized")
+        print("- Basic UR30Kinematics initialized")
         
         # Test 2: Hybrid kinematics  
         hybrid_kinematics = HybridUR30Kinematics()
-        print("✓ HybridUR30Kinematics initialized")
+        print("- HybridUR30Kinematics initialized")
         
         # Test 3: VLM controller
         vlm_controller = VLMKinematicsController()
-        print("✓ VLMKinematicsController initialized")
+        print("- VLMKinematicsController initialized")
         
         # Test 4: Performance stats
         stats = vlm_controller.get_vlm_performance_stats()
-        print(f"✓ Performance stats available: {list(stats.keys())}")
+        print(f"- Performance stats available: {list(stats.keys())}")
         
-        print("\n✓ UnifiedVisionSystem components ready for integration!")
+        print("\n- UnifiedVisionSystem components ready for integration!")
         return True
         
     except Exception as e:
-        print(f"✗ UnifiedVisionSystem test failed: {e}")
+        print(f"- UnifiedVisionSystem test failed: {e}")
         return False
 
 def test_ik_performance_comparison():
@@ -162,7 +162,7 @@ def test_ik_performance_comparison():
             
             print(f"  Numerical: {len(num_solutions) if num_solutions else 0} solutions, {numerical_time:.1f}ms")
             print(f"  Hybrid: {len(hybrid_solutions) if hybrid_solutions else 0} solutions, {hybrid_time:.1f}ms")
-            print(f"  VLM: {'✓' if success else '✗'}, {vlm_time:.1f}ms")
+            print(f"  VLM: {'-' if success else '-'}, {vlm_time:.1f}ms")
         
         # Summary statistics
         print(f"\nPerformance Summary:")
@@ -179,7 +179,7 @@ def test_ik_performance_comparison():
         return True
         
     except Exception as e:
-        print(f"✗ Performance comparison failed: {e}")
+        print(f"- Performance comparison failed: {e}")
         return False
 
 def test_vlm_edge_cases():
@@ -204,8 +204,8 @@ def test_vlm_edge_cases():
             target_orientation="top_down"
         )
         
-        print(f"  Clean pose: {'✓' if success_clean else '✗'}")
-        print(f"  Noisy pose: {'✓' if success_noisy else '✗'}")
+        print(f"  Clean pose: {'-' if success_clean else '-'}")
+        print(f"  Noisy pose: {'-' if success_noisy else '-'}")
         if success_noisy:
             print(f"  Approximation: {metadata_noisy['is_approximation']}")
         
@@ -219,7 +219,7 @@ def test_vlm_edge_cases():
             allow_approximation=True
         )
         
-        print(f"  Boundary pose: {'✓' if success_boundary else '✗'}")
+        print(f"  Boundary pose: {'-' if success_boundary else '-'}")
         if success_boundary and metadata_boundary['is_approximation']:
             print(f"  Error: {metadata_boundary['position_error_mm']:.1f}mm")
         
@@ -236,18 +236,18 @@ def test_vlm_edge_cases():
                 object_position=[0.3, 0.1, 0.05],
                 object_type=obj_type
             )
-            print(f"  {obj_type}: {'✓' if success else '✗'}")
+            print(f"  {obj_type}: {'-' if success else '-'}")
         
-        print("\n✓ Edge case tests completed!")
+        print("\n- Edge case tests completed!")
         return True
         
     except Exception as e:
-        print(f"✗ Edge case tests failed: {e}")
+        print(f"- Edge case tests failed: {e}")
         return False
 
 def main():
     """Run all integration tests."""
-    print("🚀 UnifiedVisionSystem + Hybrid IK Integration Tests")
+    print("Starting UnifiedVisionSystem + Hybrid IK Integration Tests")
     print("=" * 60)
     
     # Setup logging
@@ -264,17 +264,17 @@ def main():
     start_time = time.perf_counter()
     
     for test_name, test_func in tests:
-        print(f"\n📋 Running: {test_name}")
+        print(f"\nAssessment Running: {test_name}")
         print("-" * 40)
         
         try:
             result = test_func()
             results.append((test_name, result))
             status = "PASS" if result else "FAIL"
-            print(f"📊 {test_name}: {status}")
+            print(f"Metrics {test_name}: {status}")
             
         except Exception as e:
-            print(f"💥 {test_name}: CRASH - {e}")
+            print(f"Error {test_name}: CRASH - {e}")
             results.append((test_name, False))
     
     # Summary
@@ -282,20 +282,20 @@ def main():
     passed = sum(1 for _, result in results if result)
     total = len(results)
     
-    print(f"\n🏁 Test Summary")
+    print(f"\nFinished Test Summary")
     print("=" * 40)
     print(f"Tests passed: {passed}/{total}")
     print(f"Total time: {total_time:.1f}ms")
     
     for test_name, result in results:
-        status = "✓ PASS" if result else "✗ FAIL"
+        status = "- PASS" if result else "- FAIL"
         print(f"  {status} {test_name}")
     
     if passed == total:
-        print(f"\n🎉 All tests passed! System ready for deployment.")
+        print(f"\nComplete All tests passed! System ready for deployment.")
         return True
     else:
-        print(f"\n⚠️  {total - passed} tests failed. Please review errors above.")
+        print(f"\nWARNING  {total - passed} tests failed. Please review errors above.")
         return False
 
 if __name__ == "__main__":

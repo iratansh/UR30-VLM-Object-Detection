@@ -49,13 +49,13 @@ print("  Use simulated RealSense camera to detect and pick up the green book")
 print("  (Using color-based detection optimized for Gazebo simulation)")
 print()
 print("Test Steps:")
-print("  1. ✓ Initialize ROS2 connection")
-print("  2. ✓ Capture camera image and depth")
-print("  3. ✓ Detect green book using color detection")
-print("  4. ✓ Calculate 3D position with depth data")
-print("  5. ✓ Plan motion to approach")
-print("  6. ✓ Execute grasp")
-print("  7. ✓ Lift object")
+print("  1. Initialize ROS2 connection")
+print("  2. Capture camera image and depth")
+print("  3. Detect green book using color detection")
+print("  4. Calculate 3D position with depth data")
+print("  5. Plan motion to approach")
+print("  6. Execute grasp")
+print("  7. Lift object")
 print()
 print("=" * 80)
 print()
@@ -73,18 +73,18 @@ try:
     from tf2_ros import Buffer, TransformListener
     import cv2
     import numpy as np
-    print("✅ ROS2 and OpenCV imports successful")
+    print("ROS2 and OpenCV imports successful")
 except ImportError as e:
-    print(f"❌ Import error: {e}")
+    print(f"ERROR Import error: {e}")
     print("   Make sure you're in the conda environment and ROS2 is sourced")
     sys.exit(1)
 
 # Import control components
 try:
     from unified_vision_system.control.UR30Kinematics import UR30Kinematics
-    print("✅ Kinematics module imported")
+    print("Kinematics module imported")
 except ImportError as e:
-    print(f"❌ Failed to import kinematics: {e}")
+    print(f"ERROR Failed to import kinematics: {e}")
     print("   Make sure PYTHONPATH includes the vision package")
     sys.exit(1)
 
@@ -175,7 +175,7 @@ class BaselinePickTest(Node):
         self.min_grasp_height = 0.02 # never command below 2cm to avoid table collision
         self.last_motion_duration = 5.0
 
-        self.get_logger().info("✅ Baseline test node initialized")
+        self.get_logger().info("Baseline test node initialized")
     
     def image_callback(self, msg):
         """Store latest camera image"""
@@ -222,11 +222,11 @@ class BaselinePickTest(Node):
         rate = self.create_rate(10)
         while rclpy.ok():
             if self.latest_image is not None and self.camera_info is not None:
-                self.get_logger().info("✅ Camera data received")
+                self.get_logger().info("Camera data received")
                 return True
             
             if time.time() - start_time > timeout:
-                self.get_logger().error(f"❌ Timeout waiting for camera data ({timeout}s)")
+                self.get_logger().error(f"ERROR Timeout waiting for camera data ({timeout}s)")
                 return False
             
             rclpy.spin_once(self, timeout_sec=0.1)
@@ -237,7 +237,7 @@ class BaselinePickTest(Node):
         """Save image for debugging"""
         debug_path = f"/tmp/{filename}"
         cv2.imwrite(debug_path, image)
-        self.get_logger().info(f"💾 Debug image saved: {debug_path}")
+        self.get_logger().info(f"Saved Debug image saved: {debug_path}")
         return debug_path
     
     def detect_green_book(self):
@@ -248,10 +248,10 @@ class BaselinePickTest(Node):
         which is more reliable for simple geometric objects in simulation.
         """
         if self.latest_image is None:
-            self.get_logger().error("❌ No camera image available")
+            self.get_logger().error("ERROR No camera image available")
             return None
         
-        self.get_logger().info("🔍 Detecting green object with color detection...")
+        self.get_logger().info("Detecting Detecting green object with color detection...")
         
         # Save debug image
         self.save_debug_image(self.latest_image, "green_book_detection_input.jpg")
@@ -294,7 +294,7 @@ class BaselinePickTest(Node):
                 self.get_logger().info(f"   Contour areas: min={min(areas):.0f}, max={max(areas):.0f}, count={len(areas)}")
             
             if not all_contours:
-                self.get_logger().error("❌ No green object detected")
+                self.get_logger().error("ERROR No green object detected")
                 # Save debug image with mask
                 debug_img = cv2.hconcat([self.latest_image, cv2.cvtColor(combined_mask, cv2.COLOR_GRAY2BGR)])
                 self.save_debug_image(debug_img, "green_book_no_detections.jpg")
@@ -313,7 +313,7 @@ class BaselinePickTest(Node):
             
             # Very low threshold for distant objects
             if area < 10:  # Allow detection of very small objects for distant book
-                self.get_logger().error(f"❌ Green object too small (area: {area:.0f} pixels)")
+                self.get_logger().error(f"ERROR Green object too small (area: {area:.0f} pixels)")
                 # Save debug with all contours
                 debug_img = self.latest_image.copy()
                 cv2.drawContours(debug_img, all_contours, -1, (0, 255, 255), 2)
@@ -336,7 +336,7 @@ class BaselinePickTest(Node):
                 'area': area
             }
             
-            self.get_logger().info(f"✅ Green object detected!")
+            self.get_logger().info(f"Green object detected!")
             self.get_logger().info(f"   Area: {area:.0f} pixels")
             self.get_logger().info(f"   Confidence: {confidence:.2f}")
             self.get_logger().info(f"   Bounding box: {bbox}")
@@ -357,7 +357,7 @@ class BaselinePickTest(Node):
             return detection
             
         except Exception as e:
-            self.get_logger().error(f"❌ Detection failed: {e}")
+            self.get_logger().error(f"ERROR Detection failed: {e}")
             import traceback
             traceback.print_exc()
             return None
@@ -369,13 +369,13 @@ class BaselinePickTest(Node):
         Falls back to size-based estimation if depth data unavailable.
         """
         if self.camera_info is None:
-            self.get_logger().error("❌ No camera info available")
+            self.get_logger().error("ERROR No camera info available")
             return None
         
         # Get bounding box center
         bbox = detection.get('bbox')
         if bbox is None:
-            self.get_logger().error("❌ No bounding box in detection")
+            self.get_logger().error("ERROR No bounding box in detection")
             return None
         
         # bbox format: [x_min, y_min, x_max, y_max]
@@ -384,8 +384,8 @@ class BaselinePickTest(Node):
         bbox_width = bbox[2] - bbox[0]
         bbox_height = bbox[3] - bbox[1]
         
-        self.get_logger().info(f"📍 2D center: ({center_x:.1f}, {center_y:.1f})")
-        self.get_logger().info(f"📏 2D bbox size: ({bbox_width:.1f}px x {bbox_height:.1f}px)")
+        self.get_logger().info(f"Point 2D center: ({center_x:.1f}, {center_y:.1f})")
+        self.get_logger().info(f"Size 2D bbox size: ({bbox_width:.1f}px x {bbox_height:.1f}px)")
         
         # Get camera intrinsics
         fx = self.camera_info.k[0]  # focal length x
@@ -417,13 +417,13 @@ class BaselinePickTest(Node):
                     # Sanity check: reasonable depth range (0.1m - 2.0m)
                     if 0.1 < depth_value < 2.0:
                         depth_source = "depth_sensor"
-                        self.get_logger().info(f"📐 Depth from sensor: {depth_value:.3f}m")
+                        self.get_logger().info(f"Measurement Depth from sensor: {depth_value:.3f}m")
                     else:
-                        self.get_logger().warn(f"⚠️  Depth sensor value out of range: {depth_value:.3f}m, using estimation")
+                        self.get_logger().warn(f"Warning  Depth sensor value out of range: {depth_value:.3f}m, using estimation")
                         depth_value = None
                         
             except Exception as e:
-                self.get_logger().warn(f"⚠️  Failed to read depth: {e}, using estimation")
+                self.get_logger().warn(f"Warning  Failed to read depth: {e}, using estimation")
                 depth_value = None
         
         # Fall back to size-based estimation if no valid depth
@@ -435,14 +435,14 @@ class BaselinePickTest(Node):
             depth_value = (focal_length * known_object_width) / bbox_size_pixels
             depth_value = np.clip(depth_value, 0.3, 2.0)
             depth_source = "size_estimation"
-            self.get_logger().info(f"📐 Depth estimated from size: {depth_value:.3f}m")
+            self.get_logger().info(f"Measurement Depth estimated from size: {depth_value:.3f}m")
         
         # Convert to 3D camera coordinates
         x_cam = (center_x - cx) * depth_value / fx
         y_cam = (center_y - cy) * depth_value / fy
         z_cam = depth_value
         
-        self.get_logger().info(f"📍 3D camera frame: ({x_cam:.3f}, {y_cam:.3f}, {z_cam:.3f})")
+        self.get_logger().info(f"Point 3D camera frame: ({x_cam:.3f}, {y_cam:.3f}, {z_cam:.3f})")
         
         position = {
             'x': x_cam,
@@ -468,11 +468,11 @@ class BaselinePickTest(Node):
             bool: True if command sent successfully
         """
         if self.current_joint_positions is None:
-            self.get_logger().error("❌ No joint state available")
+            self.get_logger().error("ERROR No joint state available")
             return False
         
         if len(target_positions) != 6:
-            self.get_logger().error(f"❌ Expected 6 joint positions, got {len(target_positions)}")
+            self.get_logger().error(f"ERROR Expected 6 joint positions, got {len(target_positions)}")
             return False
         
         # Create trajectory message
@@ -489,7 +489,7 @@ class BaselinePickTest(Node):
         
         # Publish trajectory
         self.joint_traj_pub.publish(traj)
-        self.get_logger().info(f"✅ Sent joint trajectory command")
+        self.get_logger().info(f"Sent joint trajectory command")
         self.get_logger().info(f"   Target: {np.rad2deg(target_positions)}")
         
         return True
@@ -504,7 +504,7 @@ class BaselinePickTest(Node):
     def move_to_observation_pose(self):
         """Move robot to a pose where it can observe the workspace"""
         # Observation pose: robot positioned to look down at workspace
-        # shoulder_pan: 0°, shoulder_lift: -60°, elbow: -90°, wrists for camera pointing down
+        # shoulder_pan: 0deg, shoulder_lift: -60deg, elbow: -90deg, wrists for camera pointing down
         observation_joints = [0.0, -1.05, -1.57, -1.57, 1.57, 0.0]  # radians
         self.get_logger().info("Moving to observation pose...")
         return self.move_joints(observation_joints, duration_sec=5.0)
@@ -512,17 +512,17 @@ class BaselinePickTest(Node):
     def move_toward_object(self, position_3d):
         """Move robot toward detected object using actual IK pipeline."""
         if self.current_joint_positions is None:
-            self.get_logger().error("❌ No joint state available")
+            self.get_logger().error("ERROR No joint state available")
             return False
 
-        self.get_logger().info("🤖 Moving toward object with IK planner...")
+        self.get_logger().info("Robot Moving toward object with IK planner...")
         self.get_logger().info(
             f"   Object position in camera frame: ({position_3d['x']:.3f}, {position_3d['y']:.3f}, {position_3d['z']:.3f})"
         )
 
         pixel_center = position_3d.get('pixel_center')
         if pixel_center is None:
-            self.get_logger().error("❌ Missing pixel center for projection")
+            self.get_logger().error("ERROR Missing pixel center for projection")
             return False
 
         # Simple approach: Transform camera-frame 3D position directly to base_link
@@ -580,7 +580,7 @@ class BaselinePickTest(Node):
 
     def project_pixel_to_table(self, pixel_center):
         if self.camera_info is None:
-            self.get_logger().error("❌ Camera intrinsics unavailable")
+            self.get_logger().error("ERROR Camera intrinsics unavailable")
             return None
 
         u, v = pixel_center
@@ -604,12 +604,12 @@ class BaselinePickTest(Node):
 
         denom = direction_base[2]
         if abs(denom) < 1e-6:
-            self.get_logger().error("❌ Camera ray parallel to table plane")
+            self.get_logger().error("ERROR Camera ray parallel to table plane")
             return None
 
         t_param = (self.table_top_z - origin[2]) / denom
         if t_param <= 0:
-            self.get_logger().error("❌ Intersection behind camera (check table height)")
+            self.get_logger().error("ERROR Intersection behind camera (check table height)")
             return None
 
         point = origin + t_param * direction_base
@@ -660,16 +660,16 @@ class BaselinePickTest(Node):
                 T[:3, :3] = rotation
                 T[:3, 3] = translation
                 
-                self.get_logger().info(f"✅ Got camera transform (attempt {attempt + 1}/{max_retries})")
+                self.get_logger().info(f"Got camera transform (attempt {attempt + 1}/{max_retries})")
                 return T
                 
             except Exception as exc:
                 if attempt < max_retries - 1:
                     if attempt % 5 == 0:  # Only log every 5th attempt to reduce noise
-                        self.get_logger().warn(f"⚠️  Transform lookup attempt {attempt + 1} failed, retrying... ({exc})")
+                        self.get_logger().warn(f"Warning  Transform lookup attempt {attempt + 1} failed, retrying... ({exc})")
                     time.sleep(retry_delay)
                 else:
-                    self.get_logger().error(f"❌ Failed to lookup camera transform after {max_retries} attempts: {exc}")
+                    self.get_logger().error(f"ERROR Failed to lookup camera transform after {max_retries} attempts: {exc}")
                     return None
         
         return None
@@ -702,13 +702,13 @@ class BaselinePickTest(Node):
         solutions = self.kinematics.inverse_kinematics(pose_matrix, current_joints=current_joints)
 
         if not solutions:
-            self.get_logger().error(f"❌ IK failed for {label} pose - no solutions found")
+            self.get_logger().error(f"ERROR IK failed for {label} pose - no solutions found")
             self.get_logger().error(f"   This usually means the target is unreachable or orientation is invalid")
             return False
 
         best_solution = self.kinematics.select_best_solution(solutions, current_joints)
         if best_solution is None:
-            self.get_logger().error(f"❌ No valid IK solution selected for {label} pose")
+            self.get_logger().error(f"ERROR No valid IK solution selected for {label} pose")
             return False
 
         self.get_logger().info(
@@ -763,7 +763,7 @@ class BaselinePickTest(Node):
         # Step 4: Plan and execute motion
         self.get_logger().info("")
         self.get_logger().info("Step 4: Motion planning and execution...")
-        self.get_logger().info("⚙️  Using calibrated IK pipeline for motion")
+        self.get_logger().info("Using  Using calibrated IK pipeline for motion")
         self.get_logger().info(f"   Target position: {position}")
         
         # Wait for joint states
@@ -771,40 +771,40 @@ class BaselinePickTest(Node):
         start_time = time.time()
         while rclpy.ok() and self.current_joint_positions is None:
             if time.time() - start_time > 5.0:
-                self.get_logger().error("   ❌ Timeout waiting for joint states")
+                self.get_logger().error("   ERROR Timeout waiting for joint states")
                 return False
             rclpy.spin_once(self, timeout_sec=0.1)
         
-        self.get_logger().info(f"   ✅ Current joint positions received")
+        self.get_logger().info("   Current joint positions received")
         
         # Execute reaching motion toward object
         self.get_logger().info("")
         self.get_logger().info("   Reaching toward object...")
         if not self.move_toward_object(position):
-            self.get_logger().error("   ❌ Failed to send motion command")
+            self.get_logger().error("   ERROR Failed to send motion command")
             return False
         
         # Wait for motion to complete
         wait_time = max(self.last_motion_duration, 5.0)
-        self.get_logger().info(f"   🤖 Robot reaching... (waiting {wait_time:.1f} seconds)")
+        self.get_logger().info(f"   Robot Robot reaching... (waiting {wait_time:.1f} seconds)")
         time.sleep(wait_time)
         
-        self.get_logger().info("   ✅ Reached toward object!")
+        self.get_logger().info("   Reached toward object")
         
         # Step 5: Return to home position
         self.get_logger().info("")
         self.get_logger().info("Step 5: Returning to home position...")
         if not self.move_to_home_position():
-            self.get_logger().error("   ❌ Failed to return home")
+            self.get_logger().error("   ERROR Failed to return home")
         else:
-            self.get_logger().info("   🤖 Returning home... (waiting 5 seconds)")
+            self.get_logger().info("   Robot Returning home... (waiting 5 seconds)")
             time.sleep(5.0)
-            self.get_logger().info("   ✅ Returned to home position")
+            self.get_logger().info("   Returned to home position")
         
         # Success!
         self.get_logger().info("")
         self.get_logger().info("=" * 80)
-        self.get_logger().info("✅ BASELINE TEST COMPLETED")
+        self.get_logger().info("BASELINE TEST COMPLETED")
         self.get_logger().info("=" * 80)
         self.get_logger().info("")
         self.get_logger().info("Summary:")
@@ -813,7 +813,7 @@ class BaselinePickTest(Node):
         self.get_logger().info(f"  - 3D position: {position}")
         self.get_logger().info(f"  - Robot motion: COMPLETED")
         self.get_logger().info("")
-        self.get_logger().info("✅ You should have seen the robot move in Gazebo!")
+        self.get_logger().info("You should have seen the robot move in Gazebo!")
         self.get_logger().info("")
         self.get_logger().info("Next improvements:")
         self.get_logger().info("  - Fuse simulated depth topic for per-pixel distances")
@@ -836,17 +836,17 @@ def main(args=None):
         success = test_node.run_test()
         
         if success:
-            print("\n✅ Test passed!")
+            print("\nTest passed!")
             return 0
         else:
-            print("\n❌ Test failed!")
+            print("\nERROR Test failed!")
             return 1
             
     except KeyboardInterrupt:
-        print("\n⚠️  Test interrupted by user")
+        print("\nWarning  Test interrupted by user")
         return 1
     except Exception as e:
-        print(f"\n❌ Test crashed: {e}")
+        print(f"\nERROR Test crashed: {e}")
         import traceback
         traceback.print_exc()
         return 1

@@ -60,7 +60,7 @@ def main():
         rclpy.spin_once(tester, timeout_sec=0.5)
     
     if tester.system_ready:
-        print("\n✅ System ready!")
+        print("\nPASS System ready!")
         print("Please say into your microphone: 'pick up the red cube'")
         print("Or press Ctrl+C to exit")
         
@@ -69,7 +69,7 @@ def main():
         except KeyboardInterrupt:
             pass
     else:
-        print("\n❌ System failed to initialize within 30 seconds")
+        print("\nFAIL System failed to initialize within 30 seconds")
         print(f"Last status: {tester.last_status}")
     
     tester.destroy_node()

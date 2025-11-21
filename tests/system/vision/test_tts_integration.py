@@ -28,7 +28,7 @@ def test_tts_integration():
             create_construction_tts
         )
         
-        logger.info("✅ ConstructionTTSManager imported successfully")
+        logger.info("PASS ConstructionTTSManager imported successfully")
         
         # Test basic initialization
         logger.info("\n" + "="*50)
@@ -58,7 +58,7 @@ def test_tts_integration():
         ]
         
         for profile, description in voice_profiles:
-            logger.info(f"\n🔊 Testing {profile.value}: {description}")
+            logger.info(f"\nAudio Testing {profile.value}: {description}")
             tts_manager.set_voice_profile(profile)
             
             # Test speech with this profile
@@ -70,9 +70,9 @@ def test_tts_integration():
             )
             
             if success:
-                logger.info(f"   ✅ {profile.value} speech test completed")
+                logger.info(f"   PASS {profile.value} speech test completed")
             else:
-                logger.warning(f"   ⚠️ {profile.value} speech test failed")
+                logger.warning(f"   WARNING {profile.value} speech test failed")
             
             time.sleep(0.5)  # Brief pause between tests
         
@@ -92,7 +92,7 @@ def test_tts_integration():
         tts_manager.set_voice_profile(VoiceProfile.PROFESSIONAL)
         
         for phrase in construction_phrases:
-            logger.info(f"🔨 Speaking: '{phrase}'")
+            logger.info(f"Build Speaking: '{phrase}'")
             tts_manager.speak_clarification(phrase, blocking=True)
             time.sleep(0.3)
         
@@ -109,7 +109,7 @@ def test_tts_integration():
         ]
         
         for priority, message in priority_tests:
-            logger.info(f"📢 Priority {priority.name}: {message}")
+            logger.info(f"Sending command Priority {priority.name}: {message}")
             tts_manager.speak_clarification(message, priority=priority, blocking=True)
             time.sleep(0.5)
         
@@ -154,7 +154,7 @@ def test_tts_integration():
                     strategy=strategy
                 )
                 
-                logger.info(f"🤖 {strategy.value}: {response.text}")
+                logger.info(f"Robot {strategy.value}: {response.text}")
                 
                 # Speak the clarification
                 if response.tts_enabled:
@@ -162,7 +162,7 @@ def test_tts_integration():
                 
                 time.sleep(0.5)
             
-            logger.info("✅ Clarification integration test completed")
+            logger.info("PASS Clarification integration test completed")
             
         except ImportError as e:
             logger.warning(f"Clarification integration test skipped: {e}")
@@ -175,7 +175,7 @@ def test_tts_integration():
         expertise_levels = ["apprentice", "journeyman", "foreman", "master"]
         
         for level in expertise_levels:
-            logger.info(f"👷 Testing {level} TTS configuration")
+            logger.info(f"Operator Testing {level} TTS configuration")
             
             expert_tts = create_construction_tts(level)
             capabilities = expert_tts.test_speech_capabilities()
@@ -191,7 +191,7 @@ def test_tts_integration():
         logger.info("TESTING SPEECH MODES")
         logger.info("="*50)
         
-        logger.info("🔄 Testing background (non-blocking) speech...")
+        logger.info("Loop Testing background (non-blocking) speech...")
         tts_manager.speak_clarification("This is background speech message one.", blocking=False)
         tts_manager.speak_clarification("This is background speech message two.", blocking=False)
         tts_manager.speak_clarification("This is background speech message three.", blocking=False)
@@ -200,7 +200,7 @@ def test_tts_integration():
         logger.info(f"   Queue size: {tts_manager.get_queue_size()}")
         time.sleep(3)
         
-        logger.info("⏸️ Testing speech interruption...")
+        logger.info("Pause Testing speech interruption...")
         tts_manager.speak_clarification("This is a long message that will be interrupted before completion.", blocking=False)
         time.sleep(0.5)
         tts_manager.stop_current_speech()
@@ -217,11 +217,11 @@ def test_tts_integration():
         # Cleanup
         tts_manager.cleanup()
         
-        logger.info("\n✅ Phase 1D TTS integration test completed successfully!")
+        logger.info("\nPASS Phase 1D TTS integration test completed successfully!")
         return True
         
     except Exception as e:
-        logger.error(f"❌ Test failed: {e}")
+        logger.error(f"FAIL Test failed: {e}")
         import traceback
         traceback.print_exc()
         return False

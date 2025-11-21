@@ -24,17 +24,17 @@ def test_owlvit_import():
     
     try:
         from OWLViTDetector import OWLViTDetector
-        print("✅ OWLViTDetector imported successfully (direct import)")
+        print("PASS OWLViTDetector imported successfully (direct import)")
         return True, OWLViTDetector
     except ImportError as e:
-        print(f"❌ Direct import failed: {e}")
+        print(f"FAIL Direct import failed: {e}")
         
         try:
             from unified_vision_system.perception.OWLViTDetector import OWLViTDetector
-            print("✅ OWLViTDetector imported successfully (package import)")
+            print("PASS OWLViTDetector imported successfully (package import)")
             return True, OWLViTDetector
         except ImportError as e2:
-            print(f"❌ Package import failed: {e2}")
+            print(f"FAIL Package import failed: {e2}")
             return False, None
 
 def test_dependencies():
@@ -48,36 +48,36 @@ def test_dependencies():
     # Check torch
     try:
         import torch
-        print(f"✅ PyTorch {torch.__version__} available")
+        print(f"PASS PyTorch {torch.__version__} available")
         print(f"   CUDA available: {torch.cuda.is_available()}")
         if torch.cuda.is_available():
             print(f"   CUDA device: {torch.cuda.get_device_name(0)}")
     except ImportError:
-        print("❌ PyTorch not available")
+        print("FAIL PyTorch not available")
         deps_ok = False
     
     # Check transformers
     try:
         import transformers
-        print(f"✅ Transformers {transformers.__version__} available")
+        print(f"PASS Transformers {transformers.__version__} available")
     except ImportError:
-        print("❌ Transformers not available")
+        print("FAIL Transformers not available")
         deps_ok = False
     
     # Check PIL
     try:
         from PIL import Image
-        print(f"✅ PIL (Pillow) available")
+        print(f"PASS PIL (Pillow) available")
     except ImportError:
-        print("❌ PIL not available")
+        print("FAIL PIL not available")
         deps_ok = False
     
     # Check cv2
     try:
         import cv2
-        print(f"✅ OpenCV {cv2.__version__} available")
+        print(f"PASS OpenCV {cv2.__version__} available")
     except ImportError:
-        print("❌ OpenCV not available")
+        print("FAIL OpenCV not available")
         deps_ok = False
     
     return deps_ok
@@ -120,7 +120,7 @@ def test_detector_initialization(OWLViTDetector):
         detector = OWLViTDetector(device='cpu', confidence_threshold=0.1)
         init_time = time.time() - start
         
-        print(f"✅ Detector initialized successfully in {init_time:.2f}s")
+        print(f"PASS Detector initialized successfully in {init_time:.2f}s")
         print(f"   Model: {detector.model_name if hasattr(detector, 'model_name') else 'OWL-ViT'}")
         print(f"   Device: {detector.device}")
         print(f"   Threshold: {detector.confidence_threshold}")
@@ -128,7 +128,7 @@ def test_detector_initialization(OWLViTDetector):
         return True, detector
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False, None
@@ -159,14 +159,14 @@ def test_single_object_detection(detector):
             print(f"  {i+1}. Label: '{det['label']}', Score: {det['score']:.3f}, Box: {det['box']}")
         
         if len(detections) > 0:
-            print("✅ PASS: Detection successful")
+            print("PASS PASS: Detection successful")
             return True
         else:
-            print("⚠️  WARNING: No detections found (may need lower threshold)")
+            print("WARNING  WARNING: No detections found (may need lower threshold)")
             return True  # Still pass, model might be conservative
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -193,11 +193,11 @@ def test_multiple_queries(detector):
             results.append((queries, len(detections)))
             print(f"  Queries: {queries} -> {len(detections)} detections")
         
-        print("✅ PASS: Multiple query types handled")
+        print("PASS PASS: Multiple query types handled")
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_multi_object_detection(detector):
@@ -219,14 +219,14 @@ def test_multi_object_detection(detector):
             print(f"  {i+1}. '{det['label']}': score={det['score']:.3f}, box={det['box']}")
         
         if len(detections) >= 2:
-            print("✅ PASS: Multiple objects detected")
+            print("PASS PASS: Multiple objects detected")
         else:
-            print("⚠️  WARNING: Expected 2+ objects, found {len(detections)}")
+            print("WARNING  WARNING: Expected 2+ objects, found {len(detections)}")
         
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_confidence_thresholding(detector):
@@ -250,14 +250,14 @@ def test_confidence_thresholding(detector):
         print(f"  Run 2: {len(detections2)} detections")
         
         if len(detections1) == len(detections2):
-            print("✅ PASS: Consistent detection results")
+            print("PASS PASS: Consistent detection results")
         else:
-            print("⚠️  WARNING: Detection results vary between runs")
+            print("WARNING  WARNING: Detection results vary between runs")
         
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_edge_cases(detector):
@@ -272,41 +272,41 @@ def test_edge_cases(detector):
     try:
         empty_img = np.zeros((480, 640, 3), dtype=np.uint8)
         detections = detector.detect_objects(empty_img, ["object"])
-        print(f"  ✅ Empty image: {len(detections)} detections")
+        print(f"  PASS Empty image: {len(detections)} detections")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Empty image: {e}")
+        print(f"  FAIL Empty image: {e}")
     
     # Test 2: Empty query list
     try:
         test_img, _, _ = create_synthetic_test_image("red_box")
         detections = detector.detect_objects(test_img, [])
-        print(f"  ✅ Empty queries: {len(detections)} detections")
+        print(f"  PASS Empty queries: {len(detections)} detections")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Empty queries: {e}")
+        print(f"  FAIL Empty queries: {e}")
     
     # Test 3: Single query
     try:
         detections = detector.detect_objects(test_img, ["object"])
-        print(f"  ✅ Single query: {len(detections)} detections")
+        print(f"  PASS Single query: {len(detections)} detections")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Single query: {e}")
+        print(f"  FAIL Single query: {e}")
     
     # Test 4: Complex query
     try:
         detections = detector.detect_objects(test_img, ["a red rectangular box on white background"])
-        print(f"  ✅ Complex query: {len(detections)} detections")
+        print(f"  PASS Complex query: {len(detections)} detections")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Complex query: {e}")
+        print(f"  FAIL Complex query: {e}")
     
     if passed >= 3:
-        print("✅ PASS: Edge cases handled well")
+        print("PASS PASS: Edge cases handled well")
         return True
     else:
-        print("⚠️  MARGINAL: Some edge cases failed")
+        print("WARNING  MARGINAL: Some edge cases failed")
         return True
 
 def test_detection_performance(detector):
@@ -346,16 +346,16 @@ def test_detection_performance(detector):
         print(f"  Std Dev: {std_time:.1f}ms")
         
         if avg_time < 1000:  # Less than 1 second
-            print("✅ PASS: Good performance (<1s per detection)")
+            print("PASS PASS: Good performance (<1s per detection)")
         elif avg_time < 5000:  # Less than 5 seconds
-            print("✅ PASS: Acceptable performance (<5s per detection)")
+            print("PASS PASS: Acceptable performance (<5s per detection)")
         else:
-            print("⚠️  WARNING: Slow performance (>5s per detection)")
+            print("WARNING  WARNING: Slow performance (>5s per detection)")
         
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_output_format(detector):
@@ -376,7 +376,7 @@ def test_output_format(detector):
             missing_fields = [f for f in required_fields if f not in det]
             
             if missing_fields:
-                print(f"❌ Missing fields: {missing_fields}")
+                print(f"FAIL Missing fields: {missing_fields}")
                 return False
             
             print(f"Detection format:")
@@ -391,20 +391,20 @@ def test_output_format(detector):
                 
                 # Check box values are reasonable
                 if all(0 <= v <= 1000 for v in box):
-                    print("✅ PASS: Output format valid")
+                    print("PASS PASS: Output format valid")
                     return True
                 else:
-                    print("⚠️  WARNING: Box coordinates outside expected range")
+                    print("WARNING  WARNING: Box coordinates outside expected range")
                     return True
             else:
-                print(f"❌ FAIL: Invalid box format (length={len(box)})")
+                print(f"FAIL FAIL: Invalid box format (length={len(box)})")
                 return False
         else:
-            print("⏭️  SKIP: No detections to validate format")
+            print("Skip  SKIP: No detections to validate format")
             return True
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def main():
@@ -419,20 +419,20 @@ def main():
     # Test 1: Import
     import_ok, OWLViTDetector = test_owlvit_import()
     if not import_ok:
-        print("\n❌ Cannot proceed without OWLViTDetector import")
+        print("\nFAIL Cannot proceed without OWLViTDetector import")
         return
     
     # Test 2: Dependencies
     deps_ok = test_dependencies()
     if not deps_ok:
-        print("\n❌ Cannot proceed without required dependencies")
+        print("\nFAIL Cannot proceed without required dependencies")
         print("Please install: pip install torch transformers pillow opencv-python")
         return
     
     # Test 3: Initialization
     init_ok, detector = test_detector_initialization(OWLViTDetector)
     if not init_ok or detector is None:
-        print("\n❌ Cannot proceed without successful initialization")
+        print("\nFAIL Cannot proceed without successful initialization")
         print("Note: Model download may take time on first run")
         return
     
@@ -458,20 +458,20 @@ def main():
     print("TEST SUMMARY")
     print("="*70)
     print(f"Total tests: {total}")
-    print(f"✅ Passed: {passed}")
-    print(f"❌ Failed: {total - passed}")
+    print(f"PASS Passed: {passed}")
+    print(f"FAIL Failed: {total - passed}")
     print(f"Success rate: {passed/total*100:.1f}%")
     print(f"Total time: {elapsed:.1f}s")
     print("="*70)
     
     if passed == total:
-        print("\n🎉 ALL TESTS PASSED!")
+        print("\nComplete ALL TESTS PASSED!")
         print("OWL-ViT detector is working correctly.")
     elif passed >= total * 0.8:
-        print("\n✅ MOST TESTS PASSED")
+        print("\nPASS MOST TESTS PASSED")
         print("OWL-ViT detector is functional.")
     else:
-        print("\n⚠️  SOME TESTS FAILED")
+        print("\nWARNING  SOME TESTS FAILED")
         print("OWL-ViT detector may need attention.")
     
     print()

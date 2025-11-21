@@ -55,7 +55,7 @@ def test_all_strategies():
             UserExpertiseLevel
         )
         
-        logger.info("✅ ConstructionClarificationManager imported successfully")
+        logger.info("PASS ConstructionClarificationManager imported successfully")
         
         # Initialize manager
         manager = ConstructionClarificationManager(
@@ -79,11 +79,11 @@ def test_all_strategies():
         
         # Test each strategy with each scenario
         for strategy in ClarificationStrategy:
-            logger.info(f"\n🔧 TESTING STRATEGY: {strategy.value.upper()}")
+            logger.info(f"\nStatus TESTING STRATEGY: {strategy.value.upper()}")
             logger.info("-" * 40)
             
             for tool_request, objects, confidences, scenario_name in test_scenarios:
-                logger.info(f"\n📝 Scenario: {scenario_name}")
+                logger.info(f"\nNote Scenario: {scenario_name}")
                 
                 response = manager.request_clarification(
                     tool_request=tool_request,
@@ -101,7 +101,7 @@ def test_all_strategies():
         logger.info("="*60)
         
         # Test history-aware functionality
-        logger.info("\n📚 Building task memory...")
+        logger.info("\nBooks Building task memory...")
         manager.update_task_memory("framing hammer", "pickup", True, "good choice", "direct")
         manager.update_task_memory("Phillips screwdriver", "pickup", True, "worked well", "confidence_based")
         manager.update_task_memory("adjustable wrench", "pickup", False, "too small", "options_based")
@@ -113,7 +113,7 @@ def test_all_strategies():
             confidence_scores=single_detection[1],
             strategy=ClarificationStrategy.HISTORY_AWARE
         )
-        logger.info(f"🧠 History-aware response: '{response.text}'")
+        logger.info(f"Brain History-aware response: '{response.text}'")
         
         logger.info("\n" + "="*60)
         logger.info("TESTING EXPERTISE ADAPTATION")
@@ -128,7 +128,7 @@ def test_all_strategies():
         ]
         
         for expertise in expertise_levels:
-            logger.info(f"\n👷 Testing expertise level: {expertise.value}")
+            logger.info(f"\nOperator Testing expertise level: {expertise.value}")
             manager.update_user_expertise(expertise)
             
             response = manager.request_clarification(
@@ -154,7 +154,7 @@ def test_all_strategies():
         ]
         
         for confidences, desc in confidence_test_cases:
-            logger.info(f"\n📊 Testing {desc}: {confidences[0]:.2f}")
+            logger.info(f"\nMetrics Testing {desc}: {confidences[0]:.2f}")
             
             response = manager.request_clarification(
                 tool_request="drill",
@@ -187,7 +187,7 @@ def test_all_strategies():
                 strategy=ClarificationStrategy.EXPERTISE_ADAPTIVE
             )
             
-            logger.info(f"🔨 {term}: '{response.text}'")
+            logger.info(f"Build {term}: '{response.text}'")
         
         # Get performance metrics
         logger.info("\n" + "="*60)
@@ -205,13 +205,13 @@ def test_all_strategies():
         # Export research data
         export_path = "/tmp/clarification_test_data.json"
         manager.export_research_data(export_path)
-        logger.info(f"📊 Research data exported to: {export_path}")
+        logger.info(f"Metrics Research data exported to: {export_path}")
         
-        logger.info("\n✅ Phase 1C Clarification Strategy test completed successfully!")
+        logger.info("\nPASS Phase 1C Clarification Strategy test completed successfully!")
         return True
         
     except Exception as e:
-        logger.error(f"❌ Test failed: {e}")
+        logger.error(f"FAIL Test failed: {e}")
         import traceback
         traceback.print_exc()
         return False

@@ -273,7 +273,7 @@ class UnifiedVisionSimulator:
         # Use real VLM detector (works with synthetic images)
         try:
             self.vlm_detector = OWLViTDetector()
-            logging.info("✅ Real VLM detector loaded")
+            logging.info("PASS Real VLM detector loaded")
         except Exception as e:
             logging.error(f"Failed to load VLM detector: {e}")
             self.vlm_detector = None
@@ -281,7 +281,7 @@ class UnifiedVisionSimulator:
         # Use real speech processor
         try:
             self.speech_processor = SpeechCommandProcessor()
-            logging.info("✅ Real speech processor loaded")
+            logging.info("PASS Real speech processor loaded")
         except Exception as e:
             logging.warning(f"Speech processor not available: {e}")
             self.speech_processor = None
@@ -376,7 +376,7 @@ class UnifiedVisionSimulator:
         ]
         
         command = np.random.choice(commands)
-        logging.info(f"🎤 Simulated command: '{command}'")
+        logging.info(f"Simulated command Simulated command: '{command}'")
         
         # Process command (simplified)
         self.process_command(command)
@@ -405,10 +405,10 @@ class UnifiedVisionSimulator:
         
         if grasp_success:
             self.stats['successful_grasps'] += 1
-            logging.info(f"✅ Successfully grasped {target_object.name}")
+            logging.info(f"PASS Successfully grasped {target_object.name}")
         else:
             self.stats['failed_grasps'] += 1
-            logging.warning(f"❌ Failed to grasp {target_object.name}")
+            logging.warning(f"FAIL Failed to grasp {target_object.name}")
     
     def attempt_grasp(self, target_object: VirtualObject) -> bool:
         """Attempt to grasp a virtual object"""
@@ -498,10 +498,10 @@ class UnifiedVisionSimulator:
         """Print comprehensive simulation results"""
         
         print("\n" + "="*60)
-        print("🎯 SIMULATION SUMMARY")
+        print("Goal SIMULATION SUMMARY")
         print("="*60)
         
-        print(f"📊 Performance Metrics:")
+        print(f"Metrics Performance Metrics:")
         print(f"  Total runtime: {self.stats['total_runtime']:.1f}s")
         print(f"  Commands processed: {self.stats['commands_processed']}")
         print(f"  Successful grasps: {self.stats['successful_grasps']}")
@@ -519,25 +519,25 @@ class UnifiedVisionSimulator:
             avg_detection_time = np.mean(self.stats['detection_times'])
             print(f"  Average detection time: {avg_detection_time:.1f}ms")
         
-        print(f"\n🎮 Controls used:")
+        print(f"\nControls Controls used:")
         print(f"  'q' - Quit simulation")
         print(f"  'h' - Move to home")
         print(f"  'r' - Reset workspace")
         print(f"  's' - Simulate speech command")
         
         # Component status
-        print(f"\n🔧 Component Status:")
-        print(f"  VLM Detector: {'✅' if self.vlm_detector else '❌'}")
-        print(f"  Speech Processor: {'✅' if self.speech_processor else '❌'}")
-        print(f"  Hybrid IK: ✅ (ur_ikfast: {'✅' if self.kinematics.ikfast_available else '❌'})")
-        print(f"  Mock Hardware: ✅")
+        print(f"\nStatus Component Status:")
+        print(f"  VLM Detector: {'PASS' if self.vlm_detector else 'FAIL'}")
+        print(f"  Speech Processor: {'PASS' if self.speech_processor else 'FAIL'}")
+        print(f"  Hybrid IK: PASS (ur_ikfast: {'PASS' if self.kinematics.ikfast_available else 'FAIL'})")
+        print(f"  Mock Hardware: PASS")
         
         print("\n" + "="*60)
 
 def main():
     """Run the simulation"""
     
-    print("🚀 UnifiedVisionSystem Simulator")
+    print("Starting UnifiedVisionSystem Simulator")
     print("="*50)
     print("This simulator tests the complete vision system with:")
     print("- Real VLM object detection")
@@ -562,9 +562,9 @@ def main():
         simulator.run_simulation(duration=300.0)  # 5 minutes
         
     except KeyboardInterrupt:
-        print("\n🛑 Simulation stopped by user")
+        print("\nStopped Simulation stopped by user")
     except Exception as e:
-        print(f"\n💥 Simulation error: {e}")
+        print(f"\nError Simulation error: {e}")
         logging.error(f"Simulation failed: {e}", exc_info=True)
     finally:
         cv2.destroyAllWindows()

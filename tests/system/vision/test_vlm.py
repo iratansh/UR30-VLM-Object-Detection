@@ -79,7 +79,7 @@ class RealSenseCamera:
             device_name = device.get_info(rs.camera_info.name)
             serial_number = device.get_info(rs.camera_info.serial_number)
             
-            self.logger.info(f"✅ RealSense camera started: {device_name} (S/N: {serial_number})")
+            self.logger.info(f"PASS RealSense camera started: {device_name} (S/N: {serial_number})")
             self.logger.info(f"   Resolution: {width}x{height} @ {fps}fps")
             
             return True
@@ -198,14 +198,14 @@ class IntegratedVisionSystem:
         # Vision components
         try:
             self.detector = OWLViTDetector()
-            self.logger.info("✅ Object detector loaded")
+            self.logger.info("PASS Object detector loaded")
         except Exception as e:
             self.logger.error(f"Failed to load detector: {e}")
             self.detector = None
         
         try:
             self.speech = SpeechCommandProcessor()
-            self.logger.info("✅ Speech processor loaded")
+            self.logger.info("PASS Speech processor loaded")
         except Exception as e:
             self.logger.error(f"Failed to load speech processor: {e}")
             self.speech = None
@@ -232,7 +232,7 @@ class IntegratedVisionSystem:
             try:
                 rclpy.init()
                 self.ros_node = UR30ControlNode()
-                self.logger.info("✅ ROS2 node initialized")
+                self.logger.info("PASS ROS2 node initialized")
             except Exception as e:
                 self.logger.error(f"ROS2 initialization failed: {e}")
                 self.use_ros2 = False
@@ -242,7 +242,7 @@ class IntegratedVisionSystem:
 
     def start_system(self):
         """Start the complete system"""
-        self.logger.info("🚀 Starting Integrated Vision System")
+        self.logger.info("Starting Starting Integrated Vision System")
         
         if self.speech:
             self.speech.start_listening()
@@ -255,7 +255,7 @@ class IntegratedVisionSystem:
 
     def _main_loop(self):
         """Main system loop"""
-        print("\n🤖 UR30 Vision Control System")
+        print("\nRobot UR30 Vision Control System")
         print("=" * 50)
         print("Say commands like:")
         print("  - 'pick up the bottle'")
@@ -276,7 +276,7 @@ class IntegratedVisionSystem:
                         
                         self.command_queue.put(command)
                         self.state.last_command = command
-                        print(f"🎤 Command: '{command}'")
+                        print(f"Simulated command Command: '{command}'")
                 
                 # Display current frame with detections
                 self._display_camera_feed()
@@ -303,9 +303,9 @@ class IntegratedVisionSystem:
                 success = self._process_voice_command(command)
                 
                 if success:
-                    print(f"✅ Command completed: '{command}'")
+                    print(f"PASS Command completed: '{command}'")
                 else:
-                    print(f"❌ Command failed: '{command}'")
+                    print(f"FAIL Command failed: '{command}'")
                     if self.state.error_message:
                         print(f"   Error: {self.state.error_message}")
                 
@@ -347,7 +347,7 @@ class IntegratedVisionSystem:
         if not queries:
             queries = ['graspable object']
         
-        print(f"🔍 Searching for: {queries}")
+        print(f"Detecting Searching for: {queries}")
         
         # Detect objects
         detections = self.detector.detect_with_text_queries(frame, queries, confidence_threshold=0.1)
@@ -357,7 +357,7 @@ class IntegratedVisionSystem:
             self.state.error_message = f"No objects found matching: {queries}"
             return False
         
-        print(f"📦 Found {len(detections)} objects")
+        print(f"Objects Found {len(detections)} objects")
         for query, confidence, bbox in detections:
             print(f"   - {query}: {confidence:.2f} confidence")
         
@@ -390,7 +390,7 @@ class IntegratedVisionSystem:
         success = True
         
         try:
-            print(f"🤖 Executing {len(trajectories)} trajectories...")
+            print(f"Robot Executing {len(trajectories)} trajectories...")
             
             if self.use_ros2 and self.ros_node:
                 for i, trajectory in enumerate(trajectories):
@@ -423,7 +423,7 @@ class IntegratedVisionSystem:
                     if first_trajectory.points:
                         joint_positions = first_trajectory.points[0].positions
                         cmd_string = self.command_formatter.get_joint_command_string(joint_positions)
-                        print(f"\n📋 Manual ROS2 command:")
+                        print(f"\nAssessment Manual ROS2 command:")
                         print(cmd_string)
                 
         except Exception as e:
@@ -468,11 +468,11 @@ class IntegratedVisionSystem:
         # Add status overlay
         status_text = []
         if self.state.listening:
-            status_text.append("🎤 Listening...")
+            status_text.append("Simulated command Listening...")
         if self.state.processing:
-            status_text.append("⚙️ Processing...")
+            status_text.append("Using Processing...")
         if self.state.robot_busy:
-            status_text.append("🤖 Robot busy...")
+            status_text.append("Robot Robot busy...")
         if self.state.last_command:
             status_text.append(f"Last: {self.state.last_command}")
         
@@ -708,7 +708,7 @@ def setup_logging():
 def main():
     """Main function to run the integrated vision system test"""
     
-    print("🚀 UR30 Integrated Vision System Test")
+    print("Starting UR30 Integrated Vision System Test")
     print("=" * 50)
     
     # Setup logging
@@ -737,19 +737,19 @@ def main():
             system.speech = None
             print("Speech recognition disabled - use keyboard input")
         
-        print("\n✅ System initialized successfully!")
+        print("\nPASS System initialized successfully!")
         print("Press 'q' in the camera window or Ctrl+C to exit")
         
         # Start the system
         system.start_system()
         
     except KeyboardInterrupt:
-        print("\n\n🛑 System interrupted by user")
+        print("\n\nStopped System interrupted by user")
     except Exception as e:
-        print(f"\n❌ System error: {e}")
+        print(f"\nFAIL System error: {e}")
         logging.exception("System startup error")
     finally:
-        print("👋 Goodbye!")
+        print("Goodbye Goodbye!")
 
 
 if __name__ == "__main__":

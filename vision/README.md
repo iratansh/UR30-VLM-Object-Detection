@@ -22,22 +22,26 @@ logic. When extending the stack, follow the same conventions to keep handoffs sm
 
 ## Key Workflows
 
-1. **Baseline pick test** – `vision/scripts/test_pick_green_book.py`
+1. **Baseline pick test** - `vision/scripts/test_pick_green_book.py`
    - Uses simulated RealSense RGB + depth, color-based detection, and `UR30Kinematics`
      to grab the green book in Gazebo.
    - Serves as the regression test for the current codebase state.
 
-2. **Unified Vision System ROS2 node** – `vision/unified_vision_system/system/UnifiedVisionSystem.py`
+2. **Unified Vision System ROS2 node** - `vision/unified_vision_system/system/UnifiedVisionSystem.py`
    - Integrates speech, OWL-ViT, depth-aware detection, workspace validation, and
      hybrid IK.
    - `UnifiedVisionSystemSim` (same directory) overrides camera handling for Gazebo.
 
-3. **Gazebo launch** – `vision/launch/launch_gazebo_with_red_cube.py`
+3. **Gazebo launch** - `vision/launch/launch_gazebo_with_red_cube.py`
    - Spins up UR30, RealSense, controllers, vision node, and optional MoveIt/RViz.
 
 4. **Calibration & diagnostics**
    - `scripts/calibrate_eye_in_hand.py`, `scripts/check_camera_tf.py`,
      `scripts/save_camera_view.py` help verify hardware alignment.
+
+## Documentation
+
+- `docs/ARCHITECTURE_AND_OPERATIONS.md` - architecture, bring-up steps, observation pose rationale, calibration helpers, and troubleshooting notes.
 
 ## Extending the Package
 
@@ -47,5 +51,5 @@ logic. When extending the stack, follow the same conventions to keep handoffs sm
 - If you introduce new dependencies, mirror them in `ur30_vlm_environment.yml` and the
   Docker workflow scripts.
 
-This directory stays under active development—treat this README as a living guide and
+This directory stays under active development - treat this README as a living guide and
 expand it alongside your research.

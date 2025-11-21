@@ -311,7 +311,7 @@ class UnifiedVisionSystem(Node):
         # Start subsystems
         self.logger.info("Starting voice control...")
         self._setup_voice_control()
-        self.logger.info("✅ UnifiedVisionSystem initialized successfully.")
+        self.logger.info("UnifiedVisionSystem initialized successfully.")
         self.publish_status("System initialized. Listening for commands.")
 
         # Add timeout to motion execution
@@ -330,7 +330,7 @@ class UnifiedVisionSystem(Node):
             # Start speech recognition in a separate thread to avoid blocking
             self.speech_thread = threading.Thread(target=self.speech_processor.start_listening, daemon=True)
             self.speech_thread.start()
-            self.logger.info("🎤 Voice control setup and started in background thread.")
+            self.logger.info("Simulated command Voice control setup and started in background thread.")
         except Exception as e:
             self.logger.error(f"Failed to initialize or start voice control: {e}")
             self.publish_status(f"Error: Voice control failed: {e}")
@@ -560,7 +560,7 @@ class UnifiedVisionSystem(Node):
         
         for i, (angle, (min_limit, max_limit)) in enumerate(zip(joint_angles, JOINT_LIMITS)):
             if not min_limit <= angle <= max_limit:
-                self.logger.error(f"Joint {i} angle {np.rad2deg(angle):.2f}° exceeds limits [{np.rad2deg(min_limit):.2f}°, {np.rad2deg(max_limit):.2f}°]")
+                self.logger.error(f"Joint {i} angle {np.rad2deg(angle):.2f}deg exceeds limits [{np.rad2deg(min_limit):.2f}deg, {np.rad2deg(max_limit):.2f}deg]")
                 return False
         return True
 
@@ -580,7 +580,7 @@ class UnifiedVisionSystem(Node):
             
         Notes
         -----
-        Uses MAX_JOINT_VELOCITY (π/2 rad/s) as the velocity limit
+        Uses MAX_JOINT_VELOCITY (pi/2 rad/s) as the velocity limit
         """
         MAX_JOINT_VELOCITY = np.pi / 2  # 90 degrees per second max
         
@@ -591,7 +591,7 @@ class UnifiedVisionSystem(Node):
         velocities = np.abs(np.array(target_joints) - self.current_robot_joints)
         
         if np.any(velocities > MAX_JOINT_VELOCITY):
-            self.logger.error(f"Joint velocities {np.rad2deg(velocities)}°/s exceed maximum {np.rad2deg(MAX_JOINT_VELOCITY)}°/s")
+            self.logger.error(f"Joint velocities {np.rad2deg(velocities)}deg/s exceed maximum {np.rad2deg(MAX_JOINT_VELOCITY)}deg/s")
             return False
         return True
 
@@ -1002,7 +1002,7 @@ class UnifiedVisionSystem(Node):
         vertical_component = abs(z_axis[2])
         
         # Prefer mostly vertical approaches for eye-in-hand
-        if vertical_component < 0.7:  # cos(45°) ≈ 0.7
+        if vertical_component < 0.7:  # cos(45deg) ~ 0.7
             self.logger.warning("Approach angle too horizontal for eye-in-hand configuration")
             return False
         
@@ -1107,7 +1107,7 @@ class UnifiedVisionSystem(Node):
         -----
         Loop continues until ROS2 shutdown or keyboard interrupt
         """
-        self.logger.info("🚀 Starting Unified Vision System main loop...")
+        self.logger.info("Start Starting Unified Vision System main loop...")
         
         # Wait for robot state before starting processing
         start_time = self.get_clock().now()
@@ -1175,7 +1175,7 @@ class UnifiedVisionSystem(Node):
         # Call cleanup to handle all other resources
         self.cleanup()
         
-        self.logger.info("🔴 Unified Vision System shutdown complete.")
+        self.logger.info("Red Unified Vision System shutdown complete.")
 
     def cleanup(self):
         """Clean up system resources"""
@@ -1254,7 +1254,7 @@ class UnifiedVisionSystem(Node):
             calibrator.save_calibration(T_gripper_camera, save_file)
             self.calibration.set_hand_eye_transform(T_gripper_camera, is_eye_in_hand=True)
             
-            self.logger.info("✅ Eye-in-hand calibration completed successfully")
+            self.logger.info("Eye-in-hand calibration completed successfully")
             self.publish_status("Eye-in-hand calibration completed")
             
         except Exception as e:

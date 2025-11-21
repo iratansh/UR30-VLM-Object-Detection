@@ -65,7 +65,7 @@ def debug_ur30_workspace():
         
         # Check if position seems reasonable
         if distance < 1.19 and position[2] > 0.05:  # Within reach and above ground
-            print(f"   ✅ Position looks reachable")
+            print(f"   PASS Position looks reachable")
             
             # Test inverse kinematics
             ik_solutions = numerical.inverse_kinematics(fk_pose, joints)
@@ -81,17 +81,17 @@ def debug_ur30_workspace():
                 print(f"   Position Error: {pos_error:.3f}mm")
                 
                 if pos_error < 5.0:
-                    print(f"   ✅ FK/IK consistent")
+                    print(f"   PASS FK/IK consistent")
                     working_poses.append((position, fk_pose[:3, :3], description))
                 else:
-                    print(f"   ❌ FK/IK inconsistent")
+                    print(f"   FAIL FK/IK inconsistent")
             else:
-                print(f"   ❌ IK failed for FK result")
+                print(f"   FAIL IK failed for FK result")
         else:
             if distance >= 1.19:
-                print(f"   ❌ Position beyond max reach (~1.19m)")
+                print(f"   FAIL Position beyond max reach (~1.19m)")
             if position[2] <= 0.05:
-                print(f"   ❌ Position too low (collision risk)")
+                print(f"   FAIL Position too low (collision risk)")
     
     print(f"\n   Working poses found: {len(working_poses)}")
     
@@ -117,12 +117,12 @@ def debug_ur30_workspace():
                 print(f"   Error: {pos_error:.3f}mm")
                 
                 if pos_error < 10.0:
-                    print(f"   ✅ Hybrid solver working")
+                    print(f"   PASS Hybrid solver working")
                     success_count += 1
                 else:
-                    print(f"   ⚠️  High error")
+                    print(f"   WARNING  High error")
             else:
-                print(f"   ❌ No solutions")
+                print(f"   FAIL No solutions")
         
         hybrid_success_rate = success_count / len(working_poses)
         print(f"\n   Hybrid success rate: {success_count}/{len(working_poses)} ({hybrid_success_rate:.1%})")
@@ -198,11 +198,11 @@ def test_realistic_target_poses():
         print(f"Distance: {distance:.3f}m")
         
         if distance > 0.75:  # Conservative check
-            print("⚠️  Position may be too far")
+            print("WARNING  Position may be too far")
             continue
         
         if position[2] < 0.05:
-            print("⚠️  Position too low")
+            print("WARNING  Position too low")
             continue
         
         # Create target pose
@@ -215,7 +215,7 @@ def test_realistic_target_poses():
         
         if solutions:
             best_solution = solutions[0]
-            print(f"✅ Found {len(solutions)} solutions")
+            print(f"PASS Found {len(solutions)} solutions")
             print(f"Best joints (deg): {[round(math.degrees(j), 1) for j in best_solution]}")
             
             # Verify accuracy
@@ -228,17 +228,17 @@ def test_realistic_target_poses():
             rot_error_deg = math.degrees(rot_angle)
             
             print(f"Position error: {pos_error:.1f}mm")
-            print(f"Orientation error: {rot_error_deg:.1f}°")
+            print(f"Orientation error: {rot_error_deg:.1f}deg")
             
             if pos_error < 15.0 and rot_error_deg < 10.0:  # Relaxed tolerances for real use
-                print("✅ Solution accurate enough for manipulation")
+                print("PASS Solution accurate enough for manipulation")
                 success_count += 1
             else:
-                print("⚠️  Solution has high error")
+                print("WARNING  Solution has high error")
                 success_count += 0.5
                 
         else:
-            print("❌ No solutions found")
+            print("FAIL No solutions found")
             
             # Debug: Try with identity orientation
             debug_pose = np.eye(4)
@@ -246,10 +246,10 @@ def test_realistic_target_poses():
             debug_solutions = hybrid.inverse_kinematics(debug_pose, timeout_ms=100)
             
             if debug_solutions:
-                print("  ✅ Position reachable with identity orientation")
+                print("  PASS Position reachable with identity orientation")
                 print("  Issue: Requested orientation may be unreachable")
             else:
-                print("  ❌ Position itself may be unreachable")
+                print("  FAIL Position itself may be unreachable")
     
     success_rate = success_count / total_tests
     print(f"\n=== Realistic Pose Test Results ===")
@@ -266,7 +266,7 @@ def investigate_fk_issue():
     
     # Test the "home" position that was failing
     home_joints = [0, -math.pi/2, 0, 0, 0, 0]
-    print("Investigating 'home' position [0, -90°, 0, 0, 0, 0]:")
+    print("Investigating 'home' position [0, -90deg, 0, 0, 0, 0]:")
     
     # Step through the DH transformations
     print("\nDH Parameter breakdown:")
@@ -299,13 +299,13 @@ def investigate_fk_issue():
     print(f"Expected max horizontal reach: {expected_reach:.3f}m")
     
     if final_distance > 1.19:
-        print("❌ FK producing poses beyond robot reach!")
+        print("FAIL FK producing poses beyond robot reach!")
         print("Possible issues:")
         print("  - Incorrect DH parameters")
         print("  - Wrong coordinate frame conventions")
         print("  - Sign errors in DH transformations")
     else:
-        print("✅ FK position seems reasonable")
+        print("PASS FK position seems reasonable")
     
     # Test a few more "reasonable" joint configurations
     print(f"\nTesting other joint configurations:")
@@ -313,7 +313,7 @@ def investigate_fk_issue():
     test_configs = [
         ([0, -math.pi/4, -math.pi/4, 0, 0, 0], "Forward reach"),
         ([0, -math.pi/6, -math.pi/3, 0, 0, 0], "Conservative"),
-        ([math.pi/4, -math.pi/4, -math.pi/4, 0, 0, 0], "45° base rotation")
+        ([math.pi/4, -math.pi/4, -math.pi/4, 0, 0, 0], "45deg base rotation")
     ]
     
     reasonable_configs = []
@@ -326,10 +326,10 @@ def investigate_fk_issue():
         print(f"  {desc}: distance = {dist:.3f}m", end="")
         
         if dist < 1.19 and pos[2] > 0.05:
-            print(" ✅ Reasonable")
+            print(" PASS Reasonable")
             reasonable_configs.append((joints, pose, desc))
         else:
-            print(" ❌ Unreachable")
+            print(" FAIL Unreachable")
     
     return reasonable_configs
 
@@ -351,18 +351,18 @@ def main():
     print("="*60)
     
     if len(working_poses) > 0:
-        print(f"✅ Found {len(working_poses)} working FK/IK pairs")
+        print(f"PASS Found {len(working_poses)} working FK/IK pairs")
     else:
-        print("❌ No working FK/IK pairs found - FK implementation issue")
+        print("FAIL No working FK/IK pairs found - FK implementation issue")
     
     if hybrid_working:
-        print("✅ Hybrid solver working on valid poses")
+        print("PASS Hybrid solver working on valid poses")
     else:
-        print("❌ Hybrid solver issues")
+        print("FAIL Hybrid solver issues")
     
     if realistic_success_rate > 0.5:
-        print(f"✅ Realistic poses: {realistic_success_rate:.1%} success rate")
-        print("\n🎯 RECOMMENDATION: Use the realistic poses for your application!")
+        print(f"PASS Realistic poses: {realistic_success_rate:.1%} success rate")
+        print("\nGoal RECOMMENDATION: Use the realistic poses for your application!")
         
         print("\nNext steps:")
         print("1. Use positions like [0.3, 0.0, 0.15] for object pickup")
@@ -372,8 +372,8 @@ def main():
         
         return 0
     else:
-        print(f"❌ Realistic poses: {realistic_success_rate:.1%} success rate")
-        print("\n🔧 RECOMMENDATION: Fix FK implementation or DH parameters")
+        print(f"FAIL Realistic poses: {realistic_success_rate:.1%} success rate")
+        print("\nStatus RECOMMENDATION: Fix FK implementation or DH parameters")
         
         if len(reasonable_configs) > 0:
             print(f"\nFound {len(reasonable_configs)} reasonable FK results to debug with")

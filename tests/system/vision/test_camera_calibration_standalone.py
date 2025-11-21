@@ -24,17 +24,17 @@ def test_camera_calibration_import():
     
     try:
         from CameraCalibration import CameraCalibration
-        print("✅ CameraCalibration imported successfully (direct import)")
+        print("PASS CameraCalibration imported successfully (direct import)")
         return True, CameraCalibration
     except ImportError as e:
-        print(f"❌ Direct import failed: {e}")
+        print(f"FAIL Direct import failed: {e}")
         
         try:
             from unified_vision_system.calibration.CameraCalibration import CameraCalibration
-            print("✅ CameraCalibration imported successfully (package import)")
+            print("PASS CameraCalibration imported successfully (package import)")
             return True, CameraCalibration
         except ImportError as e2:
-            print(f"❌ Package import failed: {e2}")
+            print(f"FAIL Package import failed: {e2}")
             return False, None
 
 def test_basic_initialization(CameraCalibration):
@@ -45,10 +45,10 @@ def test_basic_initialization(CameraCalibration):
     
     try:
         calib = CameraCalibration()
-        print("✅ Default initialization successful")
+        print("PASS Default initialization successful")
         return True, calib
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False, None
@@ -77,7 +77,7 @@ def test_mock_calibration_setup(calib):
             T_gripper_camera=T_gripper_camera
         )
         
-        print("✅ Mock calibration setup successful")
+        print("PASS Mock calibration setup successful")
         print(f"   Camera matrix (fx, fy): ({camera_matrix[0,0]:.1f}, {camera_matrix[1,1]:.1f})")
         print(f"   Principal point: ({camera_matrix[0,2]:.1f}, {camera_matrix[1,2]:.1f})")
         print(f"   Eye-in-hand: True")
@@ -86,7 +86,7 @@ def test_mock_calibration_setup(calib):
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -116,23 +116,23 @@ def test_pixel_to_camera_transform(calib):
             error = np.linalg.norm(result_np - expected_np) * 1000  # mm
             
             if error < 5.0:  # Less than 5mm error (accounting for float precision)
-                print(f"  ✅ {desc}")
+                print(f"  PASS {desc}")
                 print(f"     Pixel: ({u}, {v}) at {depth}m -> Camera: {result}")
                 print(f"     Error: {error:.3f}mm")
                 passed += 1
             else:
-                print(f"  ❌ {desc}")
+                print(f"  FAIL {desc}")
                 print(f"     Expected: {expected}, Got: {result}")
                 print(f"     Error: {error:.3f}mm")
                 
         except Exception as e:
-            print(f"  ❌ {desc}: Exception - {e}")
+            print(f"  FAIL {desc}: Exception - {e}")
     
     if passed >= 3:
-        print("✅ PASS: Pixel to camera transform working")
+        print("PASS PASS: Pixel to camera transform working")
         return True
     else:
-        print("⚠️  MARGINAL: Some pixel transforms failed")
+        print("WARNING  MARGINAL: Some pixel transforms failed")
         return True
 
 def test_camera_to_robot_transform(calib):
@@ -159,7 +159,7 @@ def test_camera_to_robot_transform(calib):
             # Transform camera point to robot frame
             robot_point = calib.camera_to_robot(camera_point, current_gripper_pose)
             
-            print(f"  ✅ {desc}")
+            print(f"  PASS {desc}")
             print(f"     Camera point: {camera_point}")
             print(f"     Robot point: {robot_point}")
             
@@ -167,18 +167,18 @@ def test_camera_to_robot_transform(calib):
             if -2.0 < robot_point[0] < 2.0 and -2.0 < robot_point[1] < 2.0 and -0.5 < robot_point[2] < 2.0:
                 passed += 1
             else:
-                print(f"     ⚠️  WARNING: Robot point outside expected workspace")
+                print(f"     WARNING  WARNING: Robot point outside expected workspace")
                 
         except Exception as e:
-            print(f"  ❌ {desc}: Exception - {e}")
+            print(f"  FAIL {desc}: Exception - {e}")
             import traceback
             traceback.print_exc()
     
     if passed >= 2:
-        print("✅ PASS: Camera to robot transform working")
+        print("PASS PASS: Camera to robot transform working")
         return True
     else:
-        print("❌ FAIL: Camera to robot transforms failed")
+        print("FAIL FAIL: Camera to robot transforms failed")
         return False
 
 def test_robot_to_camera_transform(calib):
@@ -210,17 +210,17 @@ def test_robot_to_camera_transform(calib):
             print(f"Roundtrip error: {error:.3f}mm")
             
             if error < 1.0:
-                print("✅ PASS: Roundtrip transform accurate")
+                print("PASS PASS: Roundtrip transform accurate")
                 return True
             else:
-                print("⚠️  MARGINAL: Roundtrip has some error")
+                print("WARNING  MARGINAL: Roundtrip has some error")
                 return True
         else:
-            print("⏭️  SKIP: Inverse transform not available")
+            print("Skip  SKIP: Inverse transform not available")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_transform_vector(calib):
@@ -248,17 +248,17 @@ def test_transform_vector(calib):
             mag_robot = np.linalg.norm(robot_vector)
             
             if abs(mag_cam - mag_robot) < 0.01:
-                print(f"✅ Vector magnitude preserved: {mag_cam:.3f} ≈ {mag_robot:.3f}")
+                print(f"PASS Vector magnitude preserved: {mag_cam:.3f} ~ {mag_robot:.3f}")
                 return True
             else:
-                print(f"⚠️  WARNING: Vector magnitude changed: {mag_cam:.3f} -> {mag_robot:.3f}")
+                print(f"WARNING  WARNING: Vector magnitude changed: {mag_cam:.3f} -> {mag_robot:.3f}")
                 return True
         else:
-            print("⏭️  SKIP: Vector transform method not available")
+            print("Skip  SKIP: Vector transform method not available")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_intrinsics_loading(calib):
@@ -283,25 +283,25 @@ def test_intrinsics_loading(calib):
             
             # Basic validation
             if fx > 0 and fy > 0 and cx > 0 and cy > 0:
-                print("✅ Camera intrinsics valid")
+                print("PASS Camera intrinsics valid")
                 
                 # Check aspect ratio
                 aspect_ratio = fx / fy
                 if 0.95 < aspect_ratio < 1.05:
-                    print(f"✅ Aspect ratio reasonable: {aspect_ratio:.3f}")
+                    print(f"PASS Aspect ratio reasonable: {aspect_ratio:.3f}")
                 else:
-                    print(f"⚠️  WARNING: Unusual aspect ratio: {aspect_ratio:.3f}")
+                    print(f"WARNING  WARNING: Unusual aspect ratio: {aspect_ratio:.3f}")
                 
                 return True
             else:
-                print("❌ FAIL: Invalid intrinsic values")
+                print("FAIL FAIL: Invalid intrinsic values")
                 return False
         else:
-            print("⚠️  WARNING: Camera matrix attribute not found")
+            print("WARNING  WARNING: Camera matrix attribute not found")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_distortion_handling(calib):
@@ -319,20 +319,20 @@ def test_distortion_handling(calib):
                 
                 # Check if reasonable values
                 if len(dist) >= 5:
-                    print("✅ Distortion model: 5+ parameters")
+                    print("PASS Distortion model: 5+ parameters")
                     return True
                 else:
-                    print(f"✅ Distortion model: {len(dist)} parameters")
+                    print(f"PASS Distortion model: {len(dist)} parameters")
                     return True
             else:
-                print("⏭️  No distortion coefficients (assuming undistorted)")
+                print("Skip  No distortion coefficients (assuming undistorted)")
                 return True
         else:
-            print("⏭️  SKIP: Distortion coefficients not available")
+            print("Skip  SKIP: Distortion coefficients not available")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_eye_in_hand_transform(calib):
@@ -359,26 +359,26 @@ def test_eye_in_hand_transform(calib):
             det_R = np.linalg.det(R)
             
             if abs(det_R - 1.0) < 0.01:
-                print(f"✅ Valid rotation matrix (det={det_R:.4f})")
+                print(f"PASS Valid rotation matrix (det={det_R:.4f})")
             else:
-                print(f"⚠️  WARNING: Rotation matrix determinant: {det_R:.4f}")
+                print(f"WARNING  WARNING: Rotation matrix determinant: {det_R:.4f}")
             
             # Check orthogonality
             should_be_identity = R @ R.T
             ortho_error = np.linalg.norm(should_be_identity - np.eye(3))
             
             if ortho_error < 0.01:
-                print(f"✅ Orthogonal rotation matrix (error={ortho_error:.6f})")
+                print(f"PASS Orthogonal rotation matrix (error={ortho_error:.6f})")
                 return True
             else:
-                print(f"⚠️  WARNING: Rotation not orthogonal (error={ortho_error:.6f})")
+                print(f"WARNING  WARNING: Rotation not orthogonal (error={ortho_error:.6f})")
                 return True
         else:
-            print("⚠️  WARNING: Hand-eye transform attribute not found")
+            print("WARNING  WARNING: Hand-eye transform attribute not found")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_performance_benchmark(calib):
@@ -419,23 +419,23 @@ def test_performance_benchmark(calib):
         avg_c2r_us = (elapsed_c2r / num_transforms) * 1e6
         
         print(f"Pixel to camera: {num_transforms} transforms in {elapsed_p2c:.3f}s")
-        print(f"  Average: {avg_p2c_us:.2f}µs per transform")
+        print(f"  Average: {avg_p2c_us:.2f}us per transform")
         
         print(f"Camera to robot: {num_transforms} transforms in {elapsed_c2r:.3f}s")
-        print(f"  Average: {avg_c2r_us:.2f}µs per transform")
+        print(f"  Average: {avg_c2r_us:.2f}us per transform")
         
         if avg_p2c_us < 100 and avg_c2r_us < 100:
-            print("✅ PASS: Excellent performance (<100µs per transform)")
+            print("PASS PASS: Excellent performance (<100us per transform)")
             return True
         elif avg_p2c_us < 1000 and avg_c2r_us < 1000:
-            print("✅ PASS: Good performance (<1ms per transform)")
+            print("PASS PASS: Good performance (<1ms per transform)")
             return True
         else:
-            print("⚠️  WARNING: Performance may need optimization")
+            print("WARNING  WARNING: Performance may need optimization")
             return True
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def main():
@@ -450,19 +450,19 @@ def main():
     # Test 1: Import
     import_ok, CameraCalibration = test_camera_calibration_import()
     if not import_ok:
-        print("\n❌ Cannot proceed without CameraCalibration import")
+        print("\nFAIL Cannot proceed without CameraCalibration import")
         return
     
     # Test 2: Initialization
     init_ok, calib = test_basic_initialization(CameraCalibration)
     if not init_ok or calib is None:
-        print("\n❌ Cannot proceed without successful initialization")
+        print("\nFAIL Cannot proceed without successful initialization")
         return
     
     # Test 3: Mock calibration setup
     mock_ok = test_mock_calibration_setup(calib)
     if not mock_ok:
-        print("\n❌ Cannot proceed without mock calibration")
+        print("\nFAIL Cannot proceed without mock calibration")
         return
     
     # Run remaining tests
@@ -488,20 +488,20 @@ def main():
     print("TEST SUMMARY")
     print("="*70)
     print(f"Total tests: {total}")
-    print(f"✅ Passed: {passed}")
-    print(f"❌ Failed: {total - passed}")
+    print(f"PASS Passed: {passed}")
+    print(f"FAIL Failed: {total - passed}")
     print(f"Success rate: {passed/total*100:.1f}%")
     print(f"Total time: {elapsed:.2f}s")
     print("="*70)
     
     if passed == total:
-        print("\n🎉 ALL TESTS PASSED!")
+        print("\nComplete ALL TESTS PASSED!")
         print("Camera calibration system is working correctly.")
     elif passed >= total * 0.8:
-        print("\n✅ MOST TESTS PASSED")
+        print("\nPASS MOST TESTS PASSED")
         print("Camera calibration system is functional.")
     else:
-        print("\n⚠️  SOME TESTS FAILED")
+        print("\nWARNING  SOME TESTS FAILED")
         print("Camera calibration system may need attention.")
     
     print()

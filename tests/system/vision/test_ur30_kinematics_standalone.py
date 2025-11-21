@@ -24,19 +24,19 @@ def test_rtb_availability():
     
     try:
         from spatialmath import SE3
-        print("✅ spatialmath imported successfully")
+        print("PASS spatialmath imported successfully")
         
         from roboticstoolbox import DHRobot, RevoluteDH
-        print("✅ roboticstoolbox imported successfully")
+        print("PASS roboticstoolbox imported successfully")
         
         # Try to import the UR30 model directly
         from unified_vision_system.control.ur30_robot_rtb import UR30
         robot = UR30()
-        print(f"✅ UR30 robot model created: {robot.name}")
+        print(f"PASS UR30 robot model created: {robot.name}")
         
         return True, robot
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False, None
 
 def test_forward_kinematics(robot):
@@ -56,13 +56,13 @@ def test_forward_kinematics(robot):
         
         # Verify reasonable position
         if 0.5 < position[0] < 1.5 and abs(position[1]) < 0.5 and 0.0 < position[2] < 0.5:
-            print("✅ PASS: Position within expected range")
+            print("PASS PASS: Position within expected range")
             return True
         else:
-            print(f"❌ FAIL: Position outside expected range")
+            print(f"FAIL FAIL: Position outside expected range")
             return False
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_inverse_kinematics(robot):
@@ -111,7 +111,7 @@ def test_inverse_kinematics(robot):
                         T_achieved = robot.fkine(q_sol)
                         pos_error = np.linalg.norm(T_achieved.t - target_position) * 1000
                         
-                        print(f"  {method_name}: ✅ Success in {solve_time:.2f}ms, error={pos_error:.3f}mm")
+                        print(f"  {method_name}: PASS Success in {solve_time:.2f}ms, error={pos_error:.3f}mm")
                         
                         if pos_error < best_error:
                             best_error = pos_error
@@ -119,28 +119,28 @@ def test_inverse_kinematics(robot):
                             best_method = method_name
                             best_time = solve_time
                     else:
-                        print(f"  {method_name}: ❌ Failed to converge")
+                        print(f"  {method_name}: FAIL Failed to converge")
             except Exception as e:
-                print(f"  {method_name}: ❌ Exception: {e}")
+                print(f"  {method_name}: FAIL Exception: {e}")
         
         if best_solution is not None:
-            print(f"\n✅ Best solution: {best_method}")
+            print(f"\nPASS Best solution: {best_method}")
             print(f"   Solve time: {best_time:.2f}ms")
             print(f"   Position error: {best_error:.3f}mm")
             print(f"   Joint angles (deg): {np.degrees(best_solution).round(1)}")
             
             if best_error < 1.0 and best_time < 100.0:
-                print("✅ PASS: IK accuracy <1mm and speed <100ms")
+                print("PASS PASS: IK accuracy <1mm and speed <100ms")
                 return True
             else:
-                print(f"⚠️  MARGINAL: Error={best_error:.3f}mm, Time={best_time:.2f}ms")
+                print(f"WARNING  MARGINAL: Error={best_error:.3f}mm, Time={best_time:.2f}ms")
                 return True
         else:
-            print("❌ FAIL: No solution found")
+            print("FAIL FAIL: No solution found")
             return False
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -178,22 +178,22 @@ def test_multiple_ik_poses(robot):
                         error = np.linalg.norm(T_check.t - pos) * 1000
                         
                         if error < 2.0:  # 2mm tolerance
-                            print(f"  ✅ {desc}: error={error:.3f}mm")
+                            print(f"  PASS {desc}: error={error:.3f}mm")
                             passed += 1
                         else:
-                            print(f"  ❌ {desc}: error={error:.3f}mm (>2mm)")
+                            print(f"  FAIL {desc}: error={error:.3f}mm (>2mm)")
                     else:
-                        print(f"  ❌ {desc}: IK failed")
+                        print(f"  FAIL {desc}: IK failed")
                 else:
-                    print(f"  ❌ {desc}: Invalid result")
+                    print(f"  FAIL {desc}: Invalid result")
             except Exception as e:
-                print(f"  ❌ {desc}: {e}")
+                print(f"  FAIL {desc}: {e}")
         
-        print(f"\n{'✅ PASS' if passed >= 3 else '❌ FAIL'}: {passed}/{len(test_poses)} poses solved")
+        print(f"\n{'PASS PASS' if passed >= 3 else 'FAIL FAIL'}: {passed}/{len(test_poses)} poses solved")
         return passed >= 3
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_performance_benchmark(robot):
@@ -250,20 +250,20 @@ def test_performance_benchmark(robot):
             print(f"  Avg position error: {avg_error:.3f}mm (max: {max_error:.3f}mm)")
             
             if successes >= 18 and avg_time < 10 and avg_error < 0.1:
-                print("✅ PASS: Excellent performance")
+                print("PASS PASS: Excellent performance")
                 return True
             elif successes >= 15 and avg_time < 50:
-                print("✅ PASS: Good performance")
+                print("PASS PASS: Good performance")
                 return True
             else:
-                print("⚠️  MARGINAL: Performance acceptable but not optimal")
+                print("WARNING  MARGINAL: Performance acceptable but not optimal")
                 return True
         else:
-            print("❌ FAIL: No successful solutions")
+            print("FAIL FAIL: No successful solutions")
             return False
             
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def main():
@@ -278,7 +278,7 @@ def main():
     # Test 1: Check RTB availability
     rtb_ok, robot = test_rtb_availability()
     if not rtb_ok:
-        print("\n❌ Cannot proceed without Robotics Toolbox")
+        print("\nFAIL Cannot proceed without Robotics Toolbox")
         print("\nInstall with:")
         print("  pip install roboticstoolbox-python")
         print("  pip install spatialmath-python")
@@ -301,20 +301,20 @@ def main():
     print("TEST SUMMARY")
     print("="*70)
     print(f"Total tests: {total}")
-    print(f"✅ Passed: {passed}")
-    print(f"❌ Failed: {total - passed}")
+    print(f"PASS Passed: {passed}")
+    print(f"FAIL Failed: {total - passed}")
     print(f"Success rate: {passed/total*100:.1f}%")
     print(f"Total time: {elapsed:.2f}s")
     print("="*70)
     
     if passed == total:
-        print("\n🎉 ALL TESTS PASSED!")
+        print("\nComplete ALL TESTS PASSED!")
         print("UR30 kinematics system is working correctly.")
     elif passed >= total * 0.8:
-        print("\n⚠️  MOST TESTS PASSED")
+        print("\nWARNING  MOST TESTS PASSED")
         print("UR30 kinematics system is functional but may need tuning.")
     else:
-        print("\n❌ TESTS FAILED")
+        print("\nFAIL TESTS FAILED")
         print("UR30 kinematics system needs attention.")
     
     print()

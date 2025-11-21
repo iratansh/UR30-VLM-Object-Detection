@@ -25,17 +25,17 @@ def test_grasp_detector_import():
     
     try:
         from GraspPointDetector import GraspPointDetector
-        print("✅ GraspPointDetector imported successfully (direct import)")
+        print("PASS GraspPointDetector imported successfully (direct import)")
         return True, GraspPointDetector
     except ImportError as e:
-        print(f"❌ Direct import failed: {e}")
+        print(f"FAIL Direct import failed: {e}")
         
         try:
             from unified_vision_system.perception.GraspPointDetector import GraspPointDetector
-            print("✅ GraspPointDetector imported successfully (package import)")
+            print("PASS GraspPointDetector imported successfully (package import)")
             return True, GraspPointDetector
         except ImportError as e2:
-            print(f"❌ Package import failed: {e2}")
+            print(f"FAIL Package import failed: {e2}")
             return False, None
 
 def test_dependencies():
@@ -49,33 +49,33 @@ def test_dependencies():
     # Check numpy
     try:
         import numpy as np
-        print(f"✅ NumPy {np.__version__} available")
+        print(f"PASS NumPy {np.__version__} available")
     except ImportError:
-        print("❌ NumPy not available")
+        print("FAIL NumPy not available")
         deps_ok = False
     
     # Check cv2
     try:
         import cv2
-        print(f"✅ OpenCV {cv2.__version__} available")
+        print(f"PASS OpenCV {cv2.__version__} available")
     except ImportError:
-        print("❌ OpenCV not available")
+        print("FAIL OpenCV not available")
         deps_ok = False
     
     # Check scipy
     try:
         import scipy
-        print(f"✅ SciPy {scipy.__version__} available")
+        print(f"PASS SciPy {scipy.__version__} available")
     except ImportError:
-        print("❌ SciPy not available")
+        print("FAIL SciPy not available")
         deps_ok = False
     
     # Check skimage
     try:
         import skimage
-        print(f"✅ Scikit-image {skimage.__version__} available")
+        print(f"PASS Scikit-image {skimage.__version__} available")
     except ImportError:
-        print("❌ Scikit-image not available")
+        print("FAIL Scikit-image not available")
         deps_ok = False
     
     return deps_ok
@@ -129,19 +129,19 @@ def test_detector_initialization(GraspPointDetector):
     try:
         # Test with default parameters
         detector = GraspPointDetector()
-        print(f"✅ Default initialization successful")
+        print(f"PASS Default initialization successful")
         print(f"   Gripper width: {detector.gripper_width}m")
         print(f"   Gripper finger width: {detector.gripper_finger_width}m")
         
         # Test with custom parameters
         detector_custom = GraspPointDetector(gripper_width=0.10, gripper_finger_width=0.015)
-        print(f"✅ Custom initialization successful")
+        print(f"PASS Custom initialization successful")
         print(f"   Custom gripper width: {detector_custom.gripper_width}m")
         
         return True, detector
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False, None
@@ -166,31 +166,31 @@ def test_grasp_point_detection(detector):
         
         print(f"\nDetection time: {elapsed_ms:.2f}ms")
         print(f"Grasp point: ({result['x']:.3f}, {result['y']:.3f})")
-        print(f"Angle: {result['angle']:.1f}°")
+        print(f"Angle: {result['angle']:.1f}deg")
         print(f"Quality: {result['quality']:.3f}")
         print(f"Width: {result['width']:.3f}m")
         
         # Validate results
         if 0 <= result['x'] <= 1 and 0 <= result['y'] <= 1:
-            print("✅ Grasp point in valid range [0, 1]")
+            print("PASS Grasp point in valid range [0, 1]")
         else:
-            print(f"⚠️  WARNING: Grasp point outside [0, 1]: ({result['x']}, {result['y']})")
+            print(f"WARNING  WARNING: Grasp point outside [0, 1]: ({result['x']}, {result['y']})")
         
         if 0 <= result['quality'] <= 1:
-            print("✅ Quality score in valid range [0, 1]")
+            print("PASS Quality score in valid range [0, 1]")
         else:
-            print(f"⚠️  WARNING: Quality outside [0, 1]: {result['quality']}")
+            print(f"WARNING  WARNING: Quality outside [0, 1]: {result['quality']}")
         
         if result['width'] > 0:
-            print(f"✅ Valid grasp width: {result['width']*1000:.1f}mm")
+            print(f"PASS Valid grasp width: {result['width']*1000:.1f}mm")
         else:
-            print(f"⚠️  WARNING: Invalid grasp width: {result['width']}")
+            print(f"WARNING  WARNING: Invalid grasp width: {result['width']}")
         
-        print("✅ PASS: Grasp detection successful")
+        print("PASS PASS: Grasp detection successful")
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -217,16 +217,16 @@ def test_different_object_shapes(detector):
             results.append((desc, True, result['quality']))
             
         except Exception as e:
-            print(f"  {desc}: ❌ {e}")
+            print(f"  {desc}: FAIL {e}")
             results.append((desc, False, 0.0))
     
     successful = sum(1 for _, success, _ in results if success)
     
     if successful >= 3:
-        print(f"\n✅ PASS: {successful}/4 object shapes handled")
+        print(f"\nPASS PASS: {successful}/4 object shapes handled")
         return True
     else:
-        print(f"\n⚠️  MARGINAL: Only {successful}/4 shapes handled")
+        print(f"\nWARNING  MARGINAL: Only {successful}/4 shapes handled")
         return True
 
 def test_grasp_without_depth(detector):
@@ -244,13 +244,13 @@ def test_grasp_without_depth(detector):
         
         print(f"Grasp point: ({result['x']:.2f}, {result['y']:.2f})")
         print(f"Quality: {result['quality']:.3f}")
-        print(f"Angle: {result['angle']:.1f}°")
+        print(f"Angle: {result['angle']:.1f}deg")
         
-        print("✅ PASS: Detection works without depth map")
+        print("PASS PASS: Detection works without depth map")
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_gripper_constraints(detector):
@@ -270,9 +270,9 @@ def test_gripper_constraints(detector):
         print(f"Gripper max width: {detector.gripper_width*1000:.1f}mm")
         
         if result['width'] <= detector.gripper_width:
-            print("✅ Grasp width within gripper limits")
+            print("PASS Grasp width within gripper limits")
         else:
-            print("⚠️  WARNING: Grasp width exceeds gripper capacity")
+            print("WARNING  WARNING: Grasp width exceeds gripper capacity")
         
         # Test with thin object
         roi_thin = np.ones((200, 200, 3), dtype=np.uint8) * 255
@@ -282,15 +282,15 @@ def test_gripper_constraints(detector):
         print(f"\nThin object grasp width: {result_thin['width']*1000:.1f}mm")
         
         if result_thin['width'] >= detector.min_grasp_width:
-            print("✅ Grasp width above minimum threshold")
+            print("PASS Grasp width above minimum threshold")
         else:
-            print("⚠️  WARNING: Object may be too thin to grasp reliably")
+            print("WARNING  WARNING: Object may be too thin to grasp reliably")
         
-        print("\n✅ PASS: Gripper constraints evaluated")
+        print("\nPASS PASS: Gripper constraints evaluated")
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_quality_scoring(detector):
@@ -321,21 +321,21 @@ def test_quality_scoring(detector):
         scores = [result_good['quality'], result_circle['quality'], result_irreg['quality']]
         
         if all(0 <= s <= 1 for s in scores):
-            print("✅ All quality scores in valid range [0, 1]")
+            print("PASS All quality scores in valid range [0, 1]")
         else:
-            print("⚠️  WARNING: Some quality scores outside [0, 1]")
+            print("WARNING  WARNING: Some quality scores outside [0, 1]")
         
         # Check if rectangular has highest quality (usually best for grasping)
         if result_good['quality'] >= max(result_circle['quality'], result_irreg['quality']) * 0.8:
-            print("✅ Quality scoring prefers good grasp geometries")
+            print("PASS Quality scoring prefers good grasp geometries")
         else:
-            print("⚠️  Note: Quality scoring may vary by object")
+            print("WARNING  Note: Quality scoring may vary by object")
         
-        print("\n✅ PASS: Quality scoring working")
+        print("\nPASS PASS: Quality scoring working")
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def test_approach_vector(detector):
@@ -357,18 +357,18 @@ def test_approach_vector(detector):
             print(f"Vector magnitude: {magnitude:.3f}")
             
             if abs(magnitude - 1.0) < 0.01:
-                print("✅ Approach vector is normalized")
+                print("PASS Approach vector is normalized")
             else:
-                print("⚠️  WARNING: Approach vector not normalized")
+                print("WARNING  WARNING: Approach vector not normalized")
             
-            print("✅ PASS: Approach vector calculated")
+            print("PASS PASS: Approach vector calculated")
             return True
         else:
-            print("⏭️  SKIP: Approach vector not provided")
+            print("Skip  SKIP: Approach vector not provided")
             return True
             
     except Exception as e:
-        print(f"⚠️  WARNING: {e}")
+        print(f"WARNING  WARNING: {e}")
         return True
 
 def test_edge_cases(detector):
@@ -383,20 +383,20 @@ def test_edge_cases(detector):
     try:
         empty_roi = np.ones((200, 200, 3), dtype=np.uint8) * 255
         result = detector.detect_grasp_point(empty_roi)
-        print(f"  ✅ Empty image: Quality={result['quality']:.3f}")
+        print(f"  PASS Empty image: Quality={result['quality']:.3f}")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Empty image: {e}")
+        print(f"  FAIL Empty image: {e}")
     
     # Test 2: Very small ROI
     try:
         small_roi = np.ones((50, 50, 3), dtype=np.uint8) * 255
         small_roi[20:30, 20:30] = [100, 100, 100]
         result = detector.detect_grasp_point(small_roi)
-        print(f"  ✅ Small ROI (50x50): Quality={result['quality']:.3f}")
+        print(f"  PASS Small ROI (50x50): Quality={result['quality']:.3f}")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Small ROI: {e}")
+        print(f"  FAIL Small ROI: {e}")
     
     # Test 3: Multiple disconnected objects
     try:
@@ -404,26 +404,26 @@ def test_edge_cases(detector):
         multi_roi[50:70, 50:70] = [100, 100, 100]  # Object 1
         multi_roi[130:150, 130:150] = [100, 100, 100]  # Object 2
         result = detector.detect_grasp_point(multi_roi)
-        print(f"  ✅ Multiple objects: Quality={result['quality']:.3f}")
+        print(f"  PASS Multiple objects: Quality={result['quality']:.3f}")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Multiple objects: {e}")
+        print(f"  FAIL Multiple objects: {e}")
     
     # Test 4: Noisy depth map
     try:
         roi, depth_map, _ = create_synthetic_object_roi("rectangular_box")
         noisy_depth = depth_map + np.random.normal(0, 0.01, depth_map.shape)
         result = detector.detect_grasp_point(roi, noisy_depth)
-        print(f"  ✅ Noisy depth map: Quality={result['quality']:.3f}")
+        print(f"  PASS Noisy depth map: Quality={result['quality']:.3f}")
         passed += 1
     except Exception as e:
-        print(f"  ❌ Noisy depth: {e}")
+        print(f"  FAIL Noisy depth: {e}")
     
     if passed >= 3:
-        print("\n✅ PASS: Edge cases handled well")
+        print("\nPASS PASS: Edge cases handled well")
         return True
     else:
-        print(f"\n⚠️  MARGINAL: Only {passed}/4 edge cases passed")
+        print(f"\nWARNING  MARGINAL: Only {passed}/4 edge cases passed")
         return True
 
 def test_performance_benchmark(detector):
@@ -459,16 +459,16 @@ def test_performance_benchmark(detector):
         print(f"  Std Dev: {std_time:.2f}ms")
         
         if avg_time < 100:  # Less than 100ms
-            print("✅ PASS: Excellent performance (<100ms per detection)")
+            print("PASS PASS: Excellent performance (<100ms per detection)")
         elif avg_time < 500:  # Less than 500ms
-            print("✅ PASS: Good performance (<500ms per detection)")
+            print("PASS PASS: Good performance (<500ms per detection)")
         else:
-            print("⚠️  WARNING: Performance may need optimization")
+            print("WARNING  WARNING: Performance may need optimization")
         
         return True
         
     except Exception as e:
-        print(f"❌ FAIL: {e}")
+        print(f"FAIL FAIL: {e}")
         return False
 
 def main():
@@ -483,19 +483,19 @@ def main():
     # Test 1: Import
     import_ok, GraspPointDetector = test_grasp_detector_import()
     if not import_ok:
-        print("\n❌ Cannot proceed without GraspPointDetector import")
+        print("\nFAIL Cannot proceed without GraspPointDetector import")
         return
     
     # Test 2: Dependencies
     deps_ok = test_dependencies()
     if not deps_ok:
-        print("\n❌ Cannot proceed without required dependencies")
+        print("\nFAIL Cannot proceed without required dependencies")
         return
     
     # Test 3: Initialization
     init_ok, detector = test_detector_initialization(GraspPointDetector)
     if not init_ok or detector is None:
-        print("\n❌ Cannot proceed without successful initialization")
+        print("\nFAIL Cannot proceed without successful initialization")
         return
     
     # Run remaining tests
@@ -521,20 +521,20 @@ def main():
     print("TEST SUMMARY")
     print("="*70)
     print(f"Total tests: {total}")
-    print(f"✅ Passed: {passed}")
-    print(f"❌ Failed: {total - passed}")
+    print(f"PASS Passed: {passed}")
+    print(f"FAIL Failed: {total - passed}")
     print(f"Success rate: {passed/total*100:.1f}%")
     print(f"Total time: {elapsed:.1f}s")
     print("="*70)
     
     if passed == total:
-        print("\n🎉 ALL TESTS PASSED!")
+        print("\nComplete ALL TESTS PASSED!")
         print("Grasp point detector is working correctly.")
     elif passed >= total * 0.8:
-        print("\n✅ MOST TESTS PASSED")
+        print("\nPASS MOST TESTS PASSED")
         print("Grasp point detector is functional.")
     else:
-        print("\n⚠️  SOME TESTS FAILED")
+        print("\nWARNING  SOME TESTS FAILED")
         print("Grasp point detector may need attention.")
     
     print()

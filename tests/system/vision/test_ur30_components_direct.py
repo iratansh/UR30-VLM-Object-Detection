@@ -11,12 +11,12 @@ Tests compo        # Test valid position
         
         # is_valid should be True, is_invalid_reachable should be False
         if is_valid and not is_invalid_reachable:
-            logger.info("✅ PASS: Workspace Validator")
+            logger.info("PASS PASS: Workspace Validator")
             logger.info(f"   - Valid position accepted: {valid_pos}")
             logger.info(f"   - Invalid position correctly rejected: {invalid_pos}")
             return True
         else:
-            logger.error(f"❌ FAIL: Validation logic incorrect (valid={is_valid}, invalid_rejected={not is_invalid_reachable})")
+            logger.error(f"FAIL FAIL: Validation logic incorrect (valid={is_valid}, invalid_rejected={not is_invalid_reachable})")
             return Falseithout ROS2 dependencies
 
 This script tests the same components as test_ur30_core_functionality.py
@@ -68,17 +68,17 @@ def test_ur30_kinematics():
             fk_result = kin.forward_kinematics(solution)
             position_error = np.linalg.norm(fk_result[:3, 3] - np.array(position)) * 1000  # mm
             
-            logger.info(f"✅ PASS: UR30 Kinematics")
+            logger.info(f"PASS PASS: UR30 Kinematics")
             logger.info(f"   - IK solve time: {ik_time:.2f}ms")
             logger.info(f"   - Position error: {position_error:.2f}mm")
             logger.info(f"   - Solution: {np.degrees(solution).round(2)}")
             return True
         else:
-            logger.error("❌ FAIL: IK returned no solutions")
+            logger.error("FAIL FAIL: IK returned no solutions")
             return False
             
     except Exception as e:
-        logger.warning(f"⏭️  SKIP: UR30 Kinematics - {type(e).__name__}: {e}")
+        logger.warning(f"Skip  SKIP: UR30 Kinematics - {type(e).__name__}: {e}")
         return None
 
 
@@ -103,16 +103,16 @@ def test_workspace_validator():
         is_invalid = not validator.is_reachable(*invalid_pos, safe_mode=True)
         
         if is_valid and is_invalid:
-            logger.info("✅ PASS: Workspace Validator")
+            logger.info("PASS PASS: Workspace Validator")
             logger.info(f"   - Valid position accepted: {valid_pos}")
             logger.info(f"   - Invalid position rejected: {invalid_pos}")
             return True
         else:
-            logger.error(f"❌ FAIL: Validation logic incorrect (is_valid={is_valid}, is_invalid={is_invalid})")
+            logger.error(f"FAIL FAIL: Validation logic incorrect (is_valid={is_valid}, is_invalid={is_invalid})")
             return False
             
     except Exception as e:
-        logger.warning(f"⏭️  SKIP: Workspace Validator - {type(e).__name__}: {e}")
+        logger.warning(f"Skip  SKIP: Workspace Validator - {type(e).__name__}: {e}")
         return None
 
 
@@ -138,14 +138,14 @@ def test_vision_detector():
         detections = detector.detect_objects(test_image, queries=["red object", "cube"])
         detect_time = (time.time() - start_time) * 1000
         
-        logger.info(f"✅ PASS: OWL-ViT Detector")
+        logger.info(f"PASS PASS: OWL-ViT Detector")
         logger.info(f"   - Detection time: {detect_time:.2f}ms")
         logger.info(f"   - Detections found: {len(detections)}")
         logger.info(f"   - Model loaded successfully")
         return True
             
     except Exception as e:
-        logger.warning(f"⏭️  SKIP: Vision Detection - {type(e).__name__}: {e}")
+        logger.warning(f"Skip  SKIP: Vision Detection - {type(e).__name__}: {e}")
         logger.debug(traceback.format_exc())
         return None
 
@@ -183,15 +183,15 @@ def test_grasp_detector():
         grasp_info = detector.detect_grasp_point(test_roi)
         
         if grasp_info is not None:
-            logger.info(f"✅ PASS: Grasp Point Detector")
+            logger.info(f"PASS PASS: Grasp Point Detector")
             logger.info(f"   - Grasp info: {grasp_info.get('type', 'unknown')} at quality {grasp_info.get('quality', 0):.2f}")
             return True
         else:
-            logger.warning("⚠️  PARTIAL: No grasp points (expected for synthetic data)")
+            logger.warning("WARNING  PARTIAL: No grasp points (expected for synthetic data)")
             return True  # Still counts as pass since algorithm ran
             
     except Exception as e:
-        logger.warning(f"⏭️  SKIP: Grasp Detector - {type(e).__name__}: {e}")
+        logger.warning(f"Skip  SKIP: Grasp Detector - {type(e).__name__}: {e}")
         logger.debug(traceback.format_exc())
         return None
 
@@ -225,9 +225,9 @@ def main():
     print("TEST SUMMARY")
     print("=" * 70)
     print(f"Total tests: {total}")
-    print(f"✅ Passed: {passed}")
-    print(f"❌ Failed: {failed}")
-    print(f"⏭️  Skipped: {skipped}")
+    print(f"PASS Passed: {passed}")
+    print(f"FAIL Failed: {failed}")
+    print(f"Skip  Skipped: {skipped}")
     print(f"Success rate: {(passed/total*100) if total > 0 else 0:.1f}%")
     print("=" * 70)
     print(f"\nTotal execution time: {total_time:.2f}s")

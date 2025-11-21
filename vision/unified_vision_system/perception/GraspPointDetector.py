@@ -38,7 +38,7 @@ class GraspPointDetector:
         self.max_grasp_width = 0.15  # Maximum object width for grasping (meters)
         self.min_depth_points = 100  # Minimum points needed for reliable depth
         
-        self.logger.info("✅ Grasp point detector initialized")
+        self.logger.info("Grasp point detector initialized")
 
     def _calculate_grasp_quality(self, contour: np.ndarray, angle: float) -> float:
         """

@@ -3,10 +3,10 @@
 2D-3D Coordinate Transformation Test
 
 This test validates the complete pipeline from speech recognition to 3D coordinates:
-1. Speech Recognition → Object queries
-2. MacBook Camera → RGB frames
-3. OWL-ViT → 2D bounding boxes
-4. Mock depth + Camera calibration → 3D coordinates
+1. Speech Recognition -> Object queries
+2. MacBook Camera -> RGB frames
+3. OWL-ViT -> 2D bounding boxes
+4. Mock depth + Camera calibration -> 3D coordinates
 5. Visualization and validation
 
 This allows you to verify the coordinate transformation logic without needing
@@ -136,7 +136,7 @@ class CoordinateTransformationTester:
         # OWL-ViT detector
         try:
             self.vlm_detector = OWLViTDetector()
-            self.logger.info("✅ OWL-ViT detector loaded")
+            self.logger.info("PASS OWL-ViT detector loaded")
         except Exception as e:
             self.logger.error(f"Failed to load OWL-ViT: {e}")
             self.vlm_detector = None
@@ -145,7 +145,7 @@ class CoordinateTransformationTester:
         if self.use_speech:
             try:
                 self.speech_processor = SpeechCommandProcessor()
-                self.logger.info("✅ Speech processor loaded")
+                self.logger.info("PASS Speech processor loaded")
             except Exception as e:
                 self.logger.warning(f"Speech processor not available: {e}")
                 self.speech_processor = None
@@ -198,7 +198,7 @@ class CoordinateTransformationTester:
             [0, 0, 0, 1]
         ])
         
-        self.logger.info("✅ Coordinate system setup complete")
+        self.logger.info("PASS Coordinate system setup complete")
         
     def pixel_to_3d_camera_frame(self, pixel_x: int, pixel_y: int, depth: float) -> np.ndarray:
         """Convert pixel coordinates to 3D point in camera frame"""
@@ -243,7 +243,7 @@ class CoordinateTransformationTester:
         try:
             command = self.speech_processor.get_command()
             if command:
-                self.logger.info(f"🎤 Speech command: '{command}'")
+                self.logger.info(f"Simulated command Speech command: '{command}'")
                 queries = self.speech_processor.parse_object_query(command)
                 return queries if queries else []
         except Exception as e:
@@ -264,7 +264,7 @@ class CoordinateTransformationTester:
             )
             detection_time = (time.perf_counter() - start_time) * 1000
             
-            self.logger.info(f"🔍 VLM detection: {len(detections)} objects in {detection_time:.1f}ms")
+            self.logger.info(f"Detecting VLM detection: {len(detections)} objects in {detection_time:.1f}ms")
             return detections
             
         except Exception as e:
@@ -332,7 +332,7 @@ class CoordinateTransformationTester:
             detections_3d.append(detection_3d)
             
             # Log the transformation
-            self.logger.info(f"📍 {label}: 2D({center_x},{center_y}) → 3D_cam{point_3d_camera} → 3D_robot{point_3d_robot}")
+            self.logger.info(f"Point {label}: 2D({center_x},{center_y}) -> 3D_cam{point_3d_camera} -> 3D_robot{point_3d_robot}")
             
         return detections_3d
     
@@ -442,12 +442,12 @@ class CoordinateTransformationTester:
         with open(f'test_results_{timestamp}.json', 'w') as f:
             json.dump(result, f, indent=2)
         
-        self.logger.info(f"💾 Test results saved to test_results_{timestamp}.json")
+        self.logger.info(f"Saved Test results saved to test_results_{timestamp}.json")
     
     def run_interactive_test(self):
         """Run interactive testing session"""
         
-        self.logger.info("🚀 Starting 2D-3D Coordinate Transformation Test")
+        self.logger.info("Starting Starting 2D-3D Coordinate Transformation Test")
         self.logger.info("="*60)
         self.logger.info("Controls:")
         self.logger.info("  SPACE - Capture and process current frame")
@@ -504,14 +504,14 @@ class CoordinateTransformationTester:
                     queries = self.process_speech_input()
                     if queries:
                         self.current_queries = queries
-                        self.logger.info(f"🎯 New queries: {queries}")
+                        self.logger.info(f"Goal New queries: {queries}")
                 elif key == ord('d'):
                     self.show_depth_visualization = not self.show_depth_visualization
                     self.logger.info(f"Depth visualization: {'ON' if self.show_depth_visualization else 'OFF'}")
                 elif key == ord('r'):
                     self.current_queries = []
                     self.current_detections = []
-                    self.logger.info("🔄 Queries reset")
+                    self.logger.info("Loop Queries reset")
                 
         except KeyboardInterrupt:
             self.logger.info("Test interrupted by user")
@@ -522,12 +522,12 @@ class CoordinateTransformationTester:
     def run_batch_test(self, test_objects: List[str], num_samples: int = 5):
         """Run automated batch test with predefined objects"""
         
-        self.logger.info(f"🔬 Running batch test with {len(test_objects)} objects, {num_samples} samples each")
+        self.logger.info(f"Lab Running batch test with {len(test_objects)} objects, {num_samples} samples each")
         
         all_results = []
         
         for obj in test_objects:
-            self.logger.info(f"\n📋 Testing object: {obj}")
+            self.logger.info(f"\nAssessment Testing object: {obj}")
             self.current_queries = [obj]
             
             object_results = []
@@ -559,11 +559,11 @@ class CoordinateTransformationTester:
                         }
                         
                         object_results.append(result)
-                        self.logger.info(f"    ✅ Detected at {detection['point_3d_robot']}")
+                        self.logger.info(f"    PASS Detected at {detection['point_3d_robot']}")
                     else:
-                        self.logger.info(f"    ❌ No 3D conversion")
+                        self.logger.info(f"    FAIL No 3D conversion")
                 else:
-                    self.logger.info(f"    ❌ Not detected")
+                    self.logger.info(f"    FAIL Not detected")
                 
                 time.sleep(0.5)  # Brief pause between samples
             
@@ -583,7 +583,7 @@ class CoordinateTransformationTester:
         """Print summary of batch test results"""
         
         print("\n" + "="*60)
-        print("📊 BATCH TEST SUMMARY")
+        print("Metrics BATCH TEST SUMMARY")
         print("="*60)
         
         for obj in test_objects:
@@ -594,10 +594,10 @@ class CoordinateTransformationTester:
                 depths = [r['depth'] for r in obj_results]
                 reachable_count = sum(1 for r in obj_results if r['is_reachable'])
                 
-                print(f"\n🎯 {obj.upper()}:")
+                print(f"\nGoal {obj.upper()}:")
                 print(f"  Detections: {len(obj_results)}")
-                print(f"  Avg confidence: {np.mean(confidences):.3f} ± {np.std(confidences):.3f}")
-                print(f"  Avg depth: {np.mean(depths):.3f}m ± {np.std(depths):.3f}m")
+                print(f"  Avg confidence: {np.mean(confidences):.3f} +/- {np.std(confidences):.3f}")
+                print(f"  Avg depth: {np.mean(depths):.3f}m +/- {np.std(depths):.3f}m")
                 print(f"  Reachable: {reachable_count}/{len(obj_results)} ({reachable_count/len(obj_results)*100:.1f}%)")
                 
                 # Show coordinate consistency
@@ -607,7 +607,7 @@ class CoordinateTransformationTester:
                     pos_std = np.std(pos_array, axis=0)
                     print(f"  Position std: ({pos_std[0]:.3f}, {pos_std[1]:.3f}, {pos_std[2]:.3f})m")
             else:
-                print(f"\n❌ {obj.upper()}: No detections")
+                print(f"\nFAIL {obj.upper()}: No detections")
         
         print("\n" + "="*60)
     
@@ -626,20 +626,20 @@ class CoordinateTransformationTester:
             except:
                 pass
         
-        self.logger.info("🧹 Cleanup complete")
+        self.logger.info("Cleanup Cleanup complete")
 
 def main():
     """Main test function"""
     
-    print("🔬 2D-3D Coordinate Transformation Tester")
+    print("Lab 2D-3D Coordinate Transformation Tester")
     print("="*50)
     print("This test validates:")
-    print("✅ Speech Recognition → Object Queries")
-    print("✅ MacBook Camera → RGB Frames") 
-    print("✅ OWL-ViT → 2D Bounding Boxes")
-    print("✅ Mock Depth + Calibration → 3D Coordinates")
-    print("✅ Coordinate Frame Transformations")
-    print("✅ Workspace Validation")
+    print("PASS Speech Recognition -> Object Queries")
+    print("PASS MacBook Camera -> RGB Frames") 
+    print("PASS OWL-ViT -> 2D Bounding Boxes")
+    print("PASS Mock Depth + Calibration -> 3D Coordinates")
+    print("PASS Coordinate Frame Transformations")
+    print("PASS Workspace Validation")
     print("="*50)
     
     # Ask user for test mode
@@ -662,9 +662,9 @@ def main():
             tester.run_interactive_test()
             
     except KeyboardInterrupt:
-        print("\n🛑 Test stopped by user")
+        print("\nStopped Test stopped by user")
     except Exception as e:
-        print(f"\n💥 Test failed: {e}")
+        print(f"\nError Test failed: {e}")
         logging.error(f"Test error: {e}", exc_info=True)
     finally:
         try:

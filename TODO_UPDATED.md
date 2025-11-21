@@ -23,7 +23,7 @@ Everything above is ready for integration once we are confident in the Gazebo wo
 
 ---
 
-## Primary Handoff Task – Gazebo Baseline Verification
+## Primary Handoff Task - Gazebo Baseline Verification
 
 Goal: **Confirm the system can pick up the green book in simulation using the
 color-based perception pipeline.** This is the gating step before re-enabling the full
@@ -31,7 +31,7 @@ OWL-ViT + speech pipeline on hardware.
 
 ### Why color-based detection?
 
-- OWL-ViT models are tuned for real-world textures and perform poorly on Gazebo’s
+- OWL-ViT models are tuned for real-world textures and perform poorly on Gazebo's
   low-fidelity renders.
 - `vision/scripts/test_pick_green_book.py` implements a deterministic color detector that
   matches the book in the default UR30 camera FOV, letting us validate motion planning,
@@ -44,7 +44,7 @@ OWL-ViT + speech pipeline on hardware.
    (ROS2 Humble sourced, `ur30_vlm_environment` active) and confirm the robot successfully
    grasps and lifts the book.
 3. **If needed**, create minimal variants of this test (e.g., different colors/poses) to
-   exercise additional aspects of the perception → IK → motion chain before deploying the
+   exercise additional aspects of the perception -> IK -> motion chain before deploying the
    more complex OWL-ViT + speech stack on real hardware.
 4. **Document findings** in this TODO file and/or `tests/README.md` so we maintain a clear
    record of which combinations were validated.
@@ -60,7 +60,7 @@ OWL-ViT + speech pipeline on hardware.
 
 ---
 
-## After the baseline passes…
+## After the baseline passes...
 
 Once the green-book scenario works reliably, proceed with:
 

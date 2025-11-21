@@ -123,7 +123,7 @@ class ConstructionNASATLX:
         
         self.assessment_history = []
         
-        self.logger.info("✅ NASA-TLX Assessment initialized for construction HRI")
+        self.logger.info("NASA-TLX Assessment initialized for construction HRI")
         self.logger.info(f"   Pairwise weighting: {use_pairwise_weighting}")
         self.logger.info(f"   Construction context: {construction_context}")
         self.logger.info(f"   Dimensions: {len(self.dimensions)}")
@@ -239,7 +239,7 @@ class ConstructionNASATLX:
         responses = []
         pairwise_comparisons = []
         
-        self.logger.info(f"📋 Starting NASA-TLX assessment for {participant_id}")
+        self.logger.info(f"Assessment Starting NASA-TLX assessment for {participant_id}")
         self.logger.info(f"   Task: {task_description}")
         if clarification_strategy:
             self.logger.info(f"   Strategy: {clarification_strategy}")
@@ -302,7 +302,7 @@ class ConstructionNASATLX:
         
         self.assessment_history.append(assessment)
         
-        self.logger.info(f"✅ TLX assessment completed in {completion_time:.1f}s")
+        self.logger.info(f"TLX assessment completed in {completion_time:.1f}s")
         self.logger.info(f"   Overall workload: {assessment.overall_workload:.1f}")
         self.logger.info(f"   Highest demand: {self._get_highest_dimension(assessment)}")
         
@@ -577,7 +577,7 @@ class ConstructionNASATLX:
         with open(filepath, 'w') as f:
             json.dump(export_data, f, indent=2)
         
-        self.logger.info(f"📊 NASA-TLX data exported to {filepath}")
+        self.logger.info(f"Metrics NASA-TLX data exported to {filepath}")
         self.logger.info(f"   Assessments: {len(assessments_to_export)}")
         self.logger.info(f"   Responses: {len(export_data['detailed_responses'])}")
 

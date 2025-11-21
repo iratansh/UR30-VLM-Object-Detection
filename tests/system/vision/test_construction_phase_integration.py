@@ -414,7 +414,7 @@ def run_construction_integration_tests():
     """Run all construction HRI integration tests"""
     
     if not IMPORTS_AVAILABLE:
-        print("❌ Required modules not available - skipping tests")
+        print("FAIL Required modules not available - skipping tests")
         return False
     
     # Create test suite
@@ -447,12 +447,12 @@ def run_construction_integration_tests():
     print(f"Success Rate: {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%")
     
     if result.failures:
-        print(f"\n❌ FAILURES:")
+        print(f"\nFAIL FAILURES:")
         for test, traceback in result.failures:
             print(f"  - {test}: {traceback.split('AssertionError:')[-1].strip()}")
     
     if result.errors:
-        print(f"\n❌ ERRORS:")
+        print(f"\nFAIL ERRORS:")
         for test, traceback in result.errors:
             print(f"  - {test}: {traceback.split('Exception:')[-1].strip()}")
     

@@ -62,16 +62,16 @@ setup_x11() {
 
 # Function to build the Docker image
 build_image() {
-    print_status "🔨 Building UR30 VLM Docker image..."
+    print_status "Building UR30 VLM Docker image..."
     COMPOSE_CMD=$(get_compose_cmd)
     $COMPOSE_CMD build --no-cache ur30-vlm
-    print_success "✅ Docker image built successfully!"
+    print_success "Docker image built successfully."
 }
 
 # Function to run the main container
 run_container() {
     setup_x11
-    print_status "🚀 Starting UR30 VLM container..."
+    print_status "Starting UR30 VLM container..."
     
     COMPOSE_CMD=$(get_compose_cmd)
     # Stop any existing container
@@ -80,7 +80,7 @@ run_container() {
     # Start the container
     $COMPOSE_CMD up -d ur30-vlm
     
-    print_success "✅ Container started successfully!"
+    print_success "Container started successfully."
     print_status "Access the container with: ./start-docker.sh shell"
     print_status "View logs with: ./start-docker.sh logs"
 }
@@ -88,7 +88,7 @@ run_container() {
 # Function to run simulation mode
 run_simulation() {
     setup_x11
-    print_status "🎮 Starting UR30 VLM with Gazebo simulation..."
+    print_status "Starting UR30 VLM with Gazebo simulation..."
     
     COMPOSE_CMD=$(get_compose_cmd)
     # Stop any existing containers
@@ -97,7 +97,7 @@ run_simulation() {
     # Start main container and simulation
     $COMPOSE_CMD --profile simulation up -d
     
-    print_success "✅ Simulation environment started!"
+    print_success "Simulation environment started."
     print_status "Gazebo should be starting up..."
     print_status "Access main container: ./start-docker.sh shell"
     print_status "View logs: ./start-docker.sh logs"
@@ -105,10 +105,10 @@ run_simulation() {
 
 # Function to stop containers
 stop_containers() {
-    print_status "🛑 Stopping UR30 VLM containers..."
+    print_status "Stopping UR30 VLM containers..."
     COMPOSE_CMD=$(get_compose_cmd)
     $COMPOSE_CMD down
-    print_success "✅ All containers stopped"
+    print_success "All containers stopped."
 }
 
 # Function to view logs
@@ -130,7 +130,7 @@ open_shell() {
         exit 1
     fi
     
-    print_status "🐚 Opening shell in UR30 VLM container..."
+    print_status "Opening shell in UR30 VLM container..."
     docker exec -it $container_name /bin/bash
 }
 
@@ -143,30 +143,30 @@ test_environment() {
         exit 1
     fi
     
-    print_status "🧪 Testing UR30 VLM environment..."
+    print_status "Testing UR30 VLM environment..."
     
     docker exec $container_name bash -c "
     source /opt/ros/humble/setup.bash &&
     eval '\$(conda shell.bash hook)' &&
     conda activate ur30_vlm_environment &&
-    echo '✅ ROS2 Topics:' &&
-    timeout 5 ros2 topic list || echo '⚠️  ROS2 topics timeout (normal if no nodes running)' &&
+    echo 'PASS ROS2 Topics:' &&
+    timeout 5 ros2 topic list || echo 'WARNING  ROS2 topics timeout (normal if no nodes running)' &&
     echo '' &&
-    echo '✅ GPU Status:' &&
-    nvidia-smi --query-gpu=name,temperature.gpu,utilization.gpu --format=csv,noheader 2>/dev/null || echo '⚠️  No NVIDIA GPU detected' &&
+    echo 'PASS GPU Status:' &&
+    nvidia-smi --query-gpu=name,temperature.gpu,utilization.gpu --format=csv,noheader 2>/dev/null || echo 'WARNING  No NVIDIA GPU detected' &&
     echo '' &&
-    echo '✅ Audio Devices:' &&
-    python -c 'import sounddevice; print(\"Microphones:\", [d[\"name\"] for d in sounddevice.query_devices() if d[\"max_input_channels\"] > 0])' 2>/dev/null || echo '⚠️  Audio not accessible' &&
+    echo 'PASS Audio Devices:' &&
+    python -c 'import sounddevice; print(\"Microphones:\", [d[\"name\"] for d in sounddevice.query_devices() if d[\"max_input_channels\"] > 0])' 2>/dev/null || echo 'WARNING  Audio not accessible' &&
     echo '' &&
-    echo '✅ RealSense:' &&
+    echo 'PASS RealSense:' &&
     python -c 'import pyrealsense2 as rs; ctx = rs.context(); devices = ctx.query_devices(); print(f\"RealSense devices: {len(devices)}\")' &&
     echo '' &&
-    echo '✅ Key Libraries:' &&
+    echo 'PASS Key Libraries:' &&
     python -c 'import torch; print(f\"PyTorch: {torch.__version__}, CUDA: {torch.cuda.is_available()}\")' &&
     python -c 'import cv2; print(f\"OpenCV: {cv2.__version__}\")' &&
     python -c 'import transformers; print(f\"Transformers: {transformers.__version__}\")' &&
     echo '' &&
-    echo '🎉 Environment test completed!'
+    echo 'Environment test completed.'
     "
 }
 
@@ -193,11 +193,11 @@ show_usage() {
     echo "  ./start-docker.sh logs sim"
     echo ""
     echo "Hardware Support:"
-    echo "  ✓ NVIDIA GPU/CUDA"
-    echo "  ✓ Intel RealSense cameras"
-    echo "  ✓ USB devices and serial ports"
-    echo "  ✓ Audio input/output"
-    echo "  ✓ X11 forwarding for GUI apps"
+    echo "  - NVIDIA GPU/CUDA"
+    echo "  - Intel RealSense cameras"
+    echo "  - USB devices and serial ports"
+    echo "  - Audio input/output"
+    echo "  - X11 forwarding for GUI apps"
 }
 
 # Main script logic

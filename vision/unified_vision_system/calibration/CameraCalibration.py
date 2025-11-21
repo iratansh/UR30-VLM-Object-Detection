@@ -490,8 +490,8 @@ class CameraCalibration:
             
         Notes
         -----
-        For eye-in-hand: Transforms camera → gripper → base
-        For eye-to-hand: Transforms camera → base directly
+        For eye-in-hand: Transforms camera -> gripper -> base
+        For eye-to-hand: Transforms camera -> base directly
         """
         # Convert to homogeneous coordinates
         point_h = np.array([*point_camera, 1.0])
@@ -529,8 +529,8 @@ class CameraCalibration:
             
         Notes
         -----
-        For eye-in-hand: Transforms base → gripper → camera
-        For eye-to-hand: Transforms base → camera directly
+        For eye-in-hand: Transforms base -> gripper -> camera
+        For eye-to-hand: Transforms base -> camera directly
         """
         # Convert to homogeneous coordinates
         point_h = np.array([*point_robot, 1.0])
@@ -755,14 +755,14 @@ class CameraCalibration:
             if current_gripper_pose is None:
                 raise ValueError("current_gripper_pose required for eye-in-hand configuration")
             
-            # Rotate camera → gripper → base
+            # Rotate camera -> gripper -> base
             R_gripper_camera = self.T_gripper_to_camera[:3, :3]
             R_base_gripper = current_gripper_pose[:3, :3]
             
             v_gripper = R_gripper_camera @ v
             v_robot = R_base_gripper @ v_gripper
         else:
-            # Rotate camera → base directly
+            # Rotate camera -> base directly
             R_base_camera = self.T_base_to_camera[:3, :3]
             v_robot = R_base_camera @ v
         

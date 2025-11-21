@@ -64,11 +64,11 @@ def test_integrated_construction_hri():
     """Test the complete integrated construction HRI system"""
     
     try:
-        logger.info("🏗️ INTEGRATED CONSTRUCTION HRI SYSTEM TEST")
+        logger.info("Construction INTEGRATED CONSTRUCTION HRI SYSTEM TEST")
         logger.info("="*60)
         
         # Import all system components
-        logger.info("📦 Loading system components...")
+        logger.info("Objects Loading system components...")
         
         from unified_vision_system.hri.SpeechCommandProcessor import SpeechCommandProcessor
         from unified_vision_system.perception.OWLViTDetector import OWLViTDetector  
@@ -84,25 +84,25 @@ def test_integrated_construction_hri():
             TTSPriority
         )
         
-        logger.info("✅ All system components loaded successfully")
+        logger.info("PASS All system components loaded successfully")
         
         # Initialize core system components
-        logger.info("\n🔧 INITIALIZING SYSTEM COMPONENTS")
+        logger.info("\nStatus INITIALIZING SYSTEM COMPONENTS")
         logger.info("-" * 40)
         
         # Speech recognition with Whisper
-        logger.info("🎤 Initializing Whisper ASR...")
+        logger.info("Simulated command Initializing Whisper ASR...")
         speech_processor = SpeechCommandProcessor(
             whisper_model="tiny",  # Fast model for testing
             language="en-US"
         )
         
         # Construction tool detector
-        logger.info("👁️ Initializing Construction Tool Detector...")
+        logger.info("Vision Initializing Construction Tool Detector...")
         tool_detector = OWLViTDetector(confidence_threshold=0.3)
         
         # Clarification manager
-        logger.info("🤖 Initializing Clarification Manager with RAG...")
+        logger.info("Robot Initializing Clarification Manager with RAG...")
         rag_mgr = ConstructionRAGManager()
         clarification_mgr = ConstructionClarificationManager(
             user_expertise=UserExpertiseLevel.JOURNEYMAN,
@@ -114,36 +114,36 @@ def test_integrated_construction_hri():
             clarification_mgr.rag_manager = rag_mgr
         
         # TTS manager
-        logger.info("🔊 Initializing TTS Manager...")
+        logger.info("Audio Initializing TTS Manager...")
         tts_manager = ConstructionTTSManager(
             voice_profile=VoiceProfile.PROFESSIONAL,
             construction_mode=True
         )
         
-        logger.info("✅ All components initialized successfully")
+        logger.info("PASS All components initialized successfully")
         
         # Test complete workflow scenarios
-        logger.info("\n🔄 TESTING COMPLETE HRI WORKFLOWS")
+        logger.info("\nLoop TESTING COMPLETE HRI WORKFLOWS")
         logger.info("-" * 40)
         
         # Create mock construction scene
         mock_image, detected_tools, confidence_scores = create_mock_construction_scene()
-        logger.info(f"🏗️ Mock construction scene: {len(detected_tools)} tools detected")
+        logger.info(f"Construction Mock construction scene: {len(detected_tools)} tools detected")
         
         # Scenario 1: High confidence single tool request
-        logger.info("\n📋 SCENARIO 1: High Confidence Tool Request")
+        logger.info("\nAssessment SCENARIO 1: High Confidence Tool Request")
         logger.info("   User: 'Pick up the hammer'")
         
         # Process speech command
         command_info = speech_processor.process_command("pick up the hammer")
-        logger.info(f"   🗣️ Parsed command: {command_info}")
+        logger.info(f"   Speech Parsed command: {command_info}")
         
         # Detect construction tools
         hammer_detections = [detected_tools[0]]  # Just the hammer
         hammer_confidences = [confidence_scores[0]]
         
         tool_queries = tool_detector.get_construction_tool_queries("hammer")
-        logger.info(f"   🔨 Construction queries: {tool_queries}")
+        logger.info(f"   Build Construction queries: {tool_queries}")
         
         # Generate clarification with high confidence
         clarification = clarification_mgr.request_clarification(
@@ -153,9 +153,9 @@ def test_integrated_construction_hri():
             strategy=ClarificationStrategy.CONFIDENCE_BASED
         )
         
-        logger.info(f"   🤖 Clarification: '{clarification.text}'")
+        logger.info(f"   Robot Clarification: '{clarification.text}'")
         if clarification.metadata.get('rag_enhanced'):
-            logger.info(f"   🧠 RAG applied (conf={clarification.metadata.get('rag_confidence')})")
+            logger.info(f"   Brain RAG applied (conf={clarification.metadata.get('rag_confidence')})")
         
         # Speak clarification
         tts_manager.speak_clarification(clarification.text, blocking=True)
@@ -169,11 +169,11 @@ def test_integrated_construction_hri():
         )
         
         # Scenario 2: Multiple tool options with history awareness
-        logger.info("\n📋 SCENARIO 2: Multiple Tools with History")
+        logger.info("\nAssessment SCENARIO 2: Multiple Tools with History")
         logger.info("   User: 'Get me a tool for turning screws'")
         
         command_info = speech_processor.process_command("get me a tool for turning screws")
-        logger.info(f"   🗣️ Parsed command: {command_info}")
+        logger.info(f"   Speech Parsed command: {command_info}")
         
         # History-aware clarification with multiple options
         screwdriver_detections = [detected_tools[1]]  # Phillips screwdriver
@@ -186,17 +186,17 @@ def test_integrated_construction_hri():
             strategy=ClarificationStrategy.HISTORY_AWARE
         )
         
-        logger.info(f"   🤖 Clarification: '{clarification.text}'")
+        logger.info(f"   Robot Clarification: '{clarification.text}'")
         if clarification.metadata.get('rag_enhanced'):
-            logger.info(f"   🧠 RAG applied (conf={clarification.metadata.get('rag_confidence')})")
+            logger.info(f"   Brain RAG applied (conf={clarification.metadata.get('rag_confidence')})")
         tts_manager.speak_clarification(clarification.text, blocking=True)
         
         # Scenario 3: Low confidence with options-based clarification  
-        logger.info("\n📋 SCENARIO 3: Low Confidence Multiple Options")
+        logger.info("\nAssessment SCENARIO 3: Low Confidence Multiple Options")
         logger.info("   User: 'Hand me that tool over there'")
         
         command_info = speech_processor.process_command("hand me that tool over there")
-        logger.info(f"   🗣️ Parsed command: {command_info}")
+        logger.info(f"   Speech Parsed command: {command_info}")
         
         # Multiple tools with varying confidence
         clarification = clarification_mgr.request_clarification(
@@ -206,13 +206,13 @@ def test_integrated_construction_hri():
             strategy=ClarificationStrategy.OPTIONS_BASED
         )
         
-        logger.info(f"   🤖 Clarification: '{clarification.text}'")
+        logger.info(f"   Robot Clarification: '{clarification.text}'")
         if clarification.metadata.get('rag_enhanced'):
-            logger.info(f"   🧠 RAG applied (conf={clarification.metadata.get('rag_confidence')})")
+            logger.info(f"   Brain RAG applied (conf={clarification.metadata.get('rag_confidence')})")
         tts_manager.speak_clarification(clarification.text, blocking=True)
         
         # Test expertise adaptation
-        logger.info("\n👷 TESTING EXPERTISE ADAPTATION")
+        logger.info("\nOperator TESTING EXPERTISE ADAPTATION")
         logger.info("-" * 40)
         
         expertise_levels = [
@@ -246,7 +246,7 @@ def test_integrated_construction_hri():
             tts_manager.speak_clarification(clarification.text, blocking=True)
         
         # Test construction terminology integration
-        logger.info("\n🔨 TESTING CONSTRUCTION TERMINOLOGY")
+        logger.info("\nBuild TESTING CONSTRUCTION TERMINOLOGY")
         logger.info("-" * 40)
         
         construction_commands = [
@@ -273,7 +273,7 @@ def test_integrated_construction_hri():
                 tts_manager.speak_clarification(response_text, blocking=True)
         
         # Test system performance metrics
-        logger.info("\n📊 SYSTEM PERFORMANCE METRICS")
+        logger.info("\nMetrics SYSTEM PERFORMANCE METRICS")
         logger.info("-" * 40)
         
         clarification_metrics = clarification_mgr.get_performance_metrics()
@@ -289,7 +289,7 @@ def test_integrated_construction_hri():
         logger.info(f"   Speech queue size: {tts_capabilities['queue_size']}")
         
         # Test system integration points for RViz/Gazebo
-        logger.info("\n🤖 ROBOTICS INTEGRATION READINESS")
+        logger.info("\nRobot ROBOTICS INTEGRATION READINESS")
         logger.info("-" * 40)
         
         # Mock robot coordinate transformations (would use TF2 in real system)
@@ -315,10 +315,10 @@ def test_integrated_construction_hri():
             planning_success = True  # Mock planning success
             execution_time = random.uniform(2.5, 4.2)
             
-            logger.info(f"     {pos['tool']}: {'✅ Reachable' if planning_success else '❌ Unreachable'} ({execution_time:.1f}s)")
+            logger.info(f"     {pos['tool']}: {'PASS Reachable' if planning_success else 'FAIL Unreachable'} ({execution_time:.1f}s)")
         
         # Export research data
-        logger.info("\n💾 EXPORTING RESEARCH DATA")
+        logger.info("\nSaved EXPORTING RESEARCH DATA")
         logger.info("-" * 40)
         
         research_data_file = "/tmp/construction_hri_test_data.json"
@@ -326,30 +326,30 @@ def test_integrated_construction_hri():
         logger.info(f"   Research data exported to: {research_data_file}")
         
         # Final system status
-        logger.info("\n✅ SYSTEM INTEGRATION STATUS")
+        logger.info("\nPASS SYSTEM INTEGRATION STATUS")
         logger.info("=" * 40)
-        logger.info("   ✅ Whisper ASR: Speech recognition operational")
-        logger.info("   ✅ OWL-ViT: Construction tool detection ready")
-        logger.info("   ✅ Clarification Manager: 5 strategies validated")
-        logger.info("   ✅ TTS Manager: Speech synthesis operational")
-        logger.info("   ✅ Construction Terminology: Professional jargon integrated")
-        logger.info("   ✅ Expertise Adaptation: 4 levels supported")
-        logger.info("   ✅ Research Framework: A/B testing ready")
-        logger.info("\n🏗️ READY FOR RVIZ/MOVEIT2/GAZEBO DEPLOYMENT")
+        logger.info("   PASS Whisper ASR: Speech recognition operational")
+        logger.info("   PASS OWL-ViT: Construction tool detection ready")
+        logger.info("   PASS Clarification Manager: 5 strategies validated")
+        logger.info("   PASS TTS Manager: Speech synthesis operational")
+        logger.info("   PASS Construction Terminology: Professional jargon integrated")
+        logger.info("   PASS Expertise Adaptation: 4 levels supported")
+        logger.info("   PASS Research Framework: A/B testing ready")
+        logger.info("\nConstruction READY FOR RVIZ/MOVEIT2/GAZEBO DEPLOYMENT")
         
         # Cleanup
-        logger.info("\n🧹 CLEANING UP SYSTEM COMPONENTS")
+        logger.info("\nCleanup CLEANING UP SYSTEM COMPONENTS")
         speech_processor.cleanup()
         tts_manager.cleanup()
         
-        logger.info("\n🎉 INTEGRATED CONSTRUCTION HRI SYSTEM TEST COMPLETED SUCCESSFULLY!")
+        logger.info("\nComplete INTEGRATED CONSTRUCTION HRI SYSTEM TEST COMPLETED SUCCESSFULLY!")
         logger.info("    The system is ready for deployment on the UR30 robot arm.")
         logger.info("    All Phase 1 objectives have been achieved.")
         
         return True
         
     except Exception as e:
-        logger.error(f"❌ Integrated system test failed: {e}")
+        logger.error(f"FAIL Integrated system test failed: {e}")
         import traceback
         traceback.print_exc()
         return False

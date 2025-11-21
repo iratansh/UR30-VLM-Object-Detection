@@ -87,7 +87,7 @@ def test_scipy_quaternion_conversion():
             "expected_angle": 0.0
         },
         {
-            "name": "90° rotation about Z-axis",
+            "name": "90deg rotation about Z-axis",
             "matrix": np.array([
                 [0, -1, 0],
                 [1,  0, 0],
@@ -96,7 +96,7 @@ def test_scipy_quaternion_conversion():
             "expected_angle": math.pi/2
         },
         {
-            "name": "180° rotation about X-axis", 
+            "name": "180deg rotation about X-axis", 
             "matrix": np.array([
                 [1,  0,  0],
                 [0, -1,  0],
@@ -105,7 +105,7 @@ def test_scipy_quaternion_conversion():
             "expected_angle": math.pi
         },
         {
-            "name": "45° rotation about Z-axis",
+            "name": "45deg rotation about Z-axis",
             "matrix": np.array([
                 [math.cos(math.pi/4), -math.sin(math.pi/4), 0],
                 [math.sin(math.pi/4),  math.cos(math.pi/4), 0],
@@ -129,7 +129,7 @@ def test_scipy_quaternion_conversion():
             print(f"  Quaternion norm: {norm:.6f}")
             
             if abs(norm - 1.0) > 1e-6:
-                print(f"  ❌ FAIL: Quaternion not normalized!")
+                print(f"  FAIL FAIL: Quaternion not normalized!")
                 all_passed = False
                 continue
             
@@ -143,7 +143,7 @@ def test_scipy_quaternion_conversion():
             print(f"  Matrix recovery error: {matrix_error:.6f}")
             
             if matrix_error > 1e-6:
-                print(f"  ❌ FAIL: Matrix recovery error too large!")
+                print(f"  FAIL FAIL: Matrix recovery error too large!")
                 all_passed = False
                 continue
             
@@ -151,19 +151,19 @@ def test_scipy_quaternion_conversion():
             if 'expected_angle' in test_case:
                 angle = rotation_obj.magnitude()
                 angle_error = abs(angle - test_case['expected_angle'])
-                print(f"  Expected angle: {math.degrees(test_case['expected_angle']):.1f}°")
-                print(f"  Computed angle: {math.degrees(angle):.1f}°")
-                print(f"  Angle error: {math.degrees(angle_error):.3f}°")
+                print(f"  Expected angle: {math.degrees(test_case['expected_angle']):.1f}deg")
+                print(f"  Computed angle: {math.degrees(angle):.1f}deg")
+                print(f"  Angle error: {math.degrees(angle_error):.3f}deg")
                 
                 if angle_error > 1e-6:
-                    print(f"  ❌ FAIL: Angle error too large!")
+                    print(f"  FAIL FAIL: Angle error too large!")
                     all_passed = False
                     continue
             
-            print(f"  ✅ PASS")
+            print(f"  PASS PASS")
             
         except Exception as e:
-            print(f"  ❌ FAIL: Exception occurred: {e}")
+            print(f"  FAIL FAIL: Exception occurred: {e}")
             all_passed = False
         
         print()
@@ -188,21 +188,21 @@ def test_scipy_quaternion_conversion():
             print(f"  Random test {i+1}: error = {error:.6f}", end="")
             
             if error < 1e-6:
-                print(" ✅")
+                print(" PASS")
             else:
-                print(" ❌")
+                print(" FAIL")
                 all_passed = False
                 
         except Exception as e:
-            print(f"  Random test {i+1}: Exception: {e} ❌")
+            print(f"  Random test {i+1}: Exception: {e} FAIL")
             all_passed = False
     
     print(f"\n=== Final Result ===")
     if all_passed:
-        print("✅ All quaternion conversion tests PASSED!")
+        print("PASS All quaternion conversion tests PASSED!")
         print("Scipy integration is working correctly.")
     else:
-        print("❌ Some tests FAILED!")
+        print("FAIL Some tests FAILED!")
         print("Check scipy installation and quaternion conversion logic.")
     
     return all_passed
@@ -214,9 +214,9 @@ def test_ikfast_with_scipy():
     
     try:
         import ur_ikfast as ur_ik
-        print("✅ ur_ikfast imported successfully")
+        print("PASS ur_ikfast imported successfully")
     except ImportError:
-        print("⚠️  ur_ikfast not available - skipping integration test")
+        print("WARNING  ur_ikfast not available - skipping integration test")
         return True
     
     hybrid = HybridUR30Kinematics(debug=True)
@@ -234,7 +234,7 @@ def test_ikfast_with_scipy():
         
         # Validate pose is reachable first
         if not validate_pose_reachability(position):
-            print(f"⚠️  Skipping unreachable pose: {position}")
+            print(f"WARNING  Skipping unreachable pose: {position}")
             continue
         
         # Create target pose with custom orientation
@@ -248,7 +248,7 @@ def test_ikfast_with_scipy():
         solutions = hybrid.inverse_kinematics(target_pose, timeout_ms=200)
         
         if solutions:
-            print(f"✅ Found {len(solutions)} solutions")
+            print(f"PASS Found {len(solutions)} solutions")
             
             best_solution = solutions[0]
             print(f"Best solution (degrees): {[math.degrees(j) for j in best_solution]}")
@@ -262,25 +262,25 @@ def test_ikfast_with_scipy():
             rot_error_deg = math.degrees(rot_angle)
             
             print(f"Position error: {pos_error:.3f}mm")
-            print(f"Orientation error: {rot_error_deg:.3f}°")
+            print(f"Orientation error: {rot_error_deg:.3f}deg")
             
-            if pos_error < 10.0 and rot_error_deg < 5.0:  # 10mm and 5° tolerance
-                print("✅ IK solution accurate")
+            if pos_error < 10.0 and rot_error_deg < 5.0:  # 10mm and 5deg tolerance
+                print("PASS IK solution accurate")
                 success_count += 1
             else:
-                print(f"⚠️  IK solution has high error")
+                print(f"WARNING  IK solution has high error")
                 success_count += 0.5  # Partial credit
         else:
-            print("❌ No solutions found")
+            print("FAIL No solutions found")
             
             # Try different orientations to debug
-            print("🔍 Debugging: Trying with identity orientation...")
+            print("Detecting Debugging: Trying with identity orientation...")
             debug_pose = np.eye(4)
             debug_pose[:3, 3] = position
             debug_solutions = hybrid.inverse_kinematics(debug_pose, timeout_ms=100)
             
             if debug_solutions:
-                print(f"✅ Found solution with identity orientation! Original orientation may be unreachable.")
+                print(f"PASS Found solution with identity orientation! Original orientation may be unreachable.")
                 success_count += 0.3  # Partial credit for position being reachable
             else:
                 # Check workspace
@@ -301,13 +301,13 @@ def test_ikfast_with_scipy():
     print(f"Successful poses: {success_count}/{total_tests} ({success_rate:.1%})")
     
     if success_rate >= 0.5:  # 50% success rate threshold (more realistic)
-        print("✅ ur_ikfast integration is working adequately")
+        print("PASS ur_ikfast integration is working adequately")
         return True
     elif success_rate >= 0.3:
-        print("⚠️  ur_ikfast integration has some issues but partially working")
+        print("WARNING  ur_ikfast integration has some issues but partially working")
         return True
     else:
-        print("❌ ur_ikfast integration has significant problems")
+        print("FAIL ur_ikfast integration has significant problems")
         return False
 
 def test_workspace_validation():
@@ -323,7 +323,7 @@ def test_workspace_validation():
     known_working_joints = [
         [0, -math.pi/2, 0, 0, 0, 0],              # Standard home position
         [0, -math.pi/4, -math.pi/4, 0, 0, 0],    # Forward lean
-        [math.pi/4, -math.pi/4, -math.pi/4, 0, 0, 0]  # 45° rotation
+        [math.pi/4, -math.pi/4, -math.pi/4, 0, 0, 0]  # 45deg rotation
     ]
     
     print("Forward kinematics from known working joint positions:")
@@ -356,11 +356,11 @@ def test_workspace_validation():
             check_pose = hybrid.forward_kinematics(best_solution)
             pos_error = np.linalg.norm(check_pose[:3, 3] - position) * 1000
             
-            print(f"  Pose {i+1}: ✅ Found {len(solutions)} solutions, error: {pos_error:.3f}mm")
+            print(f"  Pose {i+1}: PASS Found {len(solutions)} solutions, error: {pos_error:.3f}mm")
             if pos_error < 5.0:
                 success_count += 1
         else:
-            print(f"  Pose {i+1}: ❌ No solutions found")
+            print(f"  Pose {i+1}: FAIL No solutions found")
     
     print(f"\nSuccess rate on known working poses: {success_count}/{len(working_poses)} ({success_count/len(working_poses)*100:.1f}%)")
     
@@ -382,7 +382,7 @@ def test_workspace_validation():
         x, y, z = position
         radial_dist = math.sqrt(x*x + y*y + z*z)
         
-        status = "✅ REACHABLE" if is_reachable else "❌ UNREACHABLE"
+        status = "PASS REACHABLE" if is_reachable else "FAIL UNREACHABLE"
         print(f"{description:20} {position} | Radial: {radial_dist:.3f}m | {status}")
     
     print(f"\nUR30 Workspace Guidelines:")
@@ -409,14 +409,14 @@ def main():
     if workspace_test_passed:
         ikfast_test_passed = test_ikfast_with_scipy()
     else:
-        print("\n⚠️  Skipping integration test - workspace validation failed")
+        print("\nWARNING  Skipping integration test - workspace validation failed")
         ikfast_test_passed = False
     
     print("\n" + "=" * 50)
     print("FINAL SUMMARY:")
     
     if quat_test_passed and ikfast_test_passed:
-        print("✅ ALL TESTS PASSED - Ready for physical deployment!")
+        print("PASS ALL TESTS PASSED - Ready for physical deployment!")
         print("\nThe issue was using unreachable poses, not ur_ikfast integration!")
         print("\nNext steps:")
         print("1. Use reachable poses in your applications")
@@ -425,13 +425,13 @@ def main():
         print("4. Start with conservative parameters")
         return 0
     else:
-        print("❌ SOME TESTS FAILED - Fix issues before deployment!")
+        print("FAIL SOME TESTS FAILED - Fix issues before deployment!")
         if not quat_test_passed:
             print("- Fix scipy quaternion conversion")
         if not ikfast_test_passed:
             print("- Fix ur_ikfast integration or workspace validation")
         
-        print("\n💡 TIP: The original failing pose [0.4, 0.2, 0.3] is likely outside")
+        print("\nIdea TIP: The original failing pose [0.4, 0.2, 0.3] is likely outside")
         print("   the UR30 workspace. Use the reachable poses provided instead.")
         return 1
 
