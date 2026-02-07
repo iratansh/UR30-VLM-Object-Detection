@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Camera TF Checker - Find out where the camera actually is
 """
@@ -71,19 +70,19 @@ class TFChecker(Node):
             z = cam_tf.transform.translation.z
             
             if z < 0.3:
-                self.get_logger().warn(f"  ⚠️  Camera is LOW (z={z:.2f}m) - might be in ground!")
+                self.get_logger().warn(f"  Warning  Camera is LOW (z={z:.2f}m) - might be in ground!")
             elif z > 2.0:
-                self.get_logger().warn(f"  ⚠️  Camera is HIGH (z={z:.2f}m) - might be in sky!")
+                self.get_logger().warn(f"  Warning  Camera is HIGH (z={z:.2f}m) - might be in sky!")
             else:
-                self.get_logger().info(f"  ✅ Camera height seems OK (z={z:.2f}m)")
+                self.get_logger().info(f"  Camera height within expected range (z={z:.2f}m)")
             
             # Check if camera orientation makes sense
             r = cam_tf.transform.rotation
             if abs(r.w) < 0.1:
-                self.get_logger().warn(f"  ⚠️  Camera rotation seems wrong!")
+                self.get_logger().warn(f"  Warning  Camera rotation seems wrong!")
             
         except:
-            self.get_logger().error("  ❌ Cannot find camera_link transform!")
+            self.get_logger().error("  ERROR Cannot find camera_link transform!")
         
         self.get_logger().info("=" * 70)
         
@@ -97,4 +96,4 @@ except KeyboardInterrupt:
 finally:
     rclpy.shutdown()
 
-print("\n✅ TF check complete!")
+print("\nTF check complete")

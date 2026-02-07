@@ -316,7 +316,7 @@ class WorkspaceValidator:
                         if angle > MAX_ANGLE_CHANGE:
                             self.logger.warning(
                                 f"Angle change at waypoint {i} too large: "
-                                f"{np.degrees(angle):.1f}° > {np.degrees(MAX_ANGLE_CHANGE):.1f}°"
+                                f"{np.degrees(angle):.1f}deg > {np.degrees(MAX_ANGLE_CHANGE):.1f}deg"
                             )
                             return False
                 
@@ -407,16 +407,16 @@ class WorkspaceValidator:
             euler = self.rotation_matrix_to_euler(rotation_matrix)
             
             # Check euler angle limits
-            MAX_ROLL = np.pi  # ±180°
-            MAX_PITCH = np.pi/2  # ±90°
-            MAX_YAW = np.pi  # ±180°
+            MAX_ROLL = np.pi  # +/-180deg
+            MAX_PITCH = np.pi/2  # +/-90deg
+            MAX_YAW = np.pi  # +/-180deg
             
             roll, pitch, yaw = euler
             
             if abs(roll) > MAX_ROLL or abs(pitch) > MAX_PITCH or abs(yaw) > MAX_YAW:
                 self.logger.warning(
-                    f"Orientation exceeds limits: roll={np.degrees(roll):.1f}°, "
-                    f"pitch={np.degrees(pitch):.1f}°, yaw={np.degrees(yaw):.1f}°"
+                    f"Orientation exceeds limits: roll={np.degrees(roll):.1f}deg, "
+                    f"pitch={np.degrees(pitch):.1f}deg, yaw={np.degrees(yaw):.1f}deg"
                 )
                 return False
             

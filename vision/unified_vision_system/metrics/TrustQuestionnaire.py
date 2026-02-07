@@ -113,7 +113,7 @@ class ConstructionTrustQuestionnaire:
         self.construction_scenarios = self._create_construction_scenarios()
         self.assessment_history = []
         
-        self.logger.info("✅ Construction Trust Questionnaire initialized")
+        self.logger.info("Construction Trust Questionnaire initialized")
         self.logger.info(f"   Questions: {len(self.questions)}")
         self.logger.info(f"   Scenarios: {len(self.construction_scenarios)}")
         self.logger.info(f"   Expertise adaptive: {expertise_adaptive}")
@@ -387,7 +387,7 @@ class ConstructionTrustQuestionnaire:
             import random
             random.shuffle(selected_questions)
         
-        self.logger.info(f"🔍 Starting {assessment_type} trust assessment for {participant_id}")
+        self.logger.info(f"Detecting Starting {assessment_type} trust assessment for {participant_id}")
         self.logger.info(f"   Questions: {len(selected_questions)}")
         
         # In a real implementation, this would present questions to the user
@@ -416,7 +416,7 @@ class ConstructionTrustQuestionnaire:
         self._calculate_trust_scores(assessment)
         self.assessment_history.append(assessment)
         
-        self.logger.info(f"✅ Assessment completed in {completion_time:.1f}s")
+        self.logger.info(f"Assessment completed in {completion_time:.1f}s")
         self.logger.info(f"   Overall trust: {assessment.overall_score:.2f}/7")
         
         return assessment
@@ -622,7 +622,7 @@ class ConstructionTrustQuestionnaire:
         with open(filepath, 'w') as f:
             json.dump(export_data, f, indent=2)
         
-        self.logger.info(f"📊 Trust data exported to {filepath}")
+        self.logger.info(f"Metrics Trust data exported to {filepath}")
         self.logger.info(f"   Assessments: {len(assessments_to_export)}")
         self.logger.info(f"   Responses: {len(export_data['detailed_responses'])}")
 

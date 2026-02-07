@@ -12,9 +12,6 @@ Import components directly from their submodules:
 Rather than importing from the top-level package.
 """
 
-# DO NOT import anything here at module level!
-# This prevents forcing all dependencies (ROS2, PyTorch, Whisper, etc.)
-# to be loaded when the package is imported.
 
 def __getattr__(name):
     """Lazy-load components on demand to avoid dependency hell."""

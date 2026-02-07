@@ -35,7 +35,7 @@ try:
     from rasa.shared.nlu.training_data.formats.rasa_yaml import RasaYAMLReader
     from rasa.model_training import train_nlu
     RASA_AVAILABLE = True
-    logging.info(f"✅ Rasa {rasa.__version__} successfully imported")
+    logging.info(f"Rasa {rasa.__version__} successfully imported")
 except ImportError as e:
     RASA_AVAILABLE = False
     logging.warning(f"Rasa not available - using mock NLP implementation: {e}")
@@ -122,13 +122,13 @@ class ConstructionRasaNLP:
         
         # Initialize Rasa NLU
         if RASA_AVAILABLE:
-            self.logger.info(f"✅ Rasa {rasa.__version__} available - simplified integration for testing")
+            self.logger.info(f"Rasa {rasa.__version__} available - simplified integration for testing")
             # For comprehensive testing, skip complex training and use enhanced mock
             self.interpreter = None
         else:
             self.logger.warning("Rasa not available - using mock NLP")
             
-        self.logger.info("✅ Construction Rasa NLP Manager initialized")
+        self.logger.info("Construction Rasa NLP Manager initialized")
 
     def _create_construction_training_data(self) -> Dict[str, Any]:
         """Create comprehensive construction training data"""
@@ -279,7 +279,7 @@ class ConstructionRasaNLP:
             
             # Train model if no existing model path
             if not self.model_path or not os.path.exists(self.model_path):
-                self.logger.info("🤖 Training Rasa NLU model for construction domain...")
+                self.logger.info("Training Rasa NLU model for construction domain...")
                 
                 # Create config for NLU pipeline
                 config = {
@@ -317,7 +317,7 @@ class ConstructionRasaNLP:
                     persist_nlu_training_data=True
                 )
                 
-                self.logger.info(f"✅ Model trained and saved to: {self.model_path}")
+                self.logger.info(f"Model trained and saved to: {self.model_path}")
                 
                 # Cleanup temp files
                 os.unlink(training_file)
@@ -326,7 +326,7 @@ class ConstructionRasaNLP:
             # Load the interpreter
             if self.model_path and os.path.exists(self.model_path):
                 self.interpreter = Agent.load(self.model_path)
-                self.logger.info("✅ Rasa agent loaded successfully")
+                self.logger.info("Rasa agent loaded successfully")
             else:
                 self.logger.warning("No valid model path - using mock implementation")
                 self.interpreter = None
@@ -362,7 +362,7 @@ class ConstructionRasaNLP:
         if RASA_AVAILABLE:
             try:
                 # For comprehensive testing, use enhanced mock with Rasa acknowledgment
-                self.logger.info(f"✅ Rasa {rasa.__version__} available - using enhanced mock for testing")
+                self.logger.info(f"Rasa {rasa.__version__} available - using enhanced mock for testing")
                 return self._enhanced_mock_parsing(text)
                 
             except Exception as e:
@@ -443,7 +443,7 @@ class ConstructionRasaNLP:
     def _mock_parsing(self, text: str) -> NLUResult:
         """Mock parsing when Rasa not available"""
         
-        self.logger.info(f"🤖 [MOCK RASA] Parsing: '{text}'")
+        self.logger.info(f"[MOCK RASA] Parsing: '{text}'")
         return self._fallback_parsing(text)
 
     def extract_tool_references(self, text: str) -> List[str]:
@@ -530,11 +530,11 @@ class ConstructionRasaNLP:
         # Add to existing training data
         self.training_data['nlu'].extend(new_examples)
         
-        self.logger.info(f"📚 Added {len(new_examples)} new training examples")
+        self.logger.info(f"Books Added {len(new_examples)} new training examples")
         
         # Retrain model if Rasa available
         if RASA_AVAILABLE:
-            self.logger.info("🔄 Retraining model with new examples...")
+            self.logger.info("Loop Retraining model with new examples...")
             self._initialize_rasa_nlu()
 
     def get_model_info(self) -> Dict[str, Any]:
@@ -561,4 +561,4 @@ class ConstructionRasaNLP:
             except Exception as e:
                 self.logger.error(f"Error cleaning up Rasa interpreter: {e}")
         
-        self.logger.info("🤖 Rasa NLP Manager cleaned up")
+        self.logger.info("Rasa NLP Manager cleaned up")

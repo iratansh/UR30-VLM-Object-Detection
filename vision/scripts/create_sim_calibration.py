@@ -1,5 +1,3 @@
-# scripts/create_sim_calibration.py
-#!/usr/bin/env python3
 """
 Create hand-eye calibration file for simulation.
 The transformation is from gripper to camera for eye-in-hand configuration.
@@ -15,7 +13,7 @@ def create_simulation_hand_eye_calibration():
     # Camera is mounted 5cm above gripper, looking forward/down
     T_gripper_camera = np.array([
         [1.0,  0.0,  0.0,  0.00],  # X: aligned with gripper
-        [0.0,  0.866, 0.5, -0.02],  # Y: 30° tilt down
+        [0.0,  0.866, 0.5, -0.02],  # Y: 30deg tilt down
         [0.0, -0.5,  0.866, -0.05], # Z: 5cm above gripper
         [0.0,  0.0,  0.0,  1.0]
     ])

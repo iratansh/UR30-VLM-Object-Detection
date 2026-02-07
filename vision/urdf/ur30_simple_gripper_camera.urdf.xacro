@@ -144,7 +144,7 @@
       <visual>
         <origin xyz="0 0 0.5" rpy="0 0 0"/>
         <geometry>
-          <!-- FOV: 69° horizontal, depth=1m, width=1.24m, height=0.70m -->
+          <!-- FOV: 69deg horizontal, depth=1m, width=1.24m, height=0.70m -->
           <box size="1.24 0.70 1.0"/>
         </geometry>
         <material name="fov_marker_material">

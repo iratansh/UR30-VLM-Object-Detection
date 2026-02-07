@@ -1,4 +1,3 @@
-#!/bin/bash
 # Script to build the ROS2 workspace with proper environment setup
 # This handles the conda vs system Python issue and sets CMake paths for system libraries
 
@@ -20,9 +19,9 @@ source /opt/ros/humble/setup.bash
 export CMAKE_PREFIX_PATH=/usr/lib/x86_64-linux-gnu/cmake:/usr/lib/x86_64-linux-gnu:$CMAKE_PREFIX_PATH
 
 # Build packages that are working
-echo "Building core packages: serial, robotiq_description, ur_description, robotiq_2f_85_gripper_visualization"
+echo "Building core packages: serial, ur_description, unified_vision_system"
 colcon build \
-    --packages-select serial robotiq_description ur_description robotiq_2f_85_gripper_visualization \
+    --packages-select serial ur_description unified_vision_system \
     --symlink-install \
     --cmake-args \
         -Dconsole_bridge_DIR=/usr/lib/x86_64-linux-gnu/console_bridge/cmake \
@@ -31,18 +30,13 @@ colcon build \
 echo ""
 echo "=== Build Complete ==="
 echo ""
-echo "✅ Successfully built packages:"
+echo "Successfully built packages:"
 echo "  - serial (ROS2 serial communication library)"
-echo "  - robotiq_description (Gripper URDF/meshes)"
-echo "  - ur_description (UR robot URDF/meshes)"
-echo "  - robotiq_2f_85_gripper_visualization (Gripper visualization)"
-echo ""
-echo "⚠️  Skipped packages (dependency issues):"
-echo "  - robotiq_driver (needs class_loader transitive dependency fix)"
-echo "  - robotiq_controllers (needs class_loader transitive dependency fix)"
+echo "  - ur_description (UR30 robot URDF/meshes)"
+echo "  - unified_vision_system (Vision system with custom gripper)"
 echo ""
 echo "To use the built packages, source the workspace:"
 echo "  source install/setup.bash"
 echo ""
-echo "Note: For actual robot control, robotiq_driver/controller need to be fixed."
-echo "For visualization and simulation, the built packages should be sufficient."
+echo "Note: Using custom simple parallel gripper for stable Gazebo simulation."
+echo "Robotiq packages removed - custom gripper provides same functionality."

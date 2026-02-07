@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Camera View Saver - Save what the camera sees to debug cube position
 """
@@ -60,7 +59,7 @@ class CameraViewSaver(Node):
                 
                 self.get_logger().info("")
                 self.get_logger().info("=" * 70)
-                self.get_logger().info("✅ Camera images saved!")
+                self.get_logger().info("Camera images saved!")
                 self.get_logger().info("   - /tmp/camera_view.jpg (raw)")
                 self.get_logger().info("   - /tmp/camera_view_annotated.jpg (with crosshair)")
                 self.get_logger().info("")
@@ -76,7 +75,7 @@ class CameraViewSaver(Node):
     
     def timeout(self):
         if not self.saved:
-            self.get_logger().error("⚠️  No image received after 5 seconds")
+            self.get_logger().error("Warning  No image received after 5 seconds")
         raise KeyboardInterrupt()
 
 try:
@@ -87,7 +86,7 @@ except KeyboardInterrupt:
 finally:
     rclpy.shutdown()
 
-print("\n✅ Done! Check /tmp/camera_view.jpg")
+print("\nOK Done! Check /tmp/camera_view.jpg")
 print("   You can copy it out with:")
 print("   docker cp ur5e-vlm-working:/tmp/camera_view.jpg ./camera_view.jpg")
 print()

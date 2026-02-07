@@ -113,7 +113,7 @@ class OWLViTDetector:
             self.model = OwlViTForObjectDetection.from_pretrained(model_name)
             self.model.to(self.device)
             
-            self.logger.info(f"✅ OWL-ViT model loaded for construction tool detection on {device}")
+            self.logger.info(f"OWL-ViT model loaded for construction tool detection on {device}")
             
         except Exception as e:
             self.logger.error(f"Failed to load OWL-ViT model: {e}")
@@ -435,7 +435,7 @@ class OWLViTDetector:
         # Remove duplicates while preserving order
         unique_queries = list(dict.fromkeys(all_queries))
         
-        self.logger.info(f"🔨 Detecting construction tools: {unique_queries}")
+        self.logger.info(f"Build Detecting construction tools: {unique_queries}")
         
         # Run detection with professional terminology
         detections = self.detect_with_text_queries(

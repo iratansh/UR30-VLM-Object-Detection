@@ -152,7 +152,7 @@ class ConstructionClarificationManager:
                 import tempfile
                 # Create temporary directory for RAG database
                 self.rag_manager = EnhancedConstructionRAG(db_path=tempfile.mkdtemp())
-                self.logger.info("✅ Enhanced Construction RAG integration enabled")
+                self.logger.info("Enhanced Construction RAG integration enabled")
             except ImportError as e:
                 self.logger.warning(f"EnhancedConstructionRAG not available: {e}")
                 self.enable_rag = False
@@ -168,12 +168,12 @@ class ConstructionClarificationManager:
                     construction_mode=True,
                     use_coqui=False  # Use system TTS first for reliability
                 )
-                self.logger.info("✅ TTS integration enabled for construction HRI")
+                self.logger.info("TTS integration enabled for construction HRI")
             except Exception as e:
                 self.logger.warning(f"TTS not available: {e}")
                 self.enable_tts = False
         
-        self.logger.info(f"✅ Construction Clarification Manager initialized")
+        self.logger.info(f"Construction Clarification Manager initialized")
         self.logger.info(f"   Strategy: {default_strategy.value}")
         self.logger.info(f"   User expertise: {user_expertise.value}")
         self.logger.info(f"   RAG enhancement: {'Enabled' if self.rag_manager else 'Disabled'}")
@@ -251,12 +251,12 @@ class ConstructionClarificationManager:
                     response.metadata['rag_confidence'] = rag_response.confidence
                     response.metadata['rag_items'] = len(rag_response.retrieved_items)
                     
-                    self.logger.info(f"🧠 RAG enhanced (confidence: {rag_response.confidence:.2f})")
+                    self.logger.info(f"RAG enhanced (confidence: {rag_response.confidence:.2f})")
                 
             except Exception as e:
                 self.logger.error(f"RAG enhancement failed: {e}")
         
-        self.logger.info(f"🤖 Clarification ({strategy.value}): {response.text}")
+        self.logger.info(f"Clarification ({strategy.value}): {response.text}")
         return response
 
     def _direct_clarification(self, tool_request: str, detected_objects: List[Dict], 
@@ -679,13 +679,14 @@ class ConstructionClarificationManager:
         )
         
         self.task_memory.append(memory)
-        self.logger.info(f"📝 Updated task memory: {tool_name} -> {action} ({'✅' if success else '❌'})")
+        status_label = "success" if success else "error"
+        self.logger.info(f"Note Updated task memory: {tool_name} -> {action} ({status_label})")
 
     def update_user_expertise(self, new_level: UserExpertiseLevel):
         """Update assessed user expertise level for adaptive responses"""
         old_level = self.user_expertise
         self.user_expertise = new_level
-        self.logger.info(f"👷 User expertise updated: {old_level.value} -> {new_level.value}")
+        self.logger.info(f"Operator User expertise updated: {old_level.value} -> {new_level.value}")
 
     def get_performance_metrics(self) -> Dict[str, Any]:
         """
@@ -744,4 +745,4 @@ class ConstructionClarificationManager:
         with open(filepath, 'w') as f:
             json.dump(data, f, indent=2)
         
-        self.logger.info(f"📊 Research data exported to {filepath}")
+        self.logger.info(f"Metrics Research data exported to {filepath}")

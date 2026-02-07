@@ -173,7 +173,7 @@ class ConstructionBehavioralMetrics:
         if self.real_time_analysis:
             self._start_analysis_thread()
         
-        self.logger.info("✅ Construction Behavioral Metrics initialized")
+        self.logger.info("Construction Behavioral Metrics initialized")
         self.logger.info(f"   Real-time analysis: {real_time_analysis}")
         self.logger.info(f"   Buffer size: {buffer_size}")
         self.logger.info(f"   Hesitation threshold: {hesitation_threshold}s")
@@ -621,7 +621,7 @@ class ConstructionBehavioralMetrics:
         
         self.metrics_history.append(metrics)
         
-        self.logger.info(f"📊 Behavioral metrics calculated for {participant_id}")
+        self.logger.info(f"Metrics Behavioral metrics calculated for {participant_id}")
         self.logger.info(f"   Response time: {metrics.avg_response_time:.2f}s")
         self.logger.info(f"   Success rate: {metrics.task_completion_rate:.2f}")
         self.logger.info(f"   Retry rate: {metrics.total_retries}")
@@ -691,7 +691,7 @@ class ConstructionBehavioralMetrics:
         self.stop_analysis = False
         self.analysis_thread = threading.Thread(target=self._analysis_loop, daemon=True)
         self.analysis_thread.start()
-        self.logger.info("🔄 Real-time behavioral analysis started")
+        self.logger.info("Loop Real-time behavioral analysis started")
 
     def _analysis_loop(self):
         """Background analysis loop"""
@@ -782,7 +782,7 @@ class ConstructionBehavioralMetrics:
         with open(filepath, 'w') as f:
             json.dump(export_data, f, indent=2)
         
-        self.logger.info(f"📊 Behavioral data exported to {filepath}")
+        self.logger.info(f"Metrics Behavioral data exported to {filepath}")
         self.logger.info(f"   Events: {len(export_data['events'])}")
         self.logger.info(f"   Metrics: {len(export_data['metrics'])}")
 
@@ -830,7 +830,7 @@ class ConstructionBehavioralMetrics:
         self._add_event(event)
         
         if self.real_time_analysis:
-            self.logger.info(f"🔄 Error recovery: {recovery_strategy} in {recovery_time:.1f}s")
+            self.logger.info(f"Loop Error recovery: {recovery_strategy} in {recovery_time:.1f}s")
         
         return event_id
 
@@ -878,4 +878,4 @@ class ConstructionBehavioralMetrics:
             self.stop_analysis = True
             self.analysis_thread.join(timeout=2.0)
         
-        self.logger.info("📊 Behavioral Metrics cleaned up")
+        self.logger.info("Metrics Behavioral Metrics cleaned up")

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Eye-in-Hand Calibration Script for UR30 with RealSense Camera
 
@@ -125,9 +124,9 @@ class EyeInHandCalibrationScript:
         print(f"  Z: {translation[2]*1000:.1f} mm")
         
         print(f"\nCamera Orientation (relative to gripper):")
-        print(f"  Roll:  {np.degrees(euler_angles[0]):.1f}°")
-        print(f"  Pitch: {np.degrees(euler_angles[1]):.1f}°")
-        print(f"  Yaw:   {np.degrees(euler_angles[2]):.1f}°")
+        print(f"  Roll:  {np.degrees(euler_angles[0]):.1f}deg")
+        print(f"  Pitch: {np.degrees(euler_angles[1]):.1f}deg")
+        print(f"  Yaw:   {np.degrees(euler_angles[2]):.1f}deg")
         
         # Validation checks
         valid = True
@@ -135,15 +134,15 @@ class EyeInHandCalibrationScript:
         # Check 1: Translation magnitude (camera should be close to gripper)
         trans_magnitude = np.linalg.norm(translation)
         if trans_magnitude > 0.2:  # More than 20cm is suspicious
-            print(f"\n⚠️  WARNING: Camera distance from gripper is {trans_magnitude*1000:.1f}mm")
+            print(f"\nWarning  WARNING: Camera distance from gripper is {trans_magnitude*1000:.1f}mm")
             print("   This seems unusually large for an end-effector mounted camera.")
             valid = False
         
         # Check 2: Camera should be looking mostly downward
         # The camera Z-axis in gripper frame should point mostly down
         camera_z_axis = rotation[:, 2]
-        if camera_z_axis[2] > -0.7:  # cos(45°) ≈ 0.7
-            print(f"\n⚠️  WARNING: Camera doesn't appear to be looking downward")
+        if camera_z_axis[2] > -0.7:  # cos(45deg) ~ 0.7
+            print(f"\nWarning  WARNING: Camera doesn't appear to be looking downward")
             print(f"   Camera Z-axis: {camera_z_axis}")
             valid = False
         
@@ -158,20 +157,20 @@ class EyeInHandCalibrationScript:
         print(f"  Std:  {std_error:.2f} pixels")
         
         if mean_error > 2.0:
-            print(f"\n⚠️  WARNING: High mean reprojection error")
+            print(f"\nWarning  WARNING: High mean reprojection error")
             valid = False
         
         if max_error > 5.0:
-            print(f"\n⚠️  WARNING: Maximum reprojection error exceeds 5 pixels")
+            print(f"\nWarning  WARNING: Maximum reprojection error exceeds 5 pixels")
             valid = False
         
         # Check 4: Visualize the transform
         self.visualize_transform(T_gripper_camera)
         
         if valid:
-            print("\n✅ Calibration validation PASSED")
+            print("\nOK Calibration validation PASSED")
         else:
-            print("\n❌ Calibration validation FAILED")
+            print("\nERROR Calibration validation FAILED")
             print("   Please check camera mounting and retry calibration")
         
         return valid
@@ -247,7 +246,7 @@ class EyeInHandCalibrationScript:
         Generate synthetic calibration data for testing.
         This should be replaced with actual robot movement and marker detection.
         """
-        print("\n⚠️  WARNING: Using synthetic data for demonstration")
+        print("\nWarning  WARNING: Using synthetic data for demonstration")
         print("   In real use, this should interface with actual robot and camera")
         
         # Simulated camera offset from gripper (5cm above, looking down)
@@ -297,12 +296,12 @@ def main():
     
     if args.synthetic:
         # Use synthetic data for testing
-        print("\n🔧 Running with synthetic data for testing...")
+        print("\nStatus Running with synthetic data for testing...")
         T_gripper_camera, errors = calibrator.create_calibration_data()
         
     else:
         # Initialize ROS2 for real calibration
-        print("\n🤖 Initializing ROS2 for real calibration...")
+        print("\nRobot Initializing ROS2 for real calibration...")
         rclpy.init()
         
         try:
@@ -344,7 +343,7 @@ def main():
         }
         
         np.savez(args.output, **save_data)
-        print(f"\n✅ Calibration saved to: {args.output}")
+        print(f"\nOK Calibration saved to: {args.output}")
         
         print("\n" + "="*60)
         print("NEXT STEPS")
@@ -358,7 +357,7 @@ def main():
         print("\n" + "="*60)
         
     else:
-        print("\n❌ Calibration validation failed. Please retry.")
+        print("\nERROR Calibration validation failed. Please retry.")
         return 1
     
     return 0

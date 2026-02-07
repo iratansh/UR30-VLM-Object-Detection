@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Gazebo Simulation Test Launch File for UR30 VLM System
 

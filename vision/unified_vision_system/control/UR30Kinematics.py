@@ -8,7 +8,7 @@ fast and accurate inverse kinematics solutions for the UR30 robot.
 Performance:
 - Average solve time: ~1ms
 - Position accuracy: <0.001mm
-- Rotation accuracy: <0.001°
+- Rotation accuracy: <0.001deg
 - Success rate: 100%
 """
 
@@ -57,7 +57,7 @@ class UR30Kinematics:
     Performance:
     - Average solve time: ~1ms
     - Position accuracy: <0.001mm
-    - Rotation accuracy: <0.001°
+    - Rotation accuracy: <0.001deg
     - Success rate: 100%
     """
 
@@ -82,12 +82,12 @@ class UR30Kinematics:
 
         # Joint limits (radians) - UR30 specific
         self.JOINT_LIMITS = [
-            (-2*math.pi, 2*math.pi),  # θ1
-            (-math.pi, math.pi),      # θ2
-            (-math.pi, math.pi),      # θ3
-            (-2*math.pi, 2*math.pi),  # θ4
-            (-2*math.pi, 2*math.pi),  # θ5
-            (-2*math.pi, 2*math.pi)   # θ6
+            (-2*math.pi, 2*math.pi),  # theta1
+            (-math.pi, math.pi),      # theta2
+            (-math.pi, math.pi),      # theta3
+            (-2*math.pi, 2*math.pi),  # theta4
+            (-2*math.pi, 2*math.pi),  # theta5
+            (-2*math.pi, 2*math.pi)   # theta6
         ]
 
         # Numerical parameters
@@ -131,7 +131,7 @@ class UR30Kinematics:
         self.rot_tol_deg = 2.0
 
     def normalize_angle(self, angle: float) -> float:
-        """Normalize angle to [-π, π]"""
+        """Normalize angle to [-pi, pi]"""
         while angle > math.pi:
             angle -= 2 * math.pi
         while angle < -math.pi:
@@ -157,7 +157,7 @@ class UR30Kinematics:
         Forward kinematics for UR30 robot.
 
         Args:
-            joints: Six joint angles in radians [θ1, θ2, θ3, θ4, θ5, θ6]
+            joints: Six joint angles in radians [theta1, theta2, theta3, theta4, theta5, theta6]
 
         Returns:
             4x4 homogeneous transformation matrix for the end effector position
@@ -369,9 +369,9 @@ class UR30Kinematics:
                                         solutions.append(q_normalized)
                                         if self.debug:
                                             residual = result[4] if len(result) > 4 else 'N/A'
-                                            print(f"[RTB-{method_name}] Solution: pos={pos_err:.3f}mm rot={rot_err:.3f}° residual={residual}")
+                                            print(f"[RTB-{method_name}] Solution: pos={pos_err:.3f}mm rot={rot_err:.3f}deg residual={residual}")
                                 elif self.debug:
-                                    print(f"[RTB-{method_name}] Solution failed tolerance: pos={pos_err:.3f}mm rot={rot_err:.3f}°")
+                                    print(f"[RTB-{method_name}] Solution failed tolerance: pos={pos_err:.3f}mm rot={rot_err:.3f}deg")
                             elif self.debug:
                                 print(f"[RTB-{method_name}] Solution outside joint limits")
                         elif self.debug:
@@ -708,7 +708,7 @@ def test_ur30_kinematics():
     test_configs = [
         [0.0, -math.pi/2, 0.0, 0.0, 0.0, 0.0],           # Home position
         [0.0, -math.pi/4, -math.pi/4, 0.0, 0.0, 0.0],    # Common working pose
-        [math.pi/4, -math.pi/4, -math.pi/4, 0.0, 0.0, 0.0],  # 45° base rotation
+        [math.pi/4, -math.pi/4, -math.pi/4, 0.0, 0.0, 0.0],  # 45deg base rotation
         [0.0, -math.pi/3, -math.pi/3, math.pi/6, math.pi/2, 0.0]  # Complex pose
     ]
 
@@ -744,14 +744,14 @@ def test_ur30_kinematics():
             rot_error_deg = math.degrees(math.acos((rot_trace - 1) / 2))
 
             print(f"Position error: {pos_error:.3f}mm")
-            print(f"Rotation error: {rot_error_deg:.3f}°")
+            print(f"Rotation error: {rot_error_deg:.3f}deg")
 
             if pos_error < 5.0 and rot_error_deg < 5.0:
-                print("✓ PASS")
+                print("PASS")
             else:
-                print("✗ FAIL")
+                print("FAIL FAIL")
         else:
-            print("✗ FAIL - No solutions found")
+            print("FAIL FAIL - No solutions found")
         print()
 
     # Performance summary

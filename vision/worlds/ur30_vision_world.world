@@ -187,9 +187,10 @@
             </box>
           </geometry>
           <material>
-            <script>
-              <name>Gazebo/Green</name>
-            </script>
+            <ambient>0 1 0 1</ambient>
+            <diffuse>0 1 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 0</emissive>
           </material>
         </visual>
         <collision name="book_collision">

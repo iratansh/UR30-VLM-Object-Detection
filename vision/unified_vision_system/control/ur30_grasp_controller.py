@@ -112,7 +112,7 @@ class UR30GraspController(Node):
         self.current_joints = None
         self.current_pose = None
         
-        self.logger.info("✅ UR30 Grasp Controller initialized")
+        self.logger.info("UR30 Grasp Controller initialized")
         self.logger.info(f"   Max reach: {self.MAX_REACH}m")
         self.logger.info(f"   Using Robotics Toolbox IK solver")
     
@@ -161,7 +161,7 @@ class UR30GraspController(Node):
         Parameters
         ----------
         theta : np.ndarray
-            Joint angles in radians [θ1, θ2, θ3, θ4, θ5, θ6]
+            Joint angles in radians [theta1, theta2, theta3, theta4, theta5, theta6]
             
         Returns
         -------
@@ -301,7 +301,7 @@ class UR30GraspController(Node):
                 
                 self._execute_motion(target_joints)
                 
-                self.logger.info(f"✅ Reached waypoint {i+1}/{len(grasp_poses)}")
+                self.logger.info(f"Reached waypoint {i+1}/{len(grasp_poses)}")
             
             return True
             
@@ -395,7 +395,7 @@ class UR30GraspController(Node):
         This should trigger hardware-level emergency stop
         Currently just logs a warning
         """
-        self.logger.critical("🚨 EMERGENCY STOP TRIGGERED")
+        self.logger.critical("Alert EMERGENCY STOP TRIGGERED")
         # In production, this would interface with robot's emergency stop system
 
 

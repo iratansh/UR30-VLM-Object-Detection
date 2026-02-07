@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Test Command Publisher Node
 
@@ -57,7 +56,7 @@ class TestCommandPublisher(Node):
             self.publisher.publish(msg)
             
             self.get_logger().info('=' * 70)
-            self.get_logger().info(f'📢 PUBLISHED TEST COMMAND: "{self.command}"')
+            self.get_logger().info(f'Sending command PUBLISHED TEST COMMAND: "{self.command}"')
             self.get_logger().info('=' * 70)
             self.get_logger().info('Vision system should now:')
             self.get_logger().info('  1. Receive voice command')

@@ -104,7 +104,7 @@ class SpeechCommandProcessor:
         try:
             self.logger.info(f"Loading Whisper {whisper_model} model...")
             self.whisper_model = whisper.load_model(whisper_model)
-            self.logger.info("✅ Whisper model loaded successfully")
+            self.logger.info("Whisper model loaded successfully")
         except Exception as e:
             self.logger.error(f"Failed to load Whisper model: {e}")
             raise
@@ -115,7 +115,7 @@ class SpeechCommandProcessor:
             self.rasa_nlp = ConstructionRasaNLP(
                 confidence_threshold=0.6
             )
-            self.logger.info("✅ Rasa NLP initialized for construction commands")
+            self.logger.info("Rasa NLP initialized for construction commands")
         except ImportError as e:
             self.logger.warning(f"Rasa NLP not available: {e}")
             self.rasa_nlp = None
@@ -241,7 +241,7 @@ class SpeechCommandProcessor:
             duration = self.timeout
         
         try:
-            self.logger.info("🎤 Recording audio...")
+            self.logger.info("Simulated command Recording audio...")
             audio_data = sd.rec(
                 int(duration * self.sample_rate),
                 samplerate=self.sample_rate,
@@ -295,7 +295,7 @@ class SpeechCommandProcessor:
                         
                         command = result['text'].strip()
                         if command:
-                            self.logger.info(f"🗣️ Whisper recognized: {command}")
+                            self.logger.info(f"Speech Whisper recognized: {command}")
                             self.command_queue.put(command.lower())
                         else:
                             self.logger.debug("No speech detected")
@@ -445,7 +445,7 @@ class SpeechCommandProcessor:
                     elif entity_type == 'location':
                         command_info['parameters']['location'] = entity_value
                 
-                self.logger.info(f"🤖 Rasa NLP: {nlu_result.intent} ({nlu_result.confidence:.2f}) -> {command_info['target']}")
+                self.logger.info(f"Rasa NLP: {nlu_result.intent} ({nlu_result.confidence:.2f}) -> {command_info['target']}")
                 
                 if command_info['intent'] and command_info['intent'] != 'unknown':
                     self.command_history.append(command_info)

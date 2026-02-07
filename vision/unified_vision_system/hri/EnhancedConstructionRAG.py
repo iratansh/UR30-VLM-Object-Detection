@@ -112,7 +112,7 @@ class EnhancedConstructionRAG:
             self.logger.warning("ChromaDB or SentenceTransformers not available - using fallback")
             self._initialize_fallback()
         
-        self.logger.info("✅ Enhanced Construction RAG initialized")
+        self.logger.info("Enhanced Construction RAG initialized")
         self.logger.info(f"   Database: {db_path}")
         self.logger.info(f"   Embedding Model: {embedding_model_name}")
         self.logger.info(f"   Knowledge Items: {len(self.knowledge_items)}")
@@ -127,13 +127,13 @@ class EnhancedConstructionRAG:
             # Get or create collection
             try:
                 self.collection = self.chroma_client.get_collection(name=self.collection_name)
-                self.logger.info(f"✅ Loaded existing collection: {self.collection_name}")
+                self.logger.info(f"Loaded existing collection: {self.collection_name}")
             except:
                 self.collection = self.chroma_client.create_collection(
                     name=self.collection_name,
                     metadata={"description": "Construction domain knowledge for HRI"}
                 )
-                self.logger.info(f"✅ Created new collection: {self.collection_name}")
+                self.logger.info(f"Created new collection: {self.collection_name}")
                 
         except Exception as e:
             self.logger.error(f"Failed to initialize ChromaDB: {e}")
@@ -145,7 +145,7 @@ class EnhancedConstructionRAG:
         
         try:
             self.embedding_model = SentenceTransformer(self.embedding_model_name)
-            self.logger.info(f"✅ Embedding model loaded: {self.embedding_model_name}")
+            self.logger.info(f"Embedding model loaded: {self.embedding_model_name}")
         except Exception as e:
             self.logger.error(f"Failed to load embedding model: {e}")
             self.embedding_model = None
@@ -154,7 +154,7 @@ class EnhancedConstructionRAG:
         """Initialize fallback implementation when dependencies unavailable"""
         
         self.knowledge_items = self._create_comprehensive_knowledge_base()
-        self.logger.info("✅ Fallback RAG implementation initialized")
+        self.logger.info("Fallback RAG implementation initialized")
 
     def _create_comprehensive_knowledge_base(self) -> Dict[str, ConstructionKnowledgeItem]:
         """Create comprehensive construction knowledge base"""
@@ -433,7 +433,7 @@ class EnhancedConstructionRAG:
             ids=ids
         )
         
-        self.logger.info(f"✅ Added {len(documents)} items to knowledge base")
+        self.logger.info(f"Added {len(documents)} items to knowledge base")
 
     def retrieve_relevant_knowledge(self, 
                                   query: str,

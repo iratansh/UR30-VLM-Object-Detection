@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Docker Setup Script for UR30 VLM Object Detection System
 # This script ensures Docker has proper GPU and hardware access
 
@@ -28,7 +26,7 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-print_status "🚀 Setting up Docker environment for UR30 VLM System..."
+print_status "Setting up Docker environment for the UR30 VLM system..."
 
 # Check if running as root
 if [ "$EUID" -eq 0 ]; then
@@ -191,7 +189,7 @@ docker-compose.yml
 *.temp
 EOF
 
-print_success "✅ Docker setup completed!"
+print_success "Docker setup completed."
 print_status ""
 print_status "Next steps:"
 print_status "1. If you were added to the docker group, please log out and log back in"
@@ -200,8 +198,8 @@ print_status "3. Run the container: ./start-docker.sh run"
 print_status "4. For simulation: ./start-docker.sh simulation"
 print_status ""
 print_status "Hardware access configured for:"
-print_status "✓ NVIDIA GPU/CUDA (if available)"
-print_status "✓ Intel RealSense cameras"
-print_status "✓ Audio devices (microphone/speakers)"
-print_status "✓ USB and serial devices"
-print_status "✓ X11 forwarding for GUI applications"
+print_status "- NVIDIA GPU/CUDA (if available)"
+print_status "- Intel RealSense cameras"
+print_status "- Audio devices (microphone/speakers)"
+print_status "- USB and serial devices"
+print_status "- X11 forwarding for GUI applications"

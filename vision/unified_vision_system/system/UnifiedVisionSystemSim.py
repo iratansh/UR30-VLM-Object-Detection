@@ -32,10 +32,10 @@ class UnifiedVisionSystemSim(UnifiedVisionSystem):
         self.simulation_mode = self.get_parameter('use_sim_time').value
         
         if self.simulation_mode:
-            self.logger.info("🎮 Running in SIMULATION mode")
+            self.logger.info("Controls Running in SIMULATION mode")
             self._setup_simulation_interfaces()
         else:
-            self.logger.info("🤖 Running in REAL HARDWARE mode")
+            self.logger.info("Running in real hardware mode")
             # Real hardware setup is already done in parent class
         
         # CV Bridge for ROS image conversion
@@ -76,7 +76,7 @@ class UnifiedVisionSystemSim(UnifiedVisionSystem):
         self.latest_depth_frame = None
         self.camera_info_received = False
         
-        self.logger.info("✅ Simulation interfaces initialized")
+        self.logger.info("Simulation interfaces initialized")
     
     def _sim_color_callback(self, msg: Image):
         """Handle color image from simulation."""
@@ -122,7 +122,7 @@ class UnifiedVisionSystemSim(UnifiedVisionSystem):
             self.calibration.depth_scale_rs = 0.001  # 1mm = 0.001m
             
             self.camera_info_received = True
-            self.logger.info("✅ Camera calibration set from simulation")
+            self.logger.info("Camera calibration set from simulation")
     
     def run_pipeline_once(self):
         """Override to handle simulation vs real hardware."""

@@ -58,7 +58,7 @@ class EyeInHandSafetyChecker:
         
         # For eye-in-hand, camera Z should point forward/down to see gripper
         # In gripper frame, this means Z axis should have negative Z component
-        if camera_z_axis[2] > -0.5:  # cos(60°) = 0.5
+        if camera_z_axis[2] > -0.5:  # cos(60deg) = 0.5
             return False, "Camera not oriented to see gripper and workspace. Check mounting angle."
         
         return True, "Camera mounting verified for eye-in-hand operation."
@@ -308,10 +308,10 @@ def main():
             logger.info("Loaded eye-in-hand calibration")
         except:
             logger.warning("No calibration found, using default")
-            # Default mounting: 10cm above gripper, tilted 15° forward
+            # Default mounting: 10cm above gripper, tilted 15deg forward
             T_gripper_camera = np.array([
                 [1, 0, 0, 0],
-                [0, 0.966, 0.259, 0],  # 15° tilt
+                [0, 0.966, 0.259, 0],  # 15deg tilt
                 [0, -0.259, 0.966, -0.10],
                 [0, 0, 0, 1]
             ])
@@ -326,7 +326,7 @@ def main():
         print("-"*60)
         
         for check_name, check_result in report["checks"].items():
-            status = "✅ PASS" if check_result.get("passed", False) else "❌ FAIL"
+            status = "PASS" if check_result.get("passed", False) else "ERROR FAIL"
             print(f"\n{check_name}: {status}")
             if "message" in check_result:
                 print(f"  {check_result['message']}")
@@ -353,7 +353,7 @@ def main():
             print("No issues found!")
         
         print("\n" + "-"*60)
-        print(f"READY FOR TESTING: {'✅ YES' if report['ready_for_testing'] else '❌ NO'}")
+        print(f"READY FOR TESTING: {'YES' if report['ready_for_testing'] else 'ERROR NO'}")
         print("-"*60)
         
         # Show live view with gripper detection
@@ -399,7 +399,7 @@ def main():
         pipeline.stop()
         cv2.destroyAllWindows()
     
-    print("\n✅ Safety check complete!")
+    print("\nSafety check complete")
     print("\nNEXT STEPS:")
     print("1. Address any failed checks or recommendations")
     print("2. Test with slow movements first")

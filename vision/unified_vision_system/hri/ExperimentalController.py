@@ -174,7 +174,7 @@ class ConstructionExperimentalController:
             self.logger.warning("Research components not fully available - using mock implementations")
             self.research_components = {}
         
-        self.logger.info(f"✅ Experimental Controller initialized")
+        self.logger.info(f"Experimental Controller initialized")
         self.logger.info(f"   Study: {study_name}")
         self.logger.info(f"   Data directory: {data_directory}")
 
@@ -192,7 +192,7 @@ class ConstructionExperimentalController:
                 'object_detector': OWLViTDetector()
             }
             
-            self.logger.info("✅ All research components initialized")
+            self.logger.info("All research components initialized")
             
         except Exception as e:
             self.logger.error(f"Failed to initialize research components: {e}")
@@ -213,11 +213,11 @@ class ConstructionExperimentalController:
         if getattr(experimental_design, 'randomization_seed', None) is not None:
             try:
                 random.seed(experimental_design.randomization_seed)
-                self.logger.info(f"🔒 Randomization seed set: {experimental_design.randomization_seed}")
+                self.logger.info(f"Locked Randomization seed set: {experimental_design.randomization_seed}")
             except Exception as e:
                 self.logger.warning(f"Could not set randomization seed: {e}")
         
-        self.logger.info(f"🔬 Experimental design configured")
+        self.logger.info(f"Lab Experimental design configured")
         self.logger.info(f"   Conditions: {len(experimental_design.conditions)}")
         self.logger.info(f"   Tasks per condition: {experimental_design.tasks_per_condition}")
         self.logger.info(f"   Within-subject: {experimental_design.within_subject}")
@@ -255,7 +255,7 @@ class ConstructionExperimentalController:
         # Save participant data
         self._save_participant_data(participant_profile)
         
-        self.logger.info(f"👤 Participant enrolled: {participant_profile.participant_id}")
+        self.logger.info(f"User Participant enrolled: {participant_profile.participant_id}")
         self.logger.info(f"   Expertise: {participant_profile.expertise_level}")
         self.logger.info(f"   Conditions: {[c.value for c in participant_profile.assigned_conditions]}")
         
@@ -302,7 +302,7 @@ class ConstructionExperimentalController:
         # Configure systems for this condition
         self._configure_systems_for_condition(condition, participant.expertise_level)
         
-        self.logger.info(f"🚀 Experimental session started")
+        self.logger.info(f"Start Experimental session started")
         self.logger.info(f"   Session: {session_id}")
         self.logger.info(f"   Participant: {participant_id}")
         self.logger.info(f"   Condition: {condition.value}")
@@ -341,7 +341,7 @@ class ConstructionExperimentalController:
             elif expertise_level in [UserExpertiseLevel.FOREMAN, UserExpertiseLevel.MASTER]:
                 tts_manager.set_voice_profile(VoiceProfile.PROFESSIONAL)
         
-        self.logger.info(f"⚙️ Systems configured for condition: {condition.value}")
+        self.logger.info(f"Using Systems configured for condition: {condition.value}")
 
     def advance_to_phase(self, phase: ExperimentPhase) -> bool:
         """
@@ -364,7 +364,7 @@ class ConstructionExperimentalController:
         
         self.active_session.current_phase = phase
         
-        self.logger.info(f"📋 Advanced to phase: {phase.value}")
+        self.logger.info(f"Assessment Advanced to phase: {phase.value}")
         
         # Phase-specific actions
         if phase == ExperimentPhase.PRE_ASSESSMENT:
@@ -382,7 +382,7 @@ class ConstructionExperimentalController:
         """Conduct pre-interaction trust assessment"""
         
         if not COMPONENTS_AVAILABLE:
-            self.logger.info("📝 [MOCK] Pre-assessment completed")
+            self.logger.info("Note [MOCK] Pre-assessment completed")
             return True
         
         try:
@@ -396,7 +396,7 @@ class ConstructionExperimentalController:
                 )
                 
                 self.active_session.pre_trust = pre_trust
-                self.logger.info("📝 Pre-assessment completed")
+                self.logger.info("Note Pre-assessment completed")
                 return True
             
         except Exception as e:
@@ -414,14 +414,14 @@ class ConstructionExperimentalController:
         self.active_session.total_interaction_time = 0.0
         self.active_session.total_clarifications = 0
         
-        self.logger.info("🎯 Main task phase initialized")
+        self.logger.info("Goal Main task phase initialized")
         return True
 
     def _conduct_post_assessment(self) -> bool:
         """Conduct post-interaction assessments"""
         
         if not COMPONENTS_AVAILABLE:
-            self.logger.info("📊 [MOCK] Post-assessments completed")
+            self.logger.info("Metrics [MOCK] Post-assessments completed")
             return True
         
         try:
@@ -458,7 +458,7 @@ class ConstructionExperimentalController:
                 )
                 self.active_session.behavioral_metrics = metrics
             
-            self.logger.info("📊 Post-assessments completed")
+            self.logger.info("Metrics Post-assessments completed")
             return True
             
         except Exception as e:
@@ -468,7 +468,7 @@ class ConstructionExperimentalController:
     def _conduct_debriefing(self) -> bool:
         """Conduct final debriefing"""
         
-        self.logger.info("💬 Debriefing phase - participant feedback collection")
+        self.logger.info("Message Debriefing phase - participant feedback collection")
         # In real implementation, this would collect qualitative feedback
         return True
 
@@ -522,7 +522,8 @@ class ConstructionExperimentalController:
                     error_count=0 if success else 1
                 )
         
-        self.logger.info(f"📝 Task recorded: {task_description} ({'✅' if success else '❌'})")
+        status_label = "success" if success else "error"
+        self.logger.info(f"Note Task recorded: {task_description} ({status_label})")
         
         return True
 
@@ -551,7 +552,7 @@ class ConstructionExperimentalController:
         success_rate = (self.active_session.tasks_successful / 
                        max(1, self.active_session.tasks_completed) * 100)
         
-        self.logger.info(f"🏁 Experimental session completed")
+        self.logger.info(f"Finished Experimental session completed")
         self.logger.info(f"   Duration: {session_duration/60:.1f} minutes")
         self.logger.info(f"   Tasks completed: {self.active_session.tasks_completed}")
         self.logger.info(f"   Success rate: {success_rate:.1f}%")
@@ -743,7 +744,7 @@ class ConstructionExperimentalController:
         with open(filepath, 'w') as f:
             json.dump(dataset, f, indent=2)
         
-        self.logger.info(f"📊 Complete dataset exported to {filepath}")
+        self.logger.info(f"Metrics Complete dataset exported to {filepath}")
         self.logger.info(f"   Participants: {len(dataset['participants'])}")
         self.logger.info(f"   Sessions: {len(dataset['sessions'])}")
         self.logger.info(f"   Trust assessments: {len(dataset['trust_assessments'])}")
@@ -821,7 +822,7 @@ class ConstructionExperimentalController:
                     except Exception as e:
                         self.logger.error(f"Error cleaning up {component_name}: {e}")
         
-        self.logger.info("🧹 Experimental Controller cleaned up")
+        self.logger.info("Cleanup Experimental Controller cleaned up")
 
 # Convenience functions for quick experimental setup
 def create_construction_hri_study(study_name: str, 
